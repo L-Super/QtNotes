@@ -1,5 +1,6 @@
 {
   "defaultViewMode": "preview",
   "useMarkdownLinks": true,
-  "attachmentFolderPath": "./Qt.assets"
+  "attachmentFolderPath": "./Qt.assets",
+  "smartIndentList": true
 }
