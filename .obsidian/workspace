@@ -1,0 +1,114 @@
+{
+  "main": {
+    "id": "244ab6fe37369cc3",
+    "type": "split",
+    "children": [
+      {
+        "id": "aa9d6536aee4cfbb",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Qt.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e572d951cb4b806b",
+    "type": "split",
+    "children": [
+      {
+        "id": "f34df22f2d28d794",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ad8f46c3576546f1",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "69002527eeb5947e",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "628e29b5ec267b32",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Qt.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "47967941e2e4eb31",
+    "type": "split",
+    "children": [
+      {
+        "id": "abbd8a3689b82ee6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2370b2b750ae5559",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Qt.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "b273528da3472fdc",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Qt.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "aa9d6536aee4cfbb",
+  "lastOpenFiles": [
+    "Qt.md"
+  ]
+}

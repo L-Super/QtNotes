@@ -1,0 +1,773 @@
+# [[信号与槽]]
+信号与槽用于两个对象之间的通信。
+一个信号可以关联到多个槽上，多个信号也可以关联到同一个槽上，甚至一个信号还可以关联到另一个信号上。
+
+声明一个信号要使用`signals`关键字，因为信号默认是public，所以在signals前面不能用public、private和protected等限定符。
+
+声明一个槽函数要使用slots关键字，一个槽可以是public、private或protected类型，也可以被声明为虚函数。
+## 信号与槽的关联
+1. ## Qt4传统方式
+```c++
+[static] QMetaObject::Connection QObject::connect(
+const QObject* sender,
+const char* signal,
+const QObject* receiver,
+const char* method.
+Qt::ConnectionType type = Qt::AutoConnection)
+```
+第一个参数为发射信号的对象，第二个参数为要发射的信号，第三个是接收信号的对象，第四个是要执行的槽函数，最后一个参数表明关联的方式，默认是Qt::AutoConnection。
+
+对于信号与槽，必须使用SIGNAL()和SLOT()宏，可以将参数转换为const char*。
+注意：调用connect()函数是，信号和槽的参数只能有类型，不能有变量名，如`SLOT(showValue(int value))`的错误的。
+
+缺点：没有编译器检查，无法使用相容类型的参数。
+
+Qt::ConnectionType枚举类型
+
+|常量|描述|
+| --- | --- |
+| Qt::AutoConnection | 自动关联,默认值。如果 receiver存在于( lives in)发射信号的线程,则使用Qt::DirectConnection;否则,使用Qt::QueuedConnection。在信号被发射时决定使用哪种关联类型 |
+| Qt::DirectConnection | 直接关联。发射完信号后立即调用槽,只有槽执行完成返回后,发射信号处后面的代码才可以执行 |
+| Qt::QueuedConnection | 队列关联。当控制返回 receiver所在线程的事件循环后再执行槽,无论槽执行与否,发射信号处后面的代码都会立即执行 |
+| Qt::BlockingQueuedConnection | 阻塞队列关联。类似Qt::QueuedConnection,不过,信号线程会一直阻塞,直到槽返回。当 receiver存在于信号线程时不能使用该类型,不然程序会死锁 |
+| Qt::UniqueConnection | 唯一关联。这是一个标志,可以结合其他几种连接类型,使用按位或操作。这时两个对象间的相同的信号和槽只能有唯一的关联。使用这个标志主要为了防止重复关联 |
+
+2. ## Qt5新方式
+
+   Connect()函数另一种常用的基于函数指针的重载形式如下:
+
+```c++
+[static] QMetaObject::Connection QObject::connect( 
+const QObject* sender,
+PointerToMemberFunction signal,
+const QObject* receiver,
+PointerToMemberFunction method,
+Qt::ConnectionType type = Qt::AutoConnection)
+```
+这是Qt5加入的重载形式，指定信号和槽不再使用SIGNAL()和SLOT()宏，并且槽函数不再必须使用slots关键字声明，可以是任意能和信号关联的成员函数。
+```c++
+connect(dlg,&MyDialog::dlgReturn,this,&Widget::showValue);
+```
+也支持Lambda表达式
+```c++
+connect(dlg,&MyDialog::dlgReturn,[=](int value){
+ui->label->setText(tr("获取的值：%1").arg(value));});
+```
+
+优点：
++ 支持编译器检查
++ 支持相容参数类型的自动转换
++ 允许连接到任意函数
+
+当信号有重载的情况时,使用Qt5的新语法可能会有一些不方便。例如, QSpinBox有两个重载的信号:
+
+```
+void valueChanged ( int i)
+void valueChanged (const QString& text)
+```
+
+当进行连接时,编译器会发出一个错误。因为信号 valueChanged有重载,所以使用&QSpinBox::valueChanged语句获取信号的指针会有歧义，因有两个相同名字的信号。
+解决方案可用Qt4传统连接方式，也可增加显示类型转换继续使用Qt5新方式：
+
+```
+QObject::connect(spinBox,
+static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+this,
+&MainWindow:: onSpinBoxValue Changed);
+```
+
+
+
+3. ### 自动关联方式
+
+  信号与槽的自动关联，一般Qt上默认实现。
+  自行实现：
+  on_pushButton_clicked()由字符串on、部件objectName和信号名称三部分组成，中间用下划线连接。
+```c++
+//widget.h
+private slots:
+	void on_myButton_clicked();
+```
+widget.cpp添加头文件#include<QPushButton>，使用自动关联的部件的定义都要放在setupUi()函数调用之前，且必须使用setObjectName()指定objectName
+
+```c++
+//widget.cpp
+Widget::Widget(QWidget* parent):QWidget(parent),ui(new Ui::Widget)
+{
+	QPushButton* button = new QPushButton(this); //创建按钮
+	button->setObjectName("myButton"); //指定按钮的对象名
+	ui->setupUi(this); //在定义控件之后再调用这个函数
+}
+	
+void Widget::on_myButton_clicked()
+{
+		....
+}
+```
+## 断开关联
+可以通过 disconnect(函数来断开信号和槽的关联,其原型如下:
+```c++
+[static] bool QObject::disconnect( const QObject* sender, const char * signal, const QObject* receiver, const char* method)
+```
+该函数一般有下面几种用法:
+1. 断开与一个对象所有信号的所有关联:
+`disconnect(myobject, 0,0,0);`
+等价于:
+`myobject ->disconnect;`
+2. 断开与一个指定信号的所有关联:
+`disconnect(myObject, SIGNAL( mySignal()),0,0);`
+等价于:
+`myObject ->disconnect(SIGNAL(mySignal())));`
+3. 断开与一个指定的 receiver的所有关联:
+`disconnect(myObject, 0, myReceiver, 0);`
+等价于:
+`myObect->disconnect(myReceiver);`
+4. 断开一个指定信号和槽的关联:
+`disconnect( myObject, SIGNAL( mySignal()), myReceiver, SLOT(mySlot()));`
+等价于:
+`myObject ->disconnect(SIGNAL(mySignal()), myReceiver, SLOT(mySlot());`
+也等价于:
+`disconnect( my Connection);// myConnection是进行关联时 connect()的返回值`
+与 connect()函数一样, disconnect()函数也有基于函数指针的重载形式:
+```c++
+[static] bool QObject::disconnect( const QObject* sender, PointerToMemberFunction signal, const QObject* receiver, PointerToMemberFunction method)
+```
+其用法类似,只是其信号、槽参数需要使用函数指针&MyObject::mySignal()、
+&MyReceiver::mySlot()等形式。这个函数并不能断开信号与一般函数或者 lambda表达式之间的关联。
+	
+	
+# 状态栏
+
+QStatusBar位于界面底部，用于显示状态信息。
+
+状态信息可以被分为3类:
++ 临时信息,如一般的提示信息;
++ 正常信息,如显示页数和行号;
++ 永久信息,如显示版本号或者日期。
+	
+
+可以使用 showMessage()函数显示一个临时消息,它会出现在状态栏的最左边。
+一般用 add widget()函数添加一个 QLabel到状态栏上,用于显示正常信息,它会生成到状态栏的最左边,可能被临时消息掩盖。
+如果要显示永久信息,则要使用 addPermanentWidget()函数来添加一个如QLabel一样的可以显示信息的部件,它会生成在状态栏的最右端,不会被临时消息掩盖。
+	
+状态栏的最右端还有一个 QSizeGrip部件,用来调整窗口的大小，即右下角的小黑三角，可以使用SizeGripEnabled()函数来禁用它。
+	
+不支持拖拽控件方式，所以需用代码实现。
+	
+**获取状态栏指针，可以通过ui->xxxx获取，也可以直接在mainwindow中直接使用statusBar()获取指针，因为状态栏只会有一个。**
+	
+
+临时信息：
+
+```c++
+//　可以设置字体颜色,其他属性应该也可以
+ui->statusBar->setStyleSheet("color:green"); 　
+// 显示临时消息,显示2000毫秒即2秒
+ui->statusBar->showMessage(tr("欢迎使用多文档编辑器"),2000);
+```
+正常信息：
+```c++
+QLabel *msgLabel = new QLabel;
+msgLabel->setStyleSheet(" QLabel{ color: red }");
+msgLabel->setText("Ready :");
+// insertWidget也可以，这里直接使用statusBar()添加
+statusBar()->addWidget(msgLabel);
+```
+永久信息：
+```c++
+// 创建标签,设置标签样式并显示信息,然后将其以永久部件的形式添加到状态栏
+QLabel *permanent= new QLabel(this);
+// 可以设置相关控件对应的属性
+permanent->setFrameStyle(QFrame: Box QFrame:: Sunken);
+// 可以设置字体颜色
+permanent->setStyleSheet(" QLabel{ color: red }");
+permanent->setText("www.gter.org");
+ui->statusBar->addPermanentWidget(permanent);
+```
+
+移除控件
+```c++
+	// 删除指定的控件
+　ui->statusBar->removeWidget(myLabel);
+```
+
+可以插入多个控件，每个控件之间会有竖线相隔，分割不同的控件，隐藏方法：
+```c++
+// 将状态栏的所有item边框宽度设置为0
+statusBar()->setStyleSheet(“QStatusBar::item{border: 0px}”);
+```
+
+# 对话框QDialog
+分为模态和非模态对话框
+
+模态对话框就是在没有关闭它之前,不能再与同一个应用程序的其他窗口进行交互,比如新建项目时弹出的对话框。而对于非模态对话框,既可以与它交互,也可以与同一程序中的其他窗口交互,如 Microsoft word中的查找替换对话框。
+
+要想使一个对话框成为模态对话框,则只需要调用它的exec()函数;而要使其成为非模态对话框,则可以使用new操作来创建,然后使用show()函数来显示。其实使用show()函数也可以建立模态对话框,只须在其前面使用 set modal()函数即可。例如:
+```c++
+QDialog *dialog = new QDialog( this);
+dialog->setModal(true);
+dialog->show():
+```
+## 标准对话框
+Qt提供了一些常用的对话框类型,它们全部继承自 DIalog类,并增加了自己的特色功能,比如获取颜色、显示特定信息等。可以在帮助索引中查看 Standard Dialogs关键字,也可以直接索引相关类的类名。
+	
++ 颜色对话框
+	颜色对话框类 QDialog提供了一个可以获取指定颜色的对话框部件。
+```c++
+QColor color= QColorDialog::getColor(Qt::red,this,tr("颜色对话框"));
+```
++ 文件对话框
+文件对话框 QFileDialog类提供了一个允许用户选择文件或文件夹的对话框
+```c++
+QString fileName= QFileDialog::getOpenFileName(this,tr("文件对话框"),"D:",tr("图片文件(*png*jpg)");
+```
++ 字体对话框
+字体对话框 QFontDialog类提供了一个可以选择字体的对话框部件
++ 输入对话框
+	QInputDialog类用来提供一个对话框,可以让用户输入一个单一的数值或字符串
+```c++
+bool ok;
+// 获取字符串
+QString string = QInputDialog::getText(this,tr("输人字符串对话框"),tr("请输入用户名:"), QLineEdit::Normal,tr("admin"), &ok);
+if(ok) qDebug()<<"string:"<< string;
+	
+// 获取整数
+int value1 = QInputDialog::getInt(this,tr("输入整数对话框"),
+tr("请输入-1000到1000之间的数值"),100,-1000,1000,10,&ok);
+if(ok) qDebug()<<"value1:"<< value1;
+	
+// 获取浮点数
+double value2= QInputDialog::getDouble(this,tr("输入浮点数对话框"),tr("请输入-1000到1000之间的数值"),0.00,-1000,1000,2,&ok);
+if(ok) qDebug()<<"value2:"<< value2;
+QStringList items;
+items<<tr("条目1")<<tr("条目2");
+// 获取条目
+QString item= QInputDialog::getItem(this,tr("输入条目对话框"),tr("请选择或输入一个条目"), items,0,true,&ok)
+if(ok) qDebug()<<"item:"<< item;
+```
++ 消息对话框
+消息对话框 QMessageBox类提供了一个模态的对话框来通知用户一些信息,或者向用户提出一个问题并且获取答案。
+```c++
+//问题对话框
+int ret1 = QMessageBox::question(this,tr("问题对话框"),tr("你了解Qt吗?"”), MEssagebOx::Yes, QMessageBox::No);
+if(ret1 = QMessageBox::Yes) qDebug()<<tr("问题!");
+
+// 提示对话框
+int ret2 = QMessageBox::information(this,tr("提示对话框"),tr("这是Qt书籍!"), QMessageBox::Ok);
+if(ret2 == QMessageBox::Ok) qDebug()<<tr("提示!");
+
+// 警告对话框
+int ret3 = QMessageBox::warning(this,tr("警告对话框"),tr("不能提前结束!"), QMessageBox::Abort);
+if(ret3 == QMessageBox::Abort) qDebug()<< tr("警告");
+
+// 错误对话框
+int ret4 = QMessageBox::critical(this,tr("严重错误对话框"),tr("发现一个严重错误!现在要关闭所有文件!"), QMessageBox::YesAll);
+if(ret4 == QMessageBox::YesAll) qDebug()<< tr("错误");
+
+// 关于对话框
+QMessageBox::about(this,tr("关于对话框"),tr(" 致力于t及 Qt Creator的普及工作!");	
+```
++ 进度对话框
+```c++
+QProgressDialog dialog(tr("文件复制进度"),tr("取消"),0,50000,this);
+//设置窗口标题
+dialog.setWindowTitle(tr("进度对话框"));
+//将对话框设置为模态
+dialog.setWindowModality(Qt::WindowModal);
+dialog.show();
+ //演示复制进度
+for(int i=0; i < 50000; i++){
+        //设置进度条的当前值
+        dialog.setValue(i);
+        //避免界面冻结
+        QCoreApplication:: processEvents();
+        //按下取消按钮则中断
+        if(dialog.wasCanceled()) break;
+    }
+    //这样才能显示100%,因为for循环中少加了一个数
+    dialog.setValue(50000);
+    qDebug()<<tr("复制结束!");
+```
++ 错误信息对话框
+ 错误信息对话框 QErrorMessage类提供了一个显示错误信息的对话框。
++ 向导对话框
+	向导对话框 QWizard类提供了一个设计向导界面的框架
+# 事件系统
+![Pasted image 20211028174506](Qt.assets/Pasted image 20211028174506.png)
+## 事件的处理
+ 一个事件由一个特定的 QEvent子类来表示，但是有时一个事件又包含多个事件类型，比如鼠标事件又可以分为鼠标按下、双击和移动等多种操作。
+ 这些事件类型都由QEvent类的枚举型 QEvent::Type来表示，其中包含了一百多种事件类型,可以在QEvent类的帮助文档中进行查看。
+ 虽然 QEvent的子类可以表示一个事件,但是却不能用来处理事件,那么应该怎样来处理一个事件呢? QCoreApplication类的 notify()函数的帮助文档给出了5种处理事件的方法:
++ 方法一:重新实现部件的 paintEvent()、 mousePressevent()等事件处理函数。这是最常用的一种方法,不过只能用来处理特定部件的特定事件。
++ 方法二:重新实现 notify()函数。这个函数功能强大,提供了完全的控制,可以在事件过滤器得到事件之前就获得它们。但是,它一次只能处理一个事件。
++ 方法三:向 APplication对象上安装事件过滤器。因为一个程序只有一个QApplication对象,所以这样实现的功能与使用 notify()函数是相同的,优点是可以同时处理多个事件。
++ 方法四:重新实现 event()函数。 QObject类的 event()函数可以在事件到达默认的事件处理函数之前获得该事件。
++ 方法五:在对象上安装事件过滤器。使用事件过滤器可以在一个界面类中同时处理不同子部件的不同事件。
+在实际编程中,最常用的是方法一,其次是方法五。因为方法二需要继承自QApplication类;而方法三要使用一个全局的事件过滤器,这将减缓事件的传递,所以,虽然这两种方法功能很强大,但是却很少被用到。
+ ## 事件的传递
+可以看到，事件的传递顺序是这样的：先是事件过滤器,然后是焦点部件的event()函数，最后是焦点部件的事件处理函数；如果焦点部件忽略了该事件，那么会执行父部件的事件处理函数，如图6-3所示。注意，event()函数和事件处理函数是在焦点部件内重新定义的，而事件过滤器却是在焦点部件的父部件中定义的。
+
+
+![Pasted image 20211029162048](Qt.assets/Pasted image 20211029162048.png)
+
+# 碎片
+
+## Q_D和Q_Q指针
+
+简称 D 指针和 Q 指针。Qt中大量使用Q_D和Q_Q，目的是为了实现二进制兼容。
+
+使用 D 指针，除了二进制兼容，还有很多其它好处：
+
+- 隐藏实现细节：我们只需要发布 WidgetLib 的头文件和二进制文件，.cpp 文件可以是闭源的
+- 头文件很干净，没有实现细节的干扰，可以作为 API 实现
+- 由于供实现的头文件都被移动到了实现的源代码文件中，编译会更快
+
+Q 指针，可以访问到外部的公共类。
+
+定义：
+
+```c++
+template <typename T> inline T *qGetPtrHelper(T *ptr) { return ptr; }
+template <typename Ptr> inline auto qGetPtrHelper(Ptr &ptr) -> decltype(ptr.operator->()) { return ptr.operator->(); }
+
+// The body must be a statement:
+#define Q_CAST_IGNORE_ALIGN(body) QT_WARNING_PUSH QT_WARNING_DISABLE_GCC("-Wcast-align") body QT_WARNING_POP
+#define Q_DECLARE_PRIVATE(Class) \
+    inline Class##Private* d_func() \
+    { Q_CAST_IGNORE_ALIGN(return reinterpret_cast<Class##Private *>(qGetPtrHelper(d_ptr));) } \
+    inline const Class##Private* d_func() const \
+    { Q_CAST_IGNORE_ALIGN(return reinterpret_cast<const Class##Private *>(qGetPtrHelper(d_ptr));) } \
+    friend class Class##Private;
+
+#define Q_DECLARE_PRIVATE_D(Dptr, Class) \
+    inline Class##Private* d_func() \
+    { Q_CAST_IGNORE_ALIGN(return reinterpret_cast<Class##Private *>(qGetPtrHelper(Dptr));) } \
+    inline const Class##Private* d_func() const \
+    { Q_CAST_IGNORE_ALIGN(return reinterpret_cast<const Class##Private *>(qGetPtrHelper(Dptr));) } \
+    friend class Class##Private;
+
+#define Q_DECLARE_PUBLIC(Class)                                    \
+    inline Class* q_func() { return static_cast<Class *>(q_ptr); } \
+    inline const Class* q_func() const { return static_cast<const Class *>(q_ptr); } \
+    friend class Class;
+
+#define Q_D(Class) Class##Private * const d = d_func()
+#define Q_Q(Class) Class * const q = q_func()
+```
+
+\  :续行符,在普通代码行后面加不加都一样(VC是自动判断续行的),但是在宏定义里面就特别有用,因为宏定义规定必须用一行完成:
+`#define SomeFun(x, a, b) if(x)x=a+b;else x=a-b;`
+这一行定义是没有问题的,但是这样代码很不容易被理解,以后维护起来麻烦,如果写成:
+
+```
+#define SomeFun(x, a, b)
+    if (x)
+        x = a + b;
+    else
+        x = a - b;
+```
+
+这样理解是好理解了,但是编译器会出错,因为它会认为#define SomeFun(x, a, b)是完整的一行,if (x)以及后面的语句与#define SomeFun(x, a, b)没有关系.这时候我们就必须使用这样的写法:
+
+```
+#define SomeFun(x, a, b)\
+    if (x)\
+        x = a + b;\
+    else\
+        x = a - b;
+```
+
+注意:最后一行不要加续行符
+
+### Q_D 与 Q_Q
+
+```
+#define Q_D(Class) Class##Private * const d = d_func() 
+#define Q_Q(Class) Class * const q = q_func() 
+```
+
+两个宏展开后分别是对 d_func 和 q_func 两个函数的调用，返回值分别赋值给 d 和 q 两个指针变量。
+
+## Q_DECLARE_PRIVATE与Q_DECLARE_PUBLIC
+
+类 QtServiceController 定义：
+
+```c++
+class QtServiceController 
+{
+   Q_DECLARE_PRIVATE(QtServiceController) 
+ public:
+ QtServiceController(const QString &name);
+ //省略其他 
+private:
+ QtServiceControllerPrivate *d_ptr; 
+};
+```
+
+### 宏定义
+
+宏定义在 QtGlobal(即qglobal.h)头文件中：
+
+```c++
+#define Q_DECLARE_PRIVATE(Class) \
+ inline Class##Private* d_func() { return reinterpret_cast<Class##Private *>(qGetPtrHelper(d_ptr)); } \
+ inline const Class##Private* d_func() const { return reinterpret_cast<const Class##Private *>(qGetPtrHelper(d_ptr)); } \
+ friend class Class##Private;  
+
+#define Q_DECLARE_PUBLIC(Class) \
+ inline Class* q_func() { return static_cast<Class *>(q_ptr); } \
+ inline const Class* q_func() const { return static_cast<const Class *>(q_ptr); } \
+ friend class Class;
+```
+
+这两个宏在这看起来真蛮绕的，因为这个例子太简单了，两个宏的威力发挥不出来。反正核心就是：
+
+- 在 QtServiceController 中通过 d_func() 可以获得 QtServiceControllerPrivate 的指针 d_ptr
+- 在 QtServiceControllerPrivate 中通过 q_func() 可以获得 QtServiceController 的指针 q_ptr
+
+### Q_D 与 Q_Q
+
+```
+#define Q_D(Class) Class##Private * const d = d_func() 
+#define Q_Q(Class) Class * const q = q_func() 
+```
+
+两个宏展开后分别是对 d_func 和 q_func 两个函数的调用，返回值分别赋值给 d 和 q 两个指针变量。
+
+于是：
+
+- 在 QtServiceController 中的成员函数中，我们只需要添加 Q_D(QtServiceController) 宏，在该函数内就可以直接用 d 来指代 d_ptr
+- 在 QtServiceControllerPrivate 中的成员函数中，我们只需要添加 Q_Q(QtServiceController)宏，在该函数内就可以直接用 q 来指代 q_ptr
+
+## d_ptr与q_ptr
+
+绕这么大圈，为什么不直接用 d_ptr 与 q_ptr 呢。在，在我们的例子中，确实可以直接用，而且会更直接更简单。官方这么用了，或许是为了和其他类保持一致吧。
+
+但在其他情况下，这么做显然是有意义的，因为 d_ptr 与 d，q_ptr 与 q 的类型并不一致(比如QObject系列)。这也是为何宏展开后有cast的原因
+
+## QT property属性
+
+如果想在某个控件上（比如QPushButton）记录一些自定义的一些属性，用作标记，或者识别符。 可以使用QObject的属性property
+
+对于一个基于QObject的控件来讲，我们可以通过setProperty来设置此控件的属性
+
+```c++
+bool QObject::setProperty(const char *name, const QVariant &value)
+```
+说明: 参数name为自定义的属性名称，注意不要和控件的默认属性名称相同；value为此属性的值。
+
+使用property可以获取某个属性的值：
+```c++
+QVariant QObject::property(const char *name) const
+```
+
+## 点击PushButton状态改变
+
+点击一次，改变文本，改变状态。
+
+两种方式：
+
+1. 
+
+```c++
+ // 获取按钮上的文本信息
+QString content = ui->pushButton->text();
+if(content == "开始")
+    ui->pushbutton->settext("停止");
+```
+
+2. 
+
+```c++
+if (d->createCurveButton->property("status") == "stop")
+  {
+    // 状态为stop，停止标记markup
+    cout << "enter stop stauts" << endl;
+
+    d->createCurveButton->setProperty("status", "start");
+    d->createCurveButton->setText("CreateCurve");
+  }
+  else
+  {
+    // 状态为start，开始标记
+    cout << "enter start stauts" << endl;
+
+    d->createCurveButton->setProperty("status", "stop");
+    d->createCurveButton->setText("Stop Markup");
+  }
+```
+
+## 判断发送者是哪个控件
+
+`qobject_cast<QPushButton *>(sender())`
+
+1、当QPushButton发出一个信号时就记录发出这个信号的对象，sender获取发出信号的对象；
+
+2、当有多个OBject发出信号时可根据sender()函数判断是哪个对象发出的；
+
+```c++
+QPushButton* button = qobject_cast<QPushButton*>(sender());
+if(button == pushbtton)
+```
+
+```c++
+dynamic_cast<QPushButton*>(sender());
+if (d->lineMeasureButton == sender())
+```
+## Qt 翻译 多语言文件
+	一般新建工程的时候，选择了`Translation File`就会自动生成ts文件，这个文件是生成qm文件的基础。
+	
+	当然，后期也可自行添加，在.pro文件中，添加：
+```
+TRANSLATIONS += langEnglish.ts \
+                langChinese.ts
+```
+	执行qmake，再执行Qt Creator菜单栏中的"工具—>外部—>Qt语言家—>更新翻译(update)“完成后，工程目录下的language文件夹里会有两个文件，分别是langChinese.ts和langEnglish.ts，而这些文件就将以`tr()`形式括起来的文本包含进来。
+	
+	在Liguist程序中打开生成的ts文件，在打开文件时会弹出语言设置窗口，在窗口中为相应的文件选择相应的目标语言。
+	
+	编辑好之后，就可以执行菜单栏中的"文件—>发布”，此时在工程目录下会生成两个文件：langChinese.qm和langEnglish.qm文件，这就是Qt工程最终用的翻译文件
+	
+	将qm文件添加到资源文件中，就可以载入翻译文件了。
+可在应用启动时就切换语言
+```c++
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    //一定要在界面显示之前载入翻译文件
+    QTranslator *qtTranslator = new QTranslator;
+    if(qtTranslator->load("./language.qm")){
+        a.installTranslator(qtTranslator);
+    }
+    Widget w;
+    w.show();
+    return a.exec();
+}
+```
+
+
+也可添加按钮进行切换，反复切换语言不作过多介绍。
+```c++
+ // 切换语言
+ connect(ui->pushButton, &QPushButton::clicked, this, [=]{
+ QTranslator *qtTranslator = new QTranslator;
+ qtTranslator->load(":/Language/LToolbox_zh_CN.qm");
+ qApp->installTranslator(qtTranslator);
+ });
+```
+
+## 只允许启动一个实例
+	通过文件锁形式：
+	```
+	QString path = QDir::temp().absoluteFilePath("HWWebBrowser.lock.tmp");
+	QLockFile *lockFile = new QLockFile(path);
+	//上锁失败，不能启动
+	if (!lockFile ->tryLock(2000))
+	{
+	    return 1;
+	}
+	```
+	tryLock默认0秒，意思是最多等待几秒放弃。比如，当tryLock(-1)时，即一直等待，此时若已打开一个exe程序，再次双击打开exe，会处于等待解锁过程，当第一个exe关闭时，第二个就会启动。若为2秒，则两秒内，文件还未解锁，就放弃启动程序。
+## 设置应用程序图标及版本信息
+方案1：
+将**.ico**图标文件放到源代码目录，然后在.pro项目文件中添加一行代码：
+
+```Qt
+RC_ICONS = myico.ico
+```
+方案2：
+将图标加入资源文件中，并在rc文件（可自行创建）中加入代码。
+
+	通过Pro文件设置系统变量 VERSION 或 RC_ICONS （至少一个），qmake 会自动生成 .rc 文件。然后可在build目录的debug目录下的rc文件，加入这段：
+	```
+	IDI_ICON1	ICON	"UiSettings\\logo.ico"
+	```
+其实方案1编译生成后，就会在debug目录下的rc文件更新这段代码
+
+	可自行创建rc文件，进行更多自定义信息。在Pro文件加入：
+	```
+	RC_FILE = SchulteGrid_resource.rc
+	```
+	当然，这样qmake 对 .rc 文件的自动生成就失效了。然后在工程目录中创建rc后缀的对应名字文件，如`SchulteGrid_resource.rc`。
+	
+	**rc文件内容：**
+```
+#include <windows.h>
+
+IDI_ICON1	ICON	"UiSettings\\logo.ico"
+
+VS_VERSION_INFO VERSIONINFO
+	FILEVERSION 2,1,0
+	PRODUCTVERSION 2,1,0
+	FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+	FILEFLAGS VS_FF_DEBUG
+#else
+	FILEFLAGS 0x0L
+#endif
+	FILEOS VOS__WINDOWS32
+	FILETYPE VFT_DLL
+	FILESUBTYPE 0x0L
+	BEGIN
+		BLOCK "StringFileInfo"
+		BEGIN
+			BLOCK "080404b0"
+			BEGIN
+				VALUE "CompanyName", "LiM"
+				VALUE "FileDescription", "SchulteGrid to improve concentration"
+				VALUE "FileVersion", "2.1.0"
+				VALUE "LegalCopyright", "Copyright (C)2021-2077"
+				VALUE "OriginalFilename", "SchulteGrid.exe"
+				VALUE "ProductName", "SchulteGrid"
+				VALUE "ProductVersion", "2.1.0"
+			END
+		END
+		BLOCK "VarFileInfo"
+		BEGIN
+			VALUE "Translation", 0x804, 1200
+		END
+	END
+/* End of Version info */
+```
+对应也可以在Pro文件中加入对应信息：
+```
+# 版本信息
+VERSION = 4.0.2
+# 图标
+RC_ICONS = Images/MyApp.ico
+# 公司名称
+QMAKE_TARGET_COMPANY = "LIM"
+# 产品名称
+QMAKE_TARGET_PRODUCT = "Qt Creator"
+# 文件说明
+QMAKE_TARGET_DESCRIPTION = "Qt Creator based on Qt 5.7.0 (MSVC 2013, 32 bit)"
+# 版权信息
+QMAKE_TARGET_COPYRIGHT = "Copyright 2008-2016 The Qt Company Ltd. All rights reserved."
+# 中文（简体）
+RC_LANG = 0x0004
+```
+更多rc信息见：
+	[VERSIONINFO 资源 - Win32 apps | Microsoft Docs](https://docs.microsoft.com/zh-cn/windows/win32/menurc/versioninfo-resource?redirectedfrom=MSDN)
+
+还可通过添加头文件的形式，添加一个名为version.h的头文件，包含资源信息。
+```
+#ifndef VERSION_H
+#define VERSION_H
+
+#define PRODUCT_ICON           "myapp.ico" // 图标
+
+#define FILE_VERSION           4,0,2,666   // 文件版本
+#define FILE_VERSION_STR       "4.0.2.666"
+#define PRODUCT_VERSION        4,0,2,666   // 产品版本
+#define PRODUCT_VERSION_STR    "4.0.2.666"
+#define COMPANY_NAME           "Digia"
+#define INTERNAL_NAME          "MyApp.exe"
+#define FILE_DESCRIPTION       "Qt Creator based on Qt 5.7.0 (MSVC 2013, 32 bit)"  // 文件说明
+#define LEGAL_COPYRIGHT        "Copyright 2008-2016 The Qt Company Ltd. All rights reserved." // 版权
+#define ORIGINAL_FILE_NAME     "MyApp.exe"    // 原始文件名
+#define PRODUCT_NAME           "Qt Creator"        // 产品名称
+#define ORGANIZATION_DOMAIN    "https://www.qt.io/"  // 域名
+
+#endif // VERSION_H
+```
+
+然后，添加资源文件并进行设置，例如：myapp.rc
+
+```
+#include "winres.h"
+#include "version.h"
+
+// 图标
+IDI_ICON1       ICON      PRODUCT_ICON
+
+// 版本信息
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION FILE_VERSION
+ PRODUCTVERSION PRODUCT_VERSION
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "CompanyName", COMPANY_NAME
+            VALUE "FileDescription", FILE_DESCRIPTION
+            VALUE "FileVersion", FILE_VERSION_STR
+            VALUE "InternalName", INTERNAL_NAME
+            VALUE "LegalCopyright", LEGAL_COPYRIGHT
+            VALUE "OriginalFilename", ORIGINAL_FILE_NAME
+            VALUE "ProductName", PRODUCT_NAME
+            VALUE "ProductVersion", PRODUCT_VERSION_STR
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+```
+最后，在.pro文件中，添加：
+
+```
+RC_FILE += myapp.rc
+```
+
+
+## 发布程序
+
+使用 windeployqt 工具部署文件
+
+windeployqt 工具所在路径：`F:\~\Qt5.10.1\5.10.1\mingw53_32\bin`
+1、在命令行下使用 windeployqt 工具部署文件:
+
++ 若要使用 cmd 运行 windeployqt 程序，需要转至该程序所在目录，也可配置环境变量，否则使用开始菜单中 Qt 自带的命令行工具`Qt 5.15.2 (MinGW 8.1.0 64-bit)`
+
++ 把生成的 exe 文件复制到一个单独的目录中，比如 D:\qt。建议使用release 版本以减小发布的程序的大小。
+  打开 Qt 命令行工具，并输入如下命令
+
+  ```
+  windeployqt D:\qt\xxx.exe
+  ```
+
+
+  若发布的是 Qt Quick 程序，需要使用 qmldir 参数指定 qml 的安装目录，比如
+
+  ```
+  windeployqt D:\qt\xxx.exe --qmldir F:\Qt\qml
+  ```
+
++ 打开 D:\qt 所在目录，可看到生成了一大堆文件，如下图所示，把以下文件整体打包，复制到其他计算机上，便可直接运行了。
+
+2、在 Qt Creator 中使用 windeployqt 工具部署文件:
+①、在“项目模式”(Ctrl+5)下进行如下图所示设置需要发布的 exe 文件
+
+![image-20210720181034626](Qt.assets\image-20210720181034626-1626775840180.png)
+
+![image-20210720181058526](Qt.assets\image-20210720181058526.png)
+
+说明：
+
+> 1、生成的 exe 文件的路径和名称可在 pro 文件中进行设置
+> 2、步骤 5 使用的是一种指定目录和文件名的方式。
+> 3、若步骤 5 要使用默认值，则参数栏应使用如下命令`%{buildDir}/%{CurrentBuild:Type}/%{CurrentProject:Name}.exe`
+> 最终结果为`windeployqt D:\pro\build-qt-Desktop_Qt_5_10_1_MinGW_32bit-Release/release/qt.exe`其中 D:\pro 为项目文件所在目录。
+
+②、重新构建项目并运行程序(注意：必须运行程序，否则 Qt Creator 不会执行设置好的windeployqt 命令)，然后找到生成的 exe 文件所在目录，可以发现，此时 exe 文件已经部署好了，只需打包复制到别的计算机上便可运行了。
+③、注意：使用此方法时，Qt Creator 每次运行程序都会进行部署，这会严重影响 Qt Creator的运行速度，可在“工具”>“选项”，“构建和运行”中的“概要”先项卡下把“在运行前总是先部署”前的勾去掉
+
+3、其他说明
+
++ 可以用 Enigma Virtual Box 软件把多个文件封装到应用程序主文件，从而制作成为一个单独的可执行的绿色软件。
++ 若项目还用了其他 SDK，比如 OpenCV 等，此时仍需要手动拷贝所需的 dll，若不知道缺少哪些 dll，则可用 Dependency Walker 软件来查看缺少哪些 dll 文件。
+
+	
+	
+	
