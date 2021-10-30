@@ -6,7 +6,7 @@
 
 声明一个槽函数要使用slots关键字，一个槽可以是public、private或protected类型，也可以被声明为虚函数。
 ## 信号与槽的关联
-1. ## Qt4传统方式
+### Qt4传统方式
 ```c++
 [static] QMetaObject::Connection QObject::connect(
 const QObject* sender,
@@ -32,7 +32,7 @@ Qt::ConnectionType枚举类型
 | Qt::BlockingQueuedConnection | 阻塞队列关联。类似Qt::QueuedConnection,不过,信号线程会一直阻塞,直到槽返回。当 receiver存在于信号线程时不能使用该类型,不然程序会死锁 |
 | Qt::UniqueConnection | 唯一关联。这是一个标志,可以结合其他几种连接类型,使用按位或操作。这时两个对象间的相同的信号和槽只能有唯一的关联。使用这个标志主要为了防止重复关联 |
 
-2. ## Qt5新方式
+### Qt5新方式
 
    Connect()函数另一种常用的基于函数指针的重载形式如下:
 
@@ -49,6 +49,7 @@ Qt::ConnectionType type = Qt::AutoConnection)
 connect(dlg,&MyDialog::dlgReturn,this,&Widget::showValue);
 ```
 也支持Lambda表达式
+
 ```c++
 connect(dlg,&MyDialog::dlgReturn,[=](int value){
 ui->label->setText(tr("获取的值：%1").arg(value));});
@@ -76,9 +77,7 @@ this,
 &MainWindow:: onSpinBoxValue Changed);
 ```
 
-
-
-3. ### 自动关联方式
+### 自动关联方式
 
   信号与槽的自动关联，一般Qt上默认实现。
   自行实现：
@@ -88,7 +87,7 @@ this,
 private slots:
 	void on_myButton_clicked();
 ```
-widget.cpp添加头文件#include<QPushButton>，使用自动关联的部件的定义都要放在setupUi()函数调用之前，且必须使用setObjectName()指定objectName
+widget.cpp添加头文件#include\<QPushButton>，使用自动关联的部件的定义都要放在setupUi()函数调用之前，且必须使用setObjectName()指定objectName
 
 ```c++
 //widget.cpp
@@ -98,13 +97,14 @@ Widget::Widget(QWidget* parent):QWidget(parent),ui(new Ui::Widget)
 	button->setObjectName("myButton"); //指定按钮的对象名
 	ui->setupUi(this); //在定义控件之后再调用这个函数
 }
-	
+ 
 void Widget::on_myButton_clicked()
 {
-		....
+	....
 }
 ```
 ## 断开关联
+
 可以通过 disconnect(函数来断开信号和槽的关联,其原型如下:
 ```c++
 [static] bool QObject::disconnect( const QObject* sender, const char * signal, const QObject* receiver, const char* method)
@@ -132,11 +132,34 @@ void Widget::on_myButton_clicked()
 ```c++
 [static] bool QObject::disconnect( const QObject* sender, PointerToMemberFunction signal, const QObject* receiver, PointerToMemberFunction method)
 ```
-其用法类似,只是其信号、槽参数需要使用函数指针&MyObject::mySignal()、
-&MyReceiver::mySlot()等形式。这个函数并不能断开信号与一般函数或者 lambda表达式之间的关联。
-	
-	
-# 状态栏
+其用法类似,只是其信号、槽参数需要使用函数指针`&MyObject::mySignal()`、
+`&MyReceiver::mySlot()`等形式。这个函数并不能断开信号与一般函数或者 lambda表达式之间的关联。
+
+# 主窗口框架
+
++ ①菜单栏( QMenuBar)
+
+  菜单栏包含了一个下拉菜单项的列表,这些菜单项由QACtion动作类实现。菜单栏位于主窗口的顶部,一个主窗口只能有一个菜单栏。
+
++ ②工具栏( QToolBar)
+
+  工具栏一般用于显示一些常用的菜单项目,也可以插入其他窗口部件,并且是可以移动的。一个主窗口可以拥有多个工具栏。
+
++ ③中心部件( Central Widget)
+
+  在主窗口的中心区域可以放入一个窗口部件作为中心部件,是应用程序的主要功能实现区域。一个主窗口只能拥有一个中心部件
+
++ ④Dock部件( QDockWidget)
+
+  Dock部件常被称为停靠窗口,因为可以停靠在中心部件的四周,用来放置一些部件来实现一些功能,就像个工具箱一样。一个主窗口可
+  以拥有多个Dock部件。
+
++ ⑤状态栏( QStatusBar)
+
+  状态栏用于显示程序的一些状态信息,在主窗口的最底部。一个主窗口只能拥有一个状态栏。
+
+
+## 状态栏
 
 QStatusBar位于界面底部，用于显示状态信息。
 
@@ -144,18 +167,18 @@ QStatusBar位于界面底部，用于显示状态信息。
 + 临时信息,如一般的提示信息;
 + 正常信息,如显示页数和行号;
 + 永久信息,如显示版本号或者日期。
-	
 
 可以使用 showMessage()函数显示一个临时消息,它会出现在状态栏的最左边。
 一般用 add widget()函数添加一个 QLabel到状态栏上,用于显示正常信息,它会生成到状态栏的最左边,可能被临时消息掩盖。
+
 如果要显示永久信息,则要使用 addPermanentWidget()函数来添加一个如QLabel一样的可以显示信息的部件,它会生成在状态栏的最右端,不会被临时消息掩盖。
-	
+
 状态栏的最右端还有一个 QSizeGrip部件,用来调整窗口的大小，即右下角的小黑三角，可以使用SizeGripEnabled()函数来禁用它。
-	
+
 不支持拖拽控件方式，所以需用代码实现。
-	
+
 **获取状态栏指针，可以通过ui->xxxx获取，也可以直接在mainwindow中直接使用statusBar()获取指针，因为状态栏只会有一个。**
-	
+
 
 临时信息：
 
@@ -187,7 +210,7 @@ ui->statusBar->addPermanentWidget(permanent);
 
 移除控件
 ```c++
-	// 删除指定的控件
+ // 删除指定的控件
 　ui->statusBar->removeWidget(myLabel);
 ```
 
@@ -200,19 +223,19 @@ statusBar()->setStyleSheet(“QStatusBar::item{border: 0px}”);
 # 对话框QDialog
 分为模态和非模态对话框
 
-模态对话框就是在没有关闭它之前,不能再与同一个应用程序的其他窗口进行交互,比如新建项目时弹出的对话框。而对于非模态对话框,既可以与它交互,也可以与同一程序中的其他窗口交互,如 Microsoft word中的查找替换对话框。
+**模态对话框就是在没有关闭它之前,不能再与同一个应用程序的其他窗口进行交互**，比如新建项目时弹出的对话框。而对于非模态对话框,既可以与它交互,也可以与同一程序中的其他窗口交互,如 Microsoft word中的查找替换对话框。
 
-要想使一个对话框成为模态对话框,则只需要调用它的exec()函数;而要使其成为非模态对话框,则可以使用new操作来创建,然后使用show()函数来显示。其实使用show()函数也可以建立模态对话框,只须在其前面使用 set modal()函数即可。例如:
+要想使一个对话框成为模态对话框，则只需要调用它的exec()函数；而要使其成为非模态对话框，则可以使用new操作来创建，然后使用show()函数来显示。其实使用show()函数也可以建立模态对话框，只须在其前面使用 set modal()函数即可。例如:
 ```c++
 QDialog *dialog = new QDialog( this);
 dialog->setModal(true);
 dialog->show():
 ```
 ## 标准对话框
-Qt提供了一些常用的对话框类型,它们全部继承自 DIalog类,并增加了自己的特色功能,比如获取颜色、显示特定信息等。可以在帮助索引中查看 Standard Dialogs关键字,也可以直接索引相关类的类名。
-	
+Qt提供了一些常用的对话框类型,它们全部继承自 Dialog类,并增加了自己的特色功能,比如获取颜色、显示特定信息等。可以在帮助索引中查看 Standard Dialogs关键字,也可以直接索引相关类的类名。
+
 + 颜色对话框
-	颜色对话框类 QDialog提供了一个可以获取指定颜色的对话框部件。
+ 颜色对话框类 QDialog提供了一个可以获取指定颜色的对话框部件。
 ```c++
 QColor color= QColorDialog::getColor(Qt::red,this,tr("颜色对话框"));
 ```
@@ -230,12 +253,12 @@ bool ok;
 // 获取字符串
 QString string = QInputDialog::getText(this,tr("输人字符串对话框"),tr("请输入用户名:"), QLineEdit::Normal,tr("admin"), &ok);
 if(ok) qDebug()<<"string:"<< string;
-	
+ 
 // 获取整数
 int value1 = QInputDialog::getInt(this,tr("输入整数对话框"),
 tr("请输入-1000到1000之间的数值"),100,-1000,1000,10,&ok);
 if(ok) qDebug()<<"value1:"<< value1;
-	
+ 
 // 获取浮点数
 double value2= QInputDialog::getDouble(this,tr("输入浮点数对话框"),tr("请输入-1000到1000之间的数值"),0.00,-1000,1000,2,&ok);
 if(ok) qDebug()<<"value2:"<< value2;
@@ -291,7 +314,7 @@ for(int i=0; i < 50000; i++){
 + 错误信息对话框
  错误信息对话框 QErrorMessage类提供了一个显示错误信息的对话框。
 + 向导对话框
-	向导对话框 QWizard类提供了一个设计向导界面的框架
+ 向导对话框 QWizard类提供了一个设计向导界面的框架
 # 事件系统
 ![Pasted image 20211028174506](Qt.assets/Pasted image 20211028174506.png)
 ## 事件的处理
@@ -309,7 +332,7 @@ for(int i=0; i < 50000; i++){
 
 ![Pasted image 20211029162048](Qt.assets/Pasted image 20211029162048.png)
 
-				 
+
 # 碎片
 
 ## Q_D和Q_Q指针
@@ -515,20 +538,20 @@ dynamic_cast<QPushButton*>(sender());
 if (d->lineMeasureButton == sender())
 ```
 ## Qt 翻译 多语言文件
-	一般新建工程的时候，选择了`Translation File`就会自动生成ts文件，这个文件是生成qm文件的基础。
-	
-	当然，后期也可自行添加，在.pro文件中，添加：
+ 一般新建工程的时候，选择了`Translation File`就会自动生成ts文件，这个文件是生成qm文件的基础。
+
+ 当然，后期也可自行添加，在.pro文件中，添加：
 ```
 TRANSLATIONS += langEnglish.ts \
                 langChinese.ts
 ```
-	执行qmake，再执行Qt Creator菜单栏中的"工具—>外部—>Qt语言家—>更新翻译(update)“完成后，工程目录下的language文件夹里会有两个文件，分别是langChinese.ts和langEnglish.ts，而这些文件就将以`tr()`形式括起来的文本包含进来。
-	
-	在Liguist程序中打开生成的ts文件，在打开文件时会弹出语言设置窗口，在窗口中为相应的文件选择相应的目标语言。
-	
-	编辑好之后，就可以执行菜单栏中的"文件—>发布”，此时在工程目录下会生成两个文件：langChinese.qm和langEnglish.qm文件，这就是Qt工程最终用的翻译文件
-	
-	将qm文件添加到资源文件中，就可以载入翻译文件了。
+ 执行qmake，再执行Qt Creator菜单栏中的"工具—>外部—>Qt语言家—>更新翻译(update)“完成后，工程目录下的language文件夹里会有两个文件，分别是langChinese.ts和langEnglish.ts，而这些文件就将以`tr()`形式括起来的文本包含进来。
+
+ 在Liguist程序中打开生成的ts文件，在打开文件时会弹出语言设置窗口，在窗口中为相应的文件选择相应的目标语言。
+
+ 编辑好之后，就可以执行菜单栏中的"文件—>发布”，此时在工程目录下会生成两个文件：langChinese.qm和langEnglish.qm文件，这就是Qt工程最终用的翻译文件
+
+ 将qm文件添加到资源文件中，就可以载入翻译文件了。
 可在应用启动时就切换语言
 ```c++
 int main(int argc, char *argv[])
@@ -557,17 +580,18 @@ int main(int argc, char *argv[])
 ```
 
 ## 只允许启动一个实例
-	通过文件锁形式：
-	```
-	QString path = QDir::temp().absoluteFilePath("HWWebBrowser.lock.tmp");
-	QLockFile *lockFile = new QLockFile(path);
-	//上锁失败，不能启动
+ 通过文件锁形式：
+ ```c++
+QString path = QDir::temp().absoluteFilePath("HWWebBrowser.lock.tmp");
+QLockFile *lockFile = new QLockFile(path);
+ //上锁失败，不能启动
 	if (!lockFile ->tryLock(2000))
-	{
-	    return 1;
-	}
-	```
-	tryLock默认0秒，意思是最多等待几秒放弃。比如，当tryLock(-1)时，即一直等待，此时若已打开一个exe程序，再次双击打开exe，会处于等待解锁过程，当第一个exe关闭时，第二个就会启动。若为2秒，则两秒内，文件还未解锁，就放弃启动程序。
+ {
+     return 1;
+ }
+ ```
+tryLock默认0秒，意思是最多等待几秒放弃。比如，当tryLock(-1)时，即一直等待，此时若已打开一个exe程序，再次双击打开exe，会处于等待解锁过程，当第一个exe关闭时，第二个就会启动。若为2秒，则两秒内，文件还未解锁，就放弃启动程序。
+
 ## 设置应用程序图标及版本信息
 方案1：
 将**.ico**图标文件放到源代码目录，然后在.pro项目文件中添加一行代码：
@@ -578,19 +602,19 @@ RC_ICONS = myico.ico
 方案2：
 将图标加入资源文件中，并在rc文件（可自行创建）中加入代码。
 
-	通过Pro文件设置系统变量 VERSION 或 RC_ICONS （至少一个），qmake 会自动生成 .rc 文件。然后可在build目录的debug目录下的rc文件，加入这段：
-	```
-	IDI_ICON1	ICON	"UiSettings\\logo.ico"
-	```
+ 通过Pro文件设置系统变量 VERSION 或 RC_ICONS （至少一个），qmake 会自动生成 .rc 文件。然后可在build目录的debug目录下的rc文件，加入这段：
+ ```
+IDI_ICON1	ICON	"UiSettings\\logo.ico"
+ ```
 其实方案1编译生成后，就会在debug目录下的rc文件更新这段代码
 
-	可自行创建rc文件，进行更多自定义信息。在Pro文件加入：
-	```
-	RC_FILE = SchulteGrid_resource.rc
-	```
-	当然，这样qmake 对 .rc 文件的自动生成就失效了。然后在工程目录中创建rc后缀的对应名字文件，如`SchulteGrid_resource.rc`。
-	
-	**rc文件内容：**
+ 可自行创建rc文件，进行更多自定义信息。在Pro文件加入：
+ ```
+RC_FILE = SchulteGrid_resource.rc
+ ```
+ 当然，这样qmake 对 .rc 文件的自动生成就失效了。然后在工程目录中创建rc后缀的对应名字文件，如`SchulteGrid_resource.rc`。
+
+ **rc文件内容：**
 ```
 #include <windows.h>
 
@@ -609,23 +633,23 @@ VS_VERSION_INFO VERSIONINFO
 	FILETYPE VFT_DLL
 	FILESUBTYPE 0x0L
 	BEGIN
-		BLOCK "StringFileInfo"
-		BEGIN
-			BLOCK "080404b0"
-			BEGIN
-				VALUE "CompanyName", "LiM"
-				VALUE "FileDescription", "SchulteGrid to improve concentration"
-				VALUE "FileVersion", "2.1.0"
-				VALUE "LegalCopyright", "Copyright (C)2021-2077"
-				VALUE "OriginalFilename", "SchulteGrid.exe"
-				VALUE "ProductName", "SchulteGrid"
-				VALUE "ProductVersion", "2.1.0"
-			END
-		END
-		BLOCK "VarFileInfo"
-		BEGIN
-			VALUE "Translation", 0x804, 1200
-		END
+ 	BLOCK "StringFileInfo"
+ 	BEGIN
+  	BLOCK "080404b0"
+  	BEGIN
+   	VALUE "CompanyName", "LiM"
+   	VALUE "FileDescription", "SchulteGrid to improve concentration"
+   	VALUE "FileVersion", "2.1.0"
+   	VALUE "LegalCopyright", "Copyright (C)2021-2077"
+   	VALUE "OriginalFilename", "SchulteGrid.exe"
+   	VALUE "ProductName", "SchulteGrid"
+   	VALUE "ProductVersion", "2.1.0"
+  	END
+ 	END
+ 	BLOCK "VarFileInfo"
+ 	BEGIN
+  	VALUE "Translation", 0x804, 1200
+ 	END
 	END
 /* End of Version info */
 ```
@@ -647,7 +671,7 @@ QMAKE_TARGET_COPYRIGHT = "Copyright 2008-2016 The Qt Company Ltd. All rights res
 RC_LANG = 0x0004
 ```
 更多rc信息见：
-	[VERSIONINFO 资源 - Win32 apps | Microsoft Docs](https://docs.microsoft.com/zh-cn/windows/win32/menurc/versioninfo-resource?redirectedfrom=MSDN)
+ [VERSIONINFO 资源 - Win32 apps | Microsoft Docs](https://docs.microsoft.com/zh-cn/windows/win32/menurc/versioninfo-resource?redirectedfrom=MSDN)
 
 还可通过添加头文件的形式，添加一个名为version.h的头文件，包含资源信息。
 ```
@@ -655,7 +679,6 @@ RC_LANG = 0x0004
 #define VERSION_H
 
 #define PRODUCT_ICON           "myapp.ico" // 图标
-
 #define FILE_VERSION           4,0,2,666   // 文件版本
 #define FILE_VERSION_STR       "4.0.2.666"
 #define PRODUCT_VERSION        4,0,2,666   // 产品版本
@@ -768,6 +791,6 @@ windeployqt 工具所在路径：`F:\~\Qt5.10.1\5.10.1\mingw53_32\bin`
 + 可以用 Enigma Virtual Box 软件把多个文件封装到应用程序主文件，从而制作成为一个单独的可执行的绿色软件。
 + 若项目还用了其他 SDK，比如 OpenCV 等，此时仍需要手动拷贝所需的 dll，若不知道缺少哪些 dll，则可用 Dependency Walker 软件来查看缺少哪些 dll 文件。
 
-	
-	
-	
+ 
+
+ 
