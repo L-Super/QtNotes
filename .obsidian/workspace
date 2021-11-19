@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Qt.md",
-            "mode": "preview"
+            "file": "Qt VS 设置C++11.md",
+            "mode": "source"
           }
         }
       }
@@ -54,12 +54,11 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "Qt VS 设置C++11.md"
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
@@ -79,7 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Qt.md",
+                "file": "Qt VS 设置C++11.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,7 +95,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "Qt VS 设置C++11.md"
               }
             }
           }
@@ -109,7 +108,7 @@
   },
   "active": "0236be8de013ea1d",
   "lastOpenFiles": [
-    "Qt.md",
-    "未命名.md"
+    "Qt VS 设置C++11.md",
+    "Qt.md"
   ]
 }
