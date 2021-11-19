@@ -9,7 +9,7 @@ cout << __cplusplus << endl;
 
 如果输出为`199711`，那么就说明使用的是C++11语言标准
 
-原因应该是这个
+为什么VS2019项目属性里C++语言标准默认是ISO C++14，但实际的工程还是C++11呢?原因应该是这个
 > **_ _ cplusplus** 预处理器宏通常用于报告对特定版本的 C++ 标准的支持。 因为很多现有代码需要此宏的值与“199711L”匹配，所以编译器不会更改此宏的值，除非通过使用 /Zc:__cplusplus 编译器选项进行显式选择。
 
 [/Zc:__cplusplus（启用更新的 __cplusplus 宏）](https://docs.microsoft.com/zh-cn/cpp/build/reference/zc-cplusplus?view=msvc-160&viewFallbackFrom=vs-2019)
