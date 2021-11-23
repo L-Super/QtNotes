@@ -4,11 +4,14 @@
     "type": "split",
     "children": [
       {
-        "id": "d775caaa95eaa13f",
+        "id": "0b2987ae91484b78",
         "type": "leaf",
         "state": {
-          "type": "graph",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "Qt.md",
+            "mode": "source"
+          }
         }
       }
     ],
@@ -50,7 +53,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Qt.md"
+              }
             }
           }
         ]
@@ -73,6 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Qt.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,7 +94,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Qt.md"
+              }
             }
           }
         ]
@@ -98,10 +106,13 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "d775caaa95eaa13f",
+  "active": "0b2987ae91484b78",
   "lastOpenFiles": [
-    "软件路径截取软件名，文件类型，路径.md",
     "Qt.md",
+    "Qt.assets/image-20210720181034626.png",
+    "Qt.assets/image-20210720181034626-1626775840180.png 1.md",
+    "Qt.assets/image-20210720181034626-1626775840180.png.md",
+    "软件路径截取软件名，文件类型，路径.md",
     "Qt VS 设置C++11.md"
   ]
 }
