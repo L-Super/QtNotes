@@ -592,6 +592,50 @@ QLockFile *lockFile = new QLockFile(path);
  ```
 tryLock默认0秒，意思是最多等待几秒放弃。比如，当tryLock(-1)时，即一直等待，此时若已打开一个exe程序，再次双击打开exe，会处于等待解锁过程，当第一个exe关闭时，第二个就会启动。若为2秒，则两秒内，文件还未解锁，就放弃启动程序。
 
+通过共享内存形式
+```c++
+ // 创建信号量
+ QSystemSemaphore semaphore("SingleAppSemaphore", 1); 
+
+ // 启用信号量，禁止其他实例通过共享内存一起工作
+ semaphore.acquire();
+
+#ifndef Q_OS_WIN32
+ // 在linux / unix 程序异常结束共享内存不会回收
+ // 在这里需要提供释放内存的接口，就是在程序运行的时候如果有这段内存 先清除掉
+ QSharedMemory nixshared_memory("SingleApp");
+ if (nixshared_memory.attach())
+ {
+ nixshared_memory.detach();
+ }
+#endif
+ // 创建一个共享内存  “SingleApp”表示一段内存的标识key 可作为唯一程序的标识
+ QSharedMemory sharedMemory("SingleApp"); 
+
+ bool isRunning = false;
+ // 试图将共享内存的副本附加到现有的段中。
+ if (sharedMemory.attach())
+ {
+ // 如果成功，则确定已经存在运行实例
+ isRunning = true;
+ }
+ else
+ {
+ // 否则申请一字节内存
+ sharedMemory.create(1);
+ // 确定不存在运行实例
+ isRunning = false; 
+ }
+
+ semaphore.release();
+
+ // 如果您已经运行了应用程序的一个实例，那么我们将通知用户。
+ if (isRunning)
+ {
+ return -1;//还可添加弹窗
+ }
+```
+
 ## 设置应用程序图标及版本信息
 方案1：
 将**.ico**图标文件放到源代码目录，然后在.pro项目文件中添加一行代码：
