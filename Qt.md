@@ -20,7 +20,7 @@ Qt::ConnectionType type = Qt::AutoConnection)
 QObject::connect(sender, SIGNAL(signal()), receiver, SLOT(slots(
 )));
 ```
-对于信号与槽，必须使用SIGNAL()和SLOT()宏，可以将参数转换为const char*。
+对于信号与槽，必须使用SIGNAL()和SLOT()宏，可以将参数转换为const char*。而且，头文件也需要声明SIGNAL()和SLOT()宏，且对应信号，槽函数放在对应宏范围里。
 注意：调用connect()函数是，信号和槽的参数只能有类型，不能有变量名，如`SLOT(showValue(int value))`的错误的。
 
 缺点：没有编译器检查，无法使用相容类型的参数。
@@ -164,8 +164,9 @@ void QPerson::incAge()
 在incAge()函数里，当私有变量 m_age 变化后，发射信号 ageChanged(int)，表示年龄发生了变化。
 关联槽函数
 ```
-connect(sender,&QPerson::ageChanged,this,)
+connect(this,&QPerson::ageChanged,Receiver,[](int a){...});
 ```
+形参也可以进行一些处理
 
 # 主窗口框架
 
