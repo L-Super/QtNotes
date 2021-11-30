@@ -10,7 +10,7 @@
           "type": "markdown",
           "state": {
             "file": "Qt.md",
-            "mode": "preview"
+            "mode": "source"
           }
         }
       }
@@ -58,7 +58,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",

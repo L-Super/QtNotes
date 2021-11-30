@@ -16,7 +16,10 @@ const char* method.
 Qt::ConnectionType type = Qt::AutoConnection)
 ```
 第一个参数为发射信号的对象，第二个参数为要发射的信号，第三个是接收信号的对象，第四个是要执行的槽函数，最后一个参数表明关联的方式，默认是Qt::AutoConnection。
-
+```
+QObject::connect(sender, SIGNAL(signal()), receiver, SLOT(slots(
+)));
+```
 对于信号与槽，必须使用SIGNAL()和SLOT()宏，可以将参数转换为const char*。
 注意：调用connect()函数是，信号和槽的参数只能有类型，不能有变量名，如`SLOT(showValue(int value))`的错误的。
 
@@ -134,6 +137,35 @@ void Widget::on_myButton_clicked()
 ```
 其用法类似,只是其信号、槽参数需要使用函数指针`&MyObject::mySignal()`、
 `&MyReceiver::mySlot()`等形式。这个函数并不能断开信号与一般函数或者 lambda表达式之间的关联。
+## 自定义信号及使用
+信号就是在类定义里声明的一个函数，但是这个函数无需实现，只需发射（emit）。
+例如，在下面的自定义类QPerson的signals部分定义一个信号ageChanged(int）。
+```c++
+class QPerson : public QObject
+{
+	Q_OBJECT
+private:
+	int m_age=10;
+public：
+	void incAge();
+signals:
+	void ageChanged(int value);
+}
+```
+信号函数必须是无返回值的函数，可以有输入参数。信号函数无需实现，只需在某些条件下发射信号。
+例如，在 incAge()函数中发射信号
+```c++
+void QPerson::incAge()
+{
+	m_age++;
+	emit ageChanged(m_age);//发射信号
+}
+```
+在incAge()函数里，当私有变量 m_age 变化后，发射信号 ageChanged(int)，表示年龄发生了变化。
+关联槽函数
+```
+connect(sender,&QPerson::ageChanged,this,)
+```
 
 # 主窗口框架
 
