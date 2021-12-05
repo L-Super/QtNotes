@@ -275,7 +275,7 @@ QColor color= QColorDialog::getColor(Qt::red,this,tr("颜色对话框"));
 + 文件对话框
 文件对话框 QFileDialog类提供了一个允许用户选择文件或文件夹的对话框
 ```c++
-QString fileName= QFileDialog::getOpenFileName(this,tr("文件对话框"),"D:",tr("图片文件(*.png *.jpg)");
+QString fileName= QFileDialog::getOpenFileName(this,tr("文件对话框"),"D:",tr("图片文件(*.png *.jpg)"));
 ```
 + 字体对话框
 字体对话框 QFontDialog类提供了一个可以选择字体的对话框部件
