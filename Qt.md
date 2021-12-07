@@ -396,6 +396,98 @@ QCoreApplication的有用函数
 
 ![](Pasted%20image%2020211207101803.png)
 
+## QFile
+
+QFile 的一些静态函数
+
+| 函数原型                                                     | 功能                                                      |
+| ------------------------------------------------------------ | --------------------------------------------------------- |
+| bool copy(QString &fileName, QString &newName)               | 复制文件                                                  |
+| bool rename(QString &oldName, QString &newName)              | 重命名文件                                                |
+| bool remove(QString &fileName)                               | 删除一个文件                                              |
+| bool exists(QString &fileName)                               | 判断文件是否存在                                          |
+| bool setPermissions(QString &fileName, Permissions permissions) | 设置文件的权限，权限类型是枚举类型QFileDevice::Permission |
+| Permissions permissions(QString& fileName)                   | 返回文件的权限                                            |
+
+## QFileInfo
+
+QFilelnfo 的一些函数
+
+| 函数原型                    | 功能                                       |
+| --------------------------- | ------------------------------------------ |
+| void setFile(QString &file) | 设置一个文件名，作为 QFileInfo 操作的文件  |
+| QString absoluteFilePath()  | 返回带有文件名的绝对文件路径               |
+| QString absolutePath()      | 返回绝对路径，不带文件名                   |
+| QString fileName()          | 返回去除路径的文件名                       |
+| QString filePath()          | 返回包含路径的文件名                       |
+| QString path()              | 返回不含文件名的路径                       |
+| qint64 size()               | 返回文件大小，以字节为单位                 |
+| QString baseName()          | 返回文件基名，第一个“ ”之前的文件名        |
+| QString completeBaseName()  | 返回文件基名，最后一个“ ”之前的文件名      |
+| QString suffix()            | 最后一个“.”之后的后缀                      |
+| QString completeSuffix()    | 第一个“.”之后的后缀                        |
+| bool isDir()                | 判断当前对象是否是一个目录或目录的快捷方式 |
+| bool isFile()               | 判断当前对象是否是一个文件或文件的快捷方式 |
+| bool isExecutable()         | 判断当前文件是否是可执行文件               |
+| QDateTime created()         | 返回文件创建时间                           |
+| QDateTime lastModified()    | 返回文件最后一次被修改的时间               |
+| QDateTime lastRead()        | 返回文件最后一次被读取的时间               |
+| bool exists()               | 判断文件是否存在                           |
+| bool exists(QString &file)  | 静态函数，判断 file 表示的文件是否存在     |
+
+## QDir
+
+QDir是进行目录操作的类，在创建QDir对象时传递一个目录字符串作为当前目录，然后QDir
+函数就可以针对当前目录或目录下的文件进行操作。
+
+ 具体函数相似，可参考文档。
+
+## QTemporaryDir和QTemporaryFile
+
+QTemporaryDir 是用于创建、删除临时目录的类
+
+TemporaryFile是用于创建临时文件的类
+
+## QFileSystemWatcher
+
+QFileSystemWatcher 是对目录和文件进行监听的类。
+
+把某些目录或文件添加到 QFileSystemWatcher 对象的监听列表后，当目录下发生文件新建、删除等操作时会发射 directoryChanged()信号，当监听的文件发生修改、重命名等操作时，会发射 fileChanged()信号。所以，这个类在进行目录或文件监听时起作用。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 碎片
 
 ## Q_D和Q_Q指针
