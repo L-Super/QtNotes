@@ -270,13 +270,16 @@ Qt提供了一些常用的对话框类型,它们全部继承自 Dialog类,并增
 + 颜色对话框
  颜色对话框类 QDialog提供了一个可以获取指定颜色的对话框部件。
 ```c++
-QColor color= QColorDialog::getColor(Qt::red,this,tr("颜色对话框"));
+QColor color = QColorDialog::getColor(Qt::red,this,tr("颜色对话框"));
 ```
 + 文件对话框
 文件对话框 QFileDialog类提供了一个允许用户选择文件或文件夹的对话框
 ```c++
-QString fileName= QFileDialog::getOpenFileName(this,tr("文件对话框"),"D:",tr("图片文件(*.png *.jpg)"));
+QString fileName = QFileDialog::getOpenFileName(this,tr("文件对话框"),"D:",tr("图片文件(*.jpg *.png);;所有文件(*.*)));
 ```
+注：**每组文件之间用两个分号隔开，同一组内不同后缀之间用空格隔开。**
+若要选择打开多个文件，使用静态函数`QFileDialog::getOpenFileNames()`
+
 + 字体对话框
 字体对话框 QFontDialog类提供了一个可以选择字体的对话框部件
 + 输入对话框
@@ -293,12 +296,12 @@ tr("请输入-1000到1000之间的数值"),100,-1000,1000,10,&ok);
 if(ok) qDebug()<<"value1:"<< value1;
  
 // 获取浮点数
-double value2= QInputDialog::getDouble(this,tr("输入浮点数对话框"),tr("请输入-1000到1000之间的数值"),0.00,-1000,1000,2,&ok);
+double value2 = QInputDialog::getDouble(this,tr("输入浮点数对话框"),tr("请输入-1000到1000之间的数值"),0.00,-1000,1000,2,&ok);
 if(ok) qDebug()<<"value2:"<< value2;
 QStringList items;
 items<<tr("条目1")<<tr("条目2");
 // 获取条目
-QString item= QInputDialog::getItem(this,tr("输入条目对话框"),tr("请选择或输入一个条目"), items,0,true,&ok)
+QString item = QInputDialog::getItem(this,tr("输入条目对话框"),tr("请选择或输入一个条目"), items,0,true,&ok)
 if(ok) qDebug()<<"item:"<< item;
 ```
 + 消息对话框
