@@ -369,6 +369,31 @@ for(int i=0; i < 50000; i++){
 ![Pasted image 20211029162048](Qt.assets/Pasted image 20211029162048.png)
 
 # 文件目录操作
+Qt为文件和目录操作提供了一些类，利用这些类可以方便地实现一些操作。
+
++ QCoreApplication：用于提取应用程序路径、程序名等文件信息。
++ QFile：除了打开文件操作外，QFile 还有复制文件、删除文件等功能。
++ QFileInfo：用于提取文件的信息，包括路径、文件名、后缀等。
++ QDir：用于提取目录或文件信息，获取一个目录下的文件或目录列表，创建或删除目录和文件，文件重命名等操作。
++ QTemporaryDir和QTemporaryFile：用于创建临时目录和临时文件。
++ QFileSystemWatcher：文件和目录监听类，监听目录下文件的添加、删除等变化，监听文件修改变化。
+## QCoreApplication
+QCoreApplication的有用函数
+
+| 函数原型                                   | 功能                                         |
+| ------------------------------------------ | -------------------------------------------- |
+| QString applicationDirPath()               | 返回应用程序启动路径                         |
+| QString applicationFilePath()              | 返回应用程序的带有目录的完整文件名           |
+| QString applicationName()                  | 返回应用程序名称，无路径无后缀               |
+| QStringList libraryPaths()                 | 返回动态加载库文件时，应用程序搜索的目录列表 |
+| void setOrganizationName(QString &orgName) | 为应用程序设置一个机构名                     |
+| QString organizationName()                 | 返回应用程序的机构名                         |
+| void exit()                                | 退出应用程序                                 |
+
+
+
+
+
 ![](Pasted%20image%2020211207101803.png)
 
 # 碎片
