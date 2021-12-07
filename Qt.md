@@ -368,6 +368,8 @@ for(int i=0; i < 50000; i++){
 
 ![Pasted image 20211029162048](Qt.assets/Pasted image 20211029162048.png)
 
+# 文件目录操作
+![](Pasted%20image%2020211207101803.png)
 
 # 碎片
 
