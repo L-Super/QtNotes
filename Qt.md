@@ -909,7 +909,12 @@ END
 ```
 RC_FILE += myapp.rc
 ```
-
+方案3：
+可以使用
+```c++
+setWindowIcon(QIcon(":/image/image/ico.png"));
+```
+该函数，可以不用要求ico文件。但，图标在应用程序EXE上不会显示。在main函数中使用该函数可以使得 `QMessageBox::about`关于对话框的关于图标变成设置的图标。
 
 ## 发布程序
 
