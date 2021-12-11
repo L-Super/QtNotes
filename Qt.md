@@ -353,7 +353,7 @@ for(int i=0; i < 50000; i++){
  向导对话框 QWizard类提供了一个设计向导界面的框架
 # 事件系统
 ![Pasted image 20211028174506](Qt.assets/Pasted image 20211028174506.png)
-![Pasted image 20211028174506](Pasted image 20211028174506.png)
+![[Pasted image 20211028174506.png]]
 ## 事件的处理
  一个事件由一个特定的 QEvent子类来表示，但是有时一个事件又包含多个事件类型，比如鼠标事件又可以分为鼠标按下、双击和移动等多种操作。
  这些事件类型都由QEvent类的枚举型 QEvent::Type来表示，其中包含了一百多种事件类型,可以在QEvent类的帮助文档中进行查看。

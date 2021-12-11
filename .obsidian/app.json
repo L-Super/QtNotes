@@ -2,6 +2,6 @@
   "defaultViewMode": "preview",
   "useMarkdownLinks": true,
   "promptDelete": false,
-  "attachmentFolderPath": "./Qt.assets",
+  "attachmentFolderPath": "Qt.assets",
   "alwaysUpdateLinks": true
 }
