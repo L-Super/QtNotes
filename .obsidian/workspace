@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "路径格式转换（斜杠与反斜杠转换）.md",
+            "file": "Qt.md",
             "mode": "preview"
           }
         }
@@ -54,11 +54,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "路径格式转换（斜杠与反斜杠转换）.md"
+                "file": "Qt.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -78,7 +79,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "路径格式转换（斜杠与反斜杠转换）.md",
+                "file": "Qt.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -95,7 +96,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "路径格式转换（斜杠与反斜杠转换）.md"
+                "file": "Qt.md"
               }
             }
           }
@@ -108,10 +109,10 @@
   },
   "active": "0b2987ae91484b78",
   "lastOpenFiles": [
+    "Qt.md",
     "路径格式转换（斜杠与反斜杠转换）.md",
     "配置Qt新建工程默认支持C++14.md",
     "Qt调用ocx.md",
-    "Qt.md",
     "信号与槽.md",
     "软件路径截取软件名，文件类型，路径.md",
     "自定义qDebug输出打印信息.md",
