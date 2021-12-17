@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "软件路径截取软件名，文件类型，路径.md",
+            "file": "配置Qt新建工程默认支持C++14.md",
             "mode": "preview"
           }
         }
@@ -54,12 +54,11 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "软件路径截取软件名，文件类型，路径.md"
+                "file": "配置Qt新建工程默认支持C++14.md"
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -79,7 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "软件路径截取软件名，文件类型，路径.md",
+                "file": "配置Qt新建工程默认支持C++14.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,7 +95,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "软件路径截取软件名，文件类型，路径.md"
+                "file": "配置Qt新建工程默认支持C++14.md"
               }
             }
           }
@@ -109,15 +108,15 @@
   },
   "active": "0b2987ae91484b78",
   "lastOpenFiles": [
-    "软件路径截取软件名，文件类型，路径.md",
-    "Qt.md",
     "配置Qt新建工程默认支持C++14.md",
+    "Qt调用ocx.md",
+    "Qt.md",
+    "信号与槽.md",
+    "软件路径截取软件名，文件类型，路径.md",
     "自定义qDebug输出打印信息.md",
     "Qt.assets/Pasted image 20211207101803.png",
     "路径格式转换（斜杠与反斜杠转换）.md",
     "Qt.assets/image-20210720181034626.png",
-    "Qt.assets/image-20210720181034626-1626775840180.png 1.md",
-    "Qt.assets/image-20210720181034626-1626775840180.png.md",
-    "Qt VS 设置C++11.md"
+    "Qt.assets/image-20210720181034626-1626775840180.png 1.md"
   ]
 }
