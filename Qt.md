@@ -469,6 +469,11 @@ p.waitForFinished();//阻塞直到进程结束
 ```
 这里启动了 Windows系统的cmd程序（因为它在 Windows的系统目录下，已经加在了系统PATH 环境变量中，所以不需要写具体路径），并调用了关机命令。而对于其他程序，需要写出具体路径。
 
+```C++
+p.setProgram("E:/Code/QBrowser/Release/HWBrowser.exe");
+
+```
+
 参数也可以通过显式声明形式
 ```C++
 QStringList params;
@@ -502,13 +507,16 @@ p.terminate();
 
 Windows上未运行事件循环或其事件循环未处理WM_CLOSE消息的控制台应用程序只能通过调用kill（）终止。
 
-但是非QProcess启动的进程，通常无法关闭，可cai'yo
+**但是非QProcess启动的进程，通常无法关闭，可采用系统的taskkill命令进行关闭。**
 
 调用taskkill命令关闭进程
   
 ```C++
 QProcess p;
 QStringList params;
+// -f	指定强制结束进程。 对于远程进程，将忽略此参数;所有远程进程都强制结束。
+// -t	结束指定的进程及其启动的任何子进程。
+// -im  指定要终止的进程的映像名称。
 // params<<"/c"<<"taskkill"<<"-f"<<"-im"<<"HWBrowser.exe";
 params<<"/c"<<"taskkill"<<"-t"<<"-im"<<"HWBrowser.exe";
 p.start("cmd.exe",params);
