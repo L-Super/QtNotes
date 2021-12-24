@@ -491,12 +491,19 @@ connect(p, &QProcess::readyReadStandardError, this, [=]{
 });
 ```
 ## 关闭进程
-可以通过调用`kill()`强制关闭或者`terminate()`尝试关闭
+通过QProcess启动的进程可以通过调用`kill()`强制关闭或者`terminate()`尝试关闭
 
 ```c++
 p.kill();
 p.terminate();
 ```
+`kill()`：**终止当前进程，使其立即退出**。在Windows上，kill（）使用TerminateProcess，在Unix和macOS上，SIGKILL信号被发送到进程。
+`terminate()`：**尝试终止进程**。调用此函数后，进程可能不会退出（它有机会提示用户输入任何未保存的文件）。 在Windows上，terminate（）将WM_CLOSE消息发布到进程的所有顶级窗口，然后发布到进程本身的主线程。在Unix和macOS上，发送SIGTERM信号。
+
+Windows上未运行事件循环或其事件循环未处理WM_CLOSE消息的控制台应用程序只能通过调用kill（）终止。
+
+但是非QProcess启动的进程，通常无法关闭，可cai'yo
+
 调用taskkill命令关闭进程
   
 ```C++
