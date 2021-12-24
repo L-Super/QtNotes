@@ -457,8 +457,30 @@ QFileSystemWatcher 是对目录和文件进行监听的类。
 
 把某些目录或文件添加到 QFileSystemWatcher 对象的监听列表后，当目录下发生文件新建、删除等操作时会发射 directoryChanged()信号，当监听的文件发生修改、重命名等操作时，会发射 fileChanged()信号。所以，这个类在进行目录或文件监听时起作用。
 
-# 进程
+# QProcess进程
+  用来启动一个外部程序并与其进行通信
+  ## 启动进程
 
+```C++
+QProcess p(0);
+p.start("cmd", QStringList()<<"/c"<<"shutdown -a");
+p.waitForStarted();// 阻塞直到进程启动
+p.waitForFinished();//
+```
+这里启动了 Windows系统的cmd程序（因为它在 Windows的系统目录下，已经加在了系统PATH 环境变量中，所以不需要写具体路径），并调用了关机命令。而对于其他程序，需要写出具体路径。
+
+## 关闭进程
+
+调用taskkill命令关闭进程
+  
+```C++
+QProcess p;
+QStringList params;
+// params<<"/c"<<"taskkill"<<"-f"<<"-im"<<"HWBrowser.exe";
+params<<"/c"<<"taskkill"<<"-t"<<"-im"<<"HWBrowser.exe";
+p.start("cmd.exe",params);
+```
+ 
 
 # 碎片
 
