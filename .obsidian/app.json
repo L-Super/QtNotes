@@ -3,5 +3,7 @@
   "useMarkdownLinks": true,
   "promptDelete": false,
   "attachmentFolderPath": "Qt.assets",
-  "alwaysUpdateLinks": true
+  "alwaysUpdateLinks": true,
+  "legacyEditor": false,
+  "livePreview": true
 }

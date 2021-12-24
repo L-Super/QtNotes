@@ -457,6 +457,7 @@ QFileSystemWatcher 是对目录和文件进行监听的类。
 
 把某些目录或文件添加到 QFileSystemWatcher 对象的监听列表后，当目录下发生文件新建、删除等操作时会发射 directoryChanged()信号，当监听的文件发生修改、重命名等操作时，会发射 fileChanged()信号。所以，这个类在进行目录或文件监听时起作用。
 
+# 进程
 
 
 # 碎片
