@@ -465,12 +465,38 @@ QFileSystemWatcher 是对目录和文件进行监听的类。
 QProcess p(0);
 p.start("cmd", QStringList()<<"/c"<<"shutdown -a");
 p.waitForStarted();// 阻塞直到进程启动
-p.waitForFinished();//
+p.waitForFinished();//阻塞直到进程结束
 ```
 这里启动了 Windows系统的cmd程序（因为它在 Windows的系统目录下，已经加在了系统PATH 环境变量中，所以不需要写具体路径），并调用了关机命令。而对于其他程序，需要写出具体路径。
 
+参数也可以通过显式声明形式
+```C++
+QStringList params;
+params<<"/c"<<"shutdown -a";
+```
+还可以使用信号与槽获取运行状态，比如打印输出信息
+```c++
+p->start(programPath,arguments);
+// QProcess输出信息
+connect(p, &QProcess::readyReadStandardOutput, this, [=]{
+	auto output = p->readAllStandardOutput();
+	ui->textEdit->clear();
+	ui->textEdit->append(output);
+});
+// 输出错误信息
+connect(p, &QProcess::readyReadStandardError, this, [=]{
+	auto output = p->readAllStandardError();
+	ui->textEdit->setTextColor(Qt::red);
+	ui->textEdit->append(output);
+});
+```
 ## 关闭进程
+可以通过调用`kill()`强制关闭或者`terminate()`尝试关闭
 
+```c++
+p.kill();
+p.terminate();
+```
 调用taskkill命令关闭进程
   
 ```C++
