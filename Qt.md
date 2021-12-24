@@ -470,6 +470,7 @@ p.waitForFinished();//阻塞直到进程结束
 这里启动了 Windows系统的cmd程序（因为它在 Windows的系统目录下，已经加在了系统PATH 环境变量中，所以不需要写具体路径），并调用了关机命令。而对于其他程序，需要写出具体路径。
 
 ```C++
+p.start("E:/Code/QBrowser/Release/HWBrowser.exe")
 p.setProgram("E:/Code/QBrowser/Release/HWBrowser.exe");
 
 ```
