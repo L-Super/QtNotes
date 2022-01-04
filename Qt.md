@@ -480,6 +480,13 @@ p.setProgram("E:/Code/QBrowser/Release/HWBrowser.exe");
 QStringList params;
 params<<"/c"<<"shutdown -a";
 ```
+多个命令可以使用`&&`隔开
+```C++
+args<<"/c"<<"D:";
+args<<"&&"<<"mkdir"<<"a";  
+args<<"&&"<<"mkdir"<<"b";
+```
+
 还可以使用信号与槽获取运行状态，比如打印输出信息
 ```c++
 p->start(programPath,arguments);
