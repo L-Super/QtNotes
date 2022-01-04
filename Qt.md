@@ -463,7 +463,7 @@ QFileSystemWatcher 是对目录和文件进行监听的类。
 
 ```C++
 QProcess p(0);
-p.start("cmd", QStringList()<<"/c"<<"shutdown -a");
+p.start("cmd", QStringList()<<"/c"<<"shutdown -a");// '/c'调用cmd时必须带上
 p.waitForStarted();// 阻塞直到进程启动
 p.waitForFinished();//阻塞直到进程结束
 ```
