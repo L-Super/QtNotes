@@ -600,7 +600,7 @@ template <typename Ptr> inline auto qGetPtrHelper(Ptr &ptr) -> decltype(ptr.oper
 
 注意:最后一行不要加续行符
 
-### Q_D 与 Q_Q
+### Q_D 与 Q_Q宏定义
 
 ```
 #define Q_D(Class) Class##Private * const d = d_func() 
