@@ -382,16 +382,46 @@ public:
 	bool eventFilter(QObject* obj, QEvent* event);
 ```
 
-在`wideft.cpp`文件中：
+在`widget.cpp`文件中：
 ```c++
 #include <QKeyEvent>
 #include <QWheelEvent>
-
+Widget::Widget()
+{
 //构造函数中
-ui->textEdit->installEvent(this);
-ui->spinBox->installEventFilter(this);
+ui->textEdit->installEvent(this);//为部件在本窗口上安装事件过滤器
+}
 
 ```
+
+要对一个部件使用事件过滤器，那么就要先使用installEventFilter()函数为其安装事件过滤器，这个函数的参数表明了监视对象。这里就为textEdit部件和spinBox部件安装了事件过滤器，其参数this表明要在本部件（即Widget)中监视textEdit和spinBox的事件。这样，就需要重新实现Widget类的eventFilter()函数，在其中截获并处理两个子部件的事件。
+
+```c++
+//事件过滤器
+bool Widget::eventFilter(QObject* obj, QEvent* event)
+{
+	if(obj-> == ui->textEdit)
+	{
+		if(event->type() == QEvent::Wheel)
+		{
+			//将event转换为发生的事件的类型
+			QWheelEvent* wheelEvent = static_cast<QWheelEvent*>(event);
+			if (wheelEvent->delta() >0) ui->textEdit->zoomIn();
+			else ui->textEdit->zoomOut();
+			return true;//该事件已经被处理
+		}
+		else
+			return false;//如果是其他事件，可以进行进一步的处理
+		
+	}
+	else
+		return QWidget::eventFilter(obj, event);
+}
+```
+在这个事件过滤器中先判断部件的类型，然后再判断事件的类型，如果是需要的事件，那么就将其进行强制类型转换，然后进行相应的处理。这里需要说明，如果要对一个特定的事件进行处理，而且不希望它在后面的传递过程中再被处理，那么就返回true，否则返回false。这个函数实现了在textEdit部件中使用滚轮进行内容的放大或缩小。
+
+使用事件过滤器可以很容易地处理多个部件的多个事件，如果不使用它，那么就得分别子类化各个部件，然后重新实现它们对应的各个事件处理函数，那样就会很麻烦了。
+
 # 文件目录操作
 Qt为文件和目录操作提供了一些类，利用这些类可以方便地实现一些操作。
 
