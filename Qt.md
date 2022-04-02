@@ -371,6 +371,27 @@ for(int i=0; i < 50000; i++){
 
 ![](Pasted%20image%2020211029162048%201.png)
 
+## 事件过滤器与事件发送
+Qt中提供了事件过滤器来实现在一个部件中监控其他多个部件的事件。事件过滤器与其他部件不同，它不是一个类，只是由两个函数组成的一种操作，用来完成一个部件对其他部件的事件的监视。这两个函数分别是installEventFilter()和eventFilter()，都是QObject类中的函数。
+
+在widget.h文件中添加`public`函数声明：
+
+```c++
+//widget.h
+public:
+	bool eventFilter(QObject* obj, QEvent* event);
+```
+
+在`wideft.cpp`文件中：
+```c++
+#include <QKeyEvent>
+#include <QWheelEvent>
+
+//构造函数中
+ui->textEdit->installEvent(this);
+ui->spinBox->installEventFilter(this);
+
+```
 # 文件目录操作
 Qt为文件和目录操作提供了一些类，利用这些类可以方便地实现一些操作。
 
