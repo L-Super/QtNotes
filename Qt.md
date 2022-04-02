@@ -386,10 +386,9 @@ public:
 ```c++
 #include <QKeyEvent>
 #include <QWheelEvent>
-Widget::Widget()
+Widget::Widget()//构造函数中
 {
-//构造函数中
-ui->textEdit->installEvent(this);//为部件在本窗口上安装事件过滤器
+	ui->textEdit->installEvent(this);//为部件在本窗口上安装事件过滤器
 }
 
 ```
