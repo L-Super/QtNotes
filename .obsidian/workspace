@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Qt.md",
-            "mode": "preview",
+            "file": "d-pointer.md",
+            "mode": "source",
             "source": false
           }
         }
@@ -55,7 +55,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "d-pointer.md"
               }
             }
           }
@@ -79,7 +79,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Qt.md",
+                "file": "d-pointer.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,7 +96,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "d-pointer.md"
               }
             }
           }
@@ -109,8 +109,8 @@
   },
   "active": "8061f6974a60069e",
   "lastOpenFiles": [
-    "Qt.md",
     "d-pointer.md",
+    "Qt.md",
     "隐式共享.md",
     "二进制代码兼容.md",
     "自定义qDebug输出打印信息.md",
