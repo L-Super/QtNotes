@@ -609,7 +609,7 @@ template <typename Ptr> inline auto qGetPtrHelper(Ptr &ptr) -> decltype(ptr.oper
 
 两个宏展开后分别是对 d_func 和 q_func 两个函数的调用，返回值分别赋值给 d 和 q 两个指针变量。
 
-## Q_DECLARE_PRIVATE与Q_DECLARE_PUBLIC
+### Q_DECLARE_PRIVATE与Q_DECLARE_PUBLIC
 
 类 QtServiceController 定义：
 
@@ -624,8 +624,6 @@ private:
  QtServiceControllerPrivate *d_ptr; 
 };
 ```
-
-### 宏定义
 
 宏定义在 QtGlobal(即qglobal.h)头文件中：
 
@@ -660,7 +658,7 @@ private:
 - 在 QtServiceController 中的成员函数中，我们只需要添加 Q_D(QtServiceController) 宏，在该函数内就可以直接用 d 来指代 d_ptr
 - 在 QtServiceControllerPrivate 中的成员函数中，我们只需要添加 Q_Q(QtServiceController)宏，在该函数内就可以直接用 q 来指代 q_ptr
 
-## d_ptr与q_ptr
+### d_ptr与q_ptr
 
 绕这么大圈，为什么不直接用 d_ptr 与 q_ptr 呢。在，在我们的例子中，确实可以直接用，而且会更直接更简单。官方这么用了，或许是为了和其他类保持一致吧。
 
