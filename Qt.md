@@ -1037,7 +1037,7 @@ RC_FILE += myapp.rc
 ```c++
 setWindowIcon(QIcon(":/image/image/ico.png"));
 ```
-该函数，可以不用要求ico文件。但，图标在应用程序EXE上不会显示。在main函数中使用该函数可以使得 `QMessageBox::about`关于对话框的关于图标变成设置的图标。
+此方法可以设置标题栏图标、任务栏图标、任务栏悬浮窗口标题栏图标，但是修改不了exe的图标。可以不用要求ico文件。在main函数中使用该函数可以使得 `QMessageBox::about`关于对话框的关于图标变成设置的图标。
 
 ## 发布程序
 
