@@ -224,6 +224,7 @@ QStatusBar位于界面底部，用于显示状态信息。
 
 **获取状态栏指针，可以通过ui->xxxx获取，也可以直接在mainwindow中直接使用statusBar()获取指针，因为状态栏只会有一个。**
 
+若MainWindow未默认生成QStatusBar，可自行new一个，并在构造函数使用`setStatusBar()`，将创建QStatusBar对象放入。
 
 临时信息：
 
@@ -246,7 +247,7 @@ statusBar()->addWidget(msgLabel);
 // 创建标签,设置标签样式并显示信息,然后将其以永久部件的形式添加到状态栏
 QLabel *permanent= new QLabel(this);
 // 可以设置相关控件对应的属性
-permanent->setFrameStyle(QFrame: Box QFrame:: Sunken);
+permanent->setFrameStyle(QFrame:: Box | QFrame::Sunken);
 // 可以设置字体颜色
 permanent->setStyleSheet(" QLabel{ color: red }");
 permanent->setText("www.gter.org");
