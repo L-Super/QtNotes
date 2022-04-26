@@ -307,8 +307,7 @@ QFileDialog:getExistingDirectory()
 目录。
 
 ```c++
-QString selectedDir = QFileDialog::getExistingDirectory(this,
-"Title","Path");
+QString selectedDir = QFileDialog::getExistingDirectory(this, "Title", "Path");
 ```
 ### 消息对话框
 消息对话框 QMessageBox类提供了一个模态的对话框来通知用户一些信息,或者向用户提出一个问题并且获取答案。
@@ -331,7 +330,6 @@ if(ret4 == QMessageBox::YesAll) qDebug()<< tr("错误");
 
 // 关于对话框
 QMessageBox::about(this,tr("关于对话框"),tr(" 致力于t及 Qt Creator的普及工作!");	
-```
 ```
 
 ### 颜色对话框
@@ -365,7 +363,6 @@ QString item = QInputDialog::getItem(this,tr("输入条目对话框"),tr("请选
 if(ok) qDebug()<<"item:"<< item;
 ```
 
-```
 ### 进度对话框
 ```c++
 QProgressDialog dialog(tr("文件复制进度"),tr("取消"),0,50000,this);
@@ -388,9 +385,9 @@ for(int i=0; i < 50000; i++){
     qDebug()<<tr("复制结束!");
 ```
 ### 错误信息对话框
- 错误信息对话框 QErrorMessage类提供了一个显示错误信息的对话框。
+错误信息对话框 QErrorMessage类提供了一个显示错误信息的对话框。
 ### 向导对话框
- 向导对话框 QWizard类提供了一个设计向导界面的框架
+向导对话框 QWizard类提供了一个设计向导界面的框架
 # 事件系统
 ![Pasted image 20211028174506](Qt.assets/Pasted image 20211028174506.png)
 ![[Pasted image 20211028174506.png]]
@@ -618,7 +615,7 @@ Windows上未运行事件循环或其事件循环未处理WM_CLOSE消息的控�
 **但是非QProcess启动的进程，通常无法关闭，可采用系统的taskkill命令进行关闭。**
 
 调用taskkill命令关闭进程
-  
+
 ```C++
 QProcess p;
 QStringList params;
@@ -629,7 +626,7 @@ QStringList params;
 params<<"/c"<<"taskkill"<<"-t"<<"-im"<<"HWBrowser.exe";
 p.start("cmd.exe",params);
 ```
- 
+
 
 # 碎片
 
