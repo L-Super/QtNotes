@@ -282,6 +282,7 @@ Qt提供了一些常用的对话框类型,它们全部继承自 Dialog类,并增
 文件对话框 QFileDialog类提供了一个允许用户选择文件或文件夹的对话框
 
 #### 选择文件
+QFileDialog::getOpenFileName()
 ```c++
 //原型
 QString QFileDialog::getOpenFileName(QWidget *parent = nullptr, const QString& caption = QString(), const QString& dir = QString(), const QString& filter = QString(), QString* selectedFilter = nullptr, QFileDialog::Options options = Options())
@@ -300,17 +301,38 @@ QString fileName = QFileDialog::getOpenFileName(this,tr("文件对话框"),"D:",
 若要选择打开多个文件，使用静态函数`QFileDialog::getOpenFileNames()`
 
 #### 选择文件夹
-QFileDialog:getExistingDirectory(),同样，若需要传递对话框
+QFileDialog:getExistingDirectory()
+同样，若需要传递对话框
 标题和初始路径，还应传递一个选项，一般用QFileDialog:ShowDirsOnly,表示对话框中只显示
 目录。
-void Dialog::on btnSelDir clicked()
-{//选择文件夹
-QString curPath=QCoreApplication:applicationDirPath();
-QString d1 gTitle="选择一个目录"：
-QString selectedDir=QFileDialog:getExistingDirectory(this,
-dlgTitle,curPath,QFileDialog:ShowDirsOnly);
-if (selectedDir.isEmpty ()
-ui->plainTextEdit->appendplainText(selectedDir);
+
+```c++
+QString selectedDir = QFileDialog::getExistingDirectory(this,
+"Title","Path");
+```
+### 消息对话框
+消息对话框 QMessageBox类提供了一个模态的对话框来通知用户一些信息,或者向用户提出一个问题并且获取答案。
+```c++
+//问题对话框
+int ret1 = QMessageBox::question(this,tr("问题对话框"),tr("你了解Qt吗?"”), MEssagebOx::Yes, QMessageBox::No);
+if(ret1 = QMessageBox::Yes) qDebug()<<tr("问题!");
+
+// 提示对话框
+int ret2 = QMessageBox::information(this,tr("提示对话框"),tr("这是Qt书籍!"), QMessageBox::Ok);
+if(ret2 == QMessageBox::Ok) qDebug()<<tr("提示!");
+
+// 警告对话框
+int ret3 = QMessageBox::warning(this,tr("警告对话框"),tr("不能提前结束!"), QMessageBox::Abort);
+if(ret3 == QMessageBox::Abort) qDebug()<< tr("警告");
+
+// 错误对话框
+int ret4 = QMessageBox::critical(this,tr("严重错误对话框"),tr("发现一个严重错误!现在要关闭所有文件!"), QMessageBox::YesAll);
+if(ret4 == QMessageBox::YesAll) qDebug()<< tr("错误");
+
+// 关于对话框
+QMessageBox::about(this,tr("关于对话框"),tr(" 致力于t及 Qt Creator的普及工作!");	
+```
+```
 
 ### 颜色对话框
  颜色对话框类 QDialog提供了一个可以获取指定颜色的对话框部件。
@@ -342,29 +364,9 @@ items<<tr("条目1")<<tr("条目2");
 QString item = QInputDialog::getItem(this,tr("输入条目对话框"),tr("请选择或输入一个条目"), items,0,true,&ok)
 if(ok) qDebug()<<"item:"<< item;
 ```
-+ 消息对话框
-消息对话框 QMessageBox类提供了一个模态的对话框来通知用户一些信息,或者向用户提出一个问题并且获取答案。
-```c++
-//问题对话框
-int ret1 = QMessageBox::question(this,tr("问题对话框"),tr("你了解Qt吗?"”), MEssagebOx::Yes, QMessageBox::No);
-if(ret1 = QMessageBox::Yes) qDebug()<<tr("问题!");
 
-// 提示对话框
-int ret2 = QMessageBox::information(this,tr("提示对话框"),tr("这是Qt书籍!"), QMessageBox::Ok);
-if(ret2 == QMessageBox::Ok) qDebug()<<tr("提示!");
-
-// 警告对话框
-int ret3 = QMessageBox::warning(this,tr("警告对话框"),tr("不能提前结束!"), QMessageBox::Abort);
-if(ret3 == QMessageBox::Abort) qDebug()<< tr("警告");
-
-// 错误对话框
-int ret4 = QMessageBox::critical(this,tr("严重错误对话框"),tr("发现一个严重错误!现在要关闭所有文件!"), QMessageBox::YesAll);
-if(ret4 == QMessageBox::YesAll) qDebug()<< tr("错误");
-
-// 关于对话框
-QMessageBox::about(this,tr("关于对话框"),tr(" 致力于t及 Qt Creator的普及工作!");	
 ```
-+ 进度对话框
+### 进度对话框
 ```c++
 QProgressDialog dialog(tr("文件复制进度"),tr("取消"),0,50000,this);
 //设置窗口标题
@@ -385,9 +387,9 @@ for(int i=0; i < 50000; i++){
     dialog.setValue(50000);
     qDebug()<<tr("复制结束!");
 ```
-+ 错误信息对话框
+### 错误信息对话框
  错误信息对话框 QErrorMessage类提供了一个显示错误信息的对话框。
-+ 向导对话框
+### 向导对话框
  向导对话框 QWizard类提供了一个设计向导界面的框架
 # 事件系统
 ![Pasted image 20211028174506](Qt.assets/Pasted image 20211028174506.png)
