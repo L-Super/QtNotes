@@ -278,23 +278,50 @@ dialog->show():
 ## 标准对话框
 Qt提供了一些常用的对话框类型,它们全部继承自 Dialog类,并增加了自己的特色功能,比如获取颜色、显示特定信息等。可以在帮助索引中查看 Standard Dialogs关键字,也可以直接索引相关类的类名。
 
-+ 颜色对话框
+### 文件对话框
+文件对话框 QFileDialog类提供了一个允许用户选择文件或文件夹的对话框
+
+#### 选择文件
+```c++
+//原型
+QString QFileDialog::getOpenFileName(QWidget *parent = nullptr, const QString& caption = QString(), const QString& dir = QString(), const QString& filter = QString(), QString* selectedFilter = nullptr, QFileDialog::Options options = Options())
+
+
+QString fileName = QFileDialog::getOpenFileName(this,tr("文件对话框"),"D:",tr("图片文件(*.jpg *.png);;所有文件(*.*)"));
+```
+
+参数：
++ 父对象，一般是一个窗口
++ 对话框标题
++ 访问的目录
++ 过滤器，可以设置文件的选择范围，如果需要可以选择多个类型，将文件以；；符号隔开。
+
+注：**每组文件之间用两个分号隔开，同一组内不同后缀之间用空格隔开。**
+若要选择打开多个文件，使用静态函数`QFileDialog::getOpenFileNames()`
+
+#### 选择文件夹
+QFileDialog:getExistingDirectory(),同样，若需要传递对话框
+标题和初始路径，还应传递一个选项，一般用QFileDialog:ShowDirsOnly,表示对话框中只显示
+目录。
+void Dialog::on btnSelDir clicked()
+{//选择文件夹
+QString curPath=QCoreApplication:applicationDirPath();
+QString d1 gTitle="选择一个目录"：
+QString selectedDir=QFileDialog:getExistingDirectory(this,
+dlgTitle,curPath,QFileDialog:ShowDirsOnly);
+if (selectedDir.isEmpty ()
+ui->plainTextEdit->appendplainText(selectedDir);
+
+### 颜色对话框
  颜色对话框类 QDialog提供了一个可以获取指定颜色的对话框部件。
 ```c++
 QColor color = QColorDialog::getColor(Qt::red,this,tr("颜色对话框"));
 ```
-+ 文件对话框
-文件对话框 QFileDialog类提供了一个允许用户选择文件或文件夹的对话框
-```c++
-QString fileName = QFileDialog::getOpenFileName(this,tr("文件对话框"),"D:",tr("图片文件(*.jpg *.png);;所有文件(*.*)"));
-```
-注：**每组文件之间用两个分号隔开，同一组内不同后缀之间用空格隔开。**
-若要选择打开多个文件，使用静态函数`QFileDialog::getOpenFileNames()`
 
-+ 字体对话框
+### 字体对话框
 字体对话框 QFontDialog类提供了一个可以选择字体的对话框部件
-+ 输入对话框
-	QInputDialog类用来提供一个对话框,可以让用户输入一个单一的数值或字符串
+### 输入对话框
+QInputDialog类用来提供一个对话框,可以让用户输入一个单一的数值或字符串
 ```c++
 bool ok;
 // 获取字符串
