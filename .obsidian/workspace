@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "路径格式转换（斜杠与反斜杠转换）.md",
-            "mode": "preview",
+            "file": "Qt.md",
+            "mode": "source",
             "source": false
           }
         }
@@ -55,11 +55,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "路径格式转换（斜杠与反斜杠转换）.md"
+                "file": "Qt.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -79,7 +80,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "路径格式转换（斜杠与反斜杠转换）.md",
+                "file": "Qt.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,7 +97,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "路径格式转换（斜杠与反斜杠转换）.md"
+                "file": "Qt.md"
               }
             }
           }
@@ -109,9 +110,9 @@
   },
   "active": "8061f6974a60069e",
   "lastOpenFiles": [
+    "Qt.md",
     "路径格式转换（斜杠与反斜杠转换）.md",
     "软件路径截取软件名，文件类型，路径.md",
-    "Qt.md",
     "自定义qDebug输出打印信息.md",
     "qmake Pro 文件参数.md",
     "d-pointer.md",
