@@ -490,9 +490,6 @@ QCoreApplication的有用函数
 | void exit()                                | 退出应用程序                                 |
 
 
-
-
-
 ![](Pasted%20image%2020211207101803.png)
 
 ## QFile
