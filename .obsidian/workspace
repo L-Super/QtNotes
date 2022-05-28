@@ -4,13 +4,13 @@
     "type": "split",
     "children": [
       {
-        "id": "8061f6974a60069e",
+        "id": "0714a3050d0e874c",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
             "file": "property 属性系统.md",
-            "mode": "source",
+            "mode": "preview",
             "source": false
           }
         }
@@ -107,17 +107,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "8061f6974a60069e",
+  "active": "0714a3050d0e874c",
   "lastOpenFiles": [
     "property 属性系统.md",
+    "conflict-files-obsidian-git.md",
+    "动态属性.md",
     "Qt.md",
     "路径格式转换（斜杠与反斜杠转换）.md",
     "软件路径截取软件名，文件类型，路径.md",
     "自定义qDebug输出打印信息.md",
     "qmake Pro 文件参数.md",
     "d-pointer.md",
-    "隐式共享.md",
-    "二进制代码兼容.md",
-    "类的前置声明.md"
+    "隐式共享.md"
   ]
 }
