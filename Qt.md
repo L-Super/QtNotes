@@ -1,4 +1,4 @@
-# [[信号与槽]]
+# 信号与槽
 信号与槽用于两个对象之间的通信。
 一个信号可以关联到多个槽上，多个信号也可以关联到同一个槽上，甚至一个信号还可以关联到另一个信号上。
 
@@ -763,7 +763,7 @@ private:
 
 ## property属性
 
-如果想在某个控件上（比如QPushButton）记录一些自定义的一些属性，用作标记，或者识别符。 可以使用QObject的属性property[property 属性系统 | property](property%20属性系统.md)
+如果想在某个控件上（比如QPushButton）记录一些自定义的一些属性，用作标记，或者识别符。 可以使用QObject的属性 [[property 属性系统 | property]](property%20属性系统.md)
 
 对于一个基于QObject的控件来讲，我们可以通过setProperty来设置此控件的属性
 

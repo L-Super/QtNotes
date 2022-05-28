@@ -10,7 +10,7 @@
           "type": "markdown",
           "state": {
             "file": "Qt.md",
-            "mode": "source",
+            "mode": "preview",
             "source": false
           }
         }
@@ -64,8 +64,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "431eb59fb8cf6ded",
@@ -113,13 +112,13 @@
   "lastOpenFiles": [
     "Qt.md",
     "property 属性系统.md",
+    "隐式共享.md",
+    "自定义qDebug输出打印信息.md",
+    "二进制代码兼容.md",
     "动态属性.md",
     "自定义Widget使用QSS.md",
     "conflict-files-obsidian-git.md",
     "路径格式转换（斜杠与反斜杠转换）.md",
-    "软件路径截取软件名，文件类型，路径.md",
-    "自定义qDebug输出打印信息.md",
-    "qmake Pro 文件参数.md",
-    "d-pointer.md"
+    "软件路径截取软件名，文件类型，路径.md"
   ]
 }
