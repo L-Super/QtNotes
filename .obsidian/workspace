@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Qt.md",
-            "mode": "preview",
+            "file": "property 属性系统.md",
+            "mode": "source",
             "source": false
           }
         }
@@ -55,12 +55,11 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "property 属性系统.md"
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
@@ -80,7 +79,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Qt.md",
+                "file": "property 属性系统.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,7 +96,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "property 属性系统.md"
               }
             }
           }
@@ -110,6 +109,7 @@
   },
   "active": "8061f6974a60069e",
   "lastOpenFiles": [
+    "property 属性系统.md",
     "Qt.md",
     "路径格式转换（斜杠与反斜杠转换）.md",
     "软件路径截取软件名，文件类型，路径.md",
@@ -118,7 +118,6 @@
     "d-pointer.md",
     "隐式共享.md",
     "二进制代码兼容.md",
-    "类的前置声明.md",
-    "Qt调用ocx.md"
+    "类的前置声明.md"
   ]
 }
