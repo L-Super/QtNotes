@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Qt.md",
-            "mode": "preview",
+            "file": "自定义Widget使用QSS.md",
+            "mode": "source",
             "source": false
           }
         }
@@ -55,12 +55,11 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "自定义Widget使用QSS.md"
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
@@ -80,7 +79,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Qt.md",
+                "file": "自定义Widget使用QSS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,7 +96,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "自定义Widget使用QSS.md"
               }
             }
           }
@@ -110,13 +109,13 @@
   },
   "active": "0714a3050d0e874c",
   "lastOpenFiles": [
-    "Qt.md",
+    "自定义Widget使用QSS.md",
     "property 属性系统.md",
+    "动态属性.md",
+    "Qt.md",
     "隐式共享.md",
     "自定义qDebug输出打印信息.md",
     "二进制代码兼容.md",
-    "动态属性.md",
-    "自定义Widget使用QSS.md",
     "conflict-files-obsidian-git.md",
     "路径格式转换（斜杠与反斜杠转换）.md",
     "软件路径截取软件名，文件类型，路径.md"

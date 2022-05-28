@@ -1,7 +1,5 @@
 # Q_PROPERTY
 
-^9c3ce0
-
 声明一个属性，在继承QObject的类中使用Q_PROPERTY()宏。
 
 ```c++
