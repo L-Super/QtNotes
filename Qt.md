@@ -761,9 +761,9 @@ private:
 
 但在其他情况下，这么做显然是有意义的，因为 d_ptr 与 d，q_ptr 与 q 的类型并不一致(比如QObject系列)。这也是为何宏展开后有cast的原因
 
-## QT property属性
+## property属性
 
-如果想在某个控件上（比如QPushButton）记录一些自定义的一些属性，用作标记，或者识别符。 可以使用QObject的属性property
+如果想在某个控件上（比如QPushButton）记录一些自定义的一些属性，用作标记，或者识别符。 可以使用QObject的属性property[property 属性系统 | property](property%20属性系统.md)
 
 对于一个基于QObject的控件来讲，我们可以通过setProperty来设置此控件的属性
 

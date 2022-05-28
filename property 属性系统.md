@@ -1,3 +1,7 @@
+# Q_PROPERTY
+
+^9c3ce0
+
 声明一个属性，在继承QObject的类中使用Q_PROPERTY()宏。
 
 ```c++
@@ -103,17 +107,6 @@ int main(int argc, char *argv[])
 Q_PROPERTY(bool focus READ hasFocus)
 Q_PROPERTY(bool enabled READ isEnabled WRITE setEnabled)
 Q_PROPERTY(QCursor cursor READ cursor WRITE setCursor RESET unsetCursor)
-```
-
-# 通过元数据对象系统读写属性
-
-一个属性可以使用常规函数QObject::property()和QObject::setProperty()进行读写
-[动态属性](动态属性.md)
-
-```c++
-QPushButton *button = new QPushButton;
-button->setProperty("down", true);
-button->property();
 ```
 
 
