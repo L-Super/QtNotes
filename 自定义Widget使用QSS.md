@@ -72,3 +72,7 @@ QWidget#HSpinBox
 
 与直接调用`setLeftIcon()`函数效果一致，不过可以通过QSS文件进行修改。
 
+# 通过property
+通过设置属性的方式，利用属性的变化设置样式
+
+[与QSS组合使用](动态属性.md#与QSS组合使用)
