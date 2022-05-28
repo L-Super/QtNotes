@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "property 属性系统.md",
-            "mode": "preview",
+            "file": "自定义Widget使用QSS.md",
+            "mode": "source",
             "source": false
           }
         }
@@ -55,7 +55,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "property 属性系统.md"
+                "file": "自定义Widget使用QSS.md"
               }
             }
           }
@@ -79,7 +79,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "property 属性系统.md",
+                "file": "自定义Widget使用QSS.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,7 +96,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "property 属性系统.md"
+                "file": "自定义Widget使用QSS.md"
               }
             }
           }
@@ -109,15 +109,15 @@
   },
   "active": "0714a3050d0e874c",
   "lastOpenFiles": [
+    "自定义Widget使用QSS.md",
     "property 属性系统.md",
-    "conflict-files-obsidian-git.md",
     "动态属性.md",
+    "conflict-files-obsidian-git.md",
     "Qt.md",
     "路径格式转换（斜杠与反斜杠转换）.md",
     "软件路径截取软件名，文件类型，路径.md",
     "自定义qDebug输出打印信息.md",
     "qmake Pro 文件参数.md",
-    "d-pointer.md",
-    "隐式共享.md"
+    "d-pointer.md"
   ]
 }

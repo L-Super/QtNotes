@@ -107,10 +107,17 @@ Q_PROPERTY(QCursor cursor READ cursor WRITE setCursor RESET unsetCursor)
 
 # 通过元数据对象系统读写属性
 
-一个属性可以使用常规函数QObject::property()和QObject::setProperty()进行读写，下面的代码中，调用QAbstractButton::setDown()和QObject::setProperty()来设置属性“down”。
+一个属性可以使用常规函数QObject::property()和QObject::setProperty()进行读写
+[动态属性](动态属性.md)
 
 ```c++
 QPushButton *button = new QPushButton;
 button->setProperty("down", true);
+button->property();
 ```
 
+
+
+> 《Qt 5.10 GUI完全参考手册》
+>
+> [Qt 之属性系统](https://blog.csdn.net/liang19890820/article/details/52022714)
