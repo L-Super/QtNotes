@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "未命名.md",
-            "mode": "source",
+            "file": "动态属性.md",
+            "mode": "preview",
             "source": false
           }
         }
@@ -55,7 +55,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "未命名.md"
+                "file": "动态属性.md"
               }
             }
           }
@@ -79,7 +79,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "未命名.md",
+                "file": "动态属性.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,7 +96,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "未命名.md"
+                "file": "动态属性.md"
               }
             }
           }
@@ -109,15 +109,15 @@
   },
   "active": "19d1fbdfa708dd92",
   "lastOpenFiles": [
-    "未命名.md",
+    "动态属性.md",
+    "配置Qt新建工程默认支持C++14.md",
+    "软件路径截取软件名，文件类型，路径.md",
     "Qt.md",
+    "未命名.md",
     "自定义Widget使用QSS.md",
     "property 属性系统.md",
-    "动态属性.md",
     "Qt.assets/image-20210720181058526.png.md",
     "隐式共享.md",
-    "自定义qDebug输出打印信息.md",
-    "二进制代码兼容.md",
-    "conflict-files-obsidian-git.md"
+    "自定义qDebug输出打印信息.md"
   ]
 }
