@@ -1110,11 +1110,10 @@ windeployqt 工具所在路径：`F:\~\Qt5.10.1\5.10.1\mingw53_32\bin`
 2、在 Qt Creator 中使用 windeployqt 工具部署文件:
 ①、在“项目模式”(Ctrl+5)下进行如下图所示设置需要发布的 exe 文件
 
-![image-20210720181034626](Qt.assets\image-20210720181034626.png)
+![image20210720181034626](Qt.assets/image-20210720181034626.png)
 
 
-
-![image-20210720181058526](Qt.assets\image-20210720181058526.png)
+![image-20210720181058526](Qt.assets/image-20210720181058526.png)
 
 说明：
 
