@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "动态属性.md",
+            "file": "Qt.md",
             "mode": "preview",
             "source": false
           }
@@ -55,11 +55,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "动态属性.md"
+                "file": "Qt.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -79,7 +80,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "动态属性.md",
+                "file": "Qt.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,7 +97,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "动态属性.md"
+                "file": "Qt.md"
               }
             }
           }
@@ -109,10 +110,10 @@
   },
   "active": "19d1fbdfa708dd92",
   "lastOpenFiles": [
+    "Qt.md",
     "动态属性.md",
     "配置Qt新建工程默认支持C++14.md",
     "软件路径截取软件名，文件类型，路径.md",
-    "Qt.md",
     "未命名.md",
     "自定义Widget使用QSS.md",
     "property 属性系统.md",
