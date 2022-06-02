@@ -7,12 +7,8 @@
         "id": "19d1fbdfa708dd92",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "Qt.md",
-            "mode": "preview",
-            "source": false
-          }
+          "type": "graph",
+          "state": {}
         }
       }
     ],
@@ -54,9 +50,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Qt.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -80,7 +74,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Qt.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,9 +89,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Qt.md"
-              }
+              "state": {}
             }
           }
         ]
