@@ -4,11 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "ede8a99e6dcf5b85",
+        "id": "e55b40b28e13a874",
         "type": "leaf",
         "state": {
-          "type": "graph",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "Qt.md",
+            "mode": "preview",
+            "source": false
+          }
         }
       }
     ],
@@ -50,10 +54,13 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Qt.md"
+              }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -73,6 +80,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Qt.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,7 +96,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Qt.md"
+              }
             }
           }
         ]
@@ -98,9 +108,10 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "ede8a99e6dcf5b85",
+  "active": "e55b40b28e13a874",
   "lastOpenFiles": [
     "Qt.md",
+    "conflict-files-obsidian-git.md",
     "Qt.assets/image-20210720181034626-1626775840180.png.md",
     "未命名.md",
     "自定义Widget使用QSS.md",
@@ -108,7 +119,6 @@
     "动态属性.md",
     "Qt.assets/image-20210720181058526.png.md",
     "隐式共享.md",
-    "自定义qDebug输出打印信息.md",
-    "二进制代码兼容.md"
+    "自定义qDebug输出打印信息.md"
   ]
 }
