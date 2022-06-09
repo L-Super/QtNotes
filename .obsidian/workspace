@@ -9,8 +9,8 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "设置背景.md",
-            "mode": "source",
+            "file": "Widget设置背景.md",
+            "mode": "preview",
             "source": false
           }
         }
@@ -55,7 +55,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "设置背景.md"
+                "file": "Widget设置背景.md"
               }
             }
           }
@@ -79,7 +79,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "设置背景.md",
+                "file": "Widget设置背景.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,7 +96,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "设置背景.md"
+                "file": "Widget设置背景.md"
               }
             }
           }
@@ -109,7 +109,7 @@
   },
   "active": "e55b40b28e13a874",
   "lastOpenFiles": [
-    "设置背景.md",
+    "Widget设置背景.md",
     "Qt.md",
     "conflict-files-obsidian-git.md",
     "Qt.assets/image-20210720181034626-1626775840180.png.md",
