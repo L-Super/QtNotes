@@ -447,7 +447,7 @@ Widget::Widget()//构造函数中
 //事件过滤器
 bool Widget::eventFilter(QObject* obj, QEvent* event)
 {
-	if(obj-> == ui->textEdit)
+	if(obj == ui->textEdit)
 	{
 		if(event->type() == QEvent::Wheel)
 		{
