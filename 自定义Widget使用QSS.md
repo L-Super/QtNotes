@@ -73,7 +73,11 @@ QWidget#HSpinBox
 与直接调用 `setLeftIcon()` 函数效果一致，不过可以通过 QSS 文件进行修改。
 
 > 注意！！！
-> QPushButton 设置 Icon 图标经测试，也是通过此方法实现在 QSS 文件中设置图标的功能。`QPushButton{qproperty-icon: url(:/img/folder.png);}`
+> QPushButton 设置 Icon 图标经测试，也是通过此方法实现在 QSS 文件中设置图标的功能。
+>
+> ```css
+> QPushButton{qproperty-icon: url (:/img/folder.png);}
+> ```
 
 # 通过property
 通过设置属性的方式，利用属性的变化设置样式
