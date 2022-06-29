@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Qt.md",
+            "file": "动态属性.md",
             "mode": "preview",
             "source": false
           }
@@ -55,7 +55,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "动态属性.md"
               }
             }
           }
@@ -79,7 +79,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Qt.md",
+                "file": "动态属性.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,7 +96,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "动态属性.md"
               }
             }
           }
@@ -109,6 +109,8 @@
   },
   "active": "e55b40b28e13a874",
   "lastOpenFiles": [
+    "动态属性.md",
+    "property 属性系统.md",
     "Qt.md",
     "自定义Widget使用QSS.md",
     "Widget设置背景.md",
@@ -116,8 +118,6 @@
     "路径格式转换（斜杠与反斜杠转换）.md",
     "conflict-files-obsidian-git.md",
     "Qt.assets/image-20210720181034626-1626775840180.png.md",
-    "property 属性系统.md",
-    "动态属性.md",
     "Qt.assets/image-20210720181058526.png.md"
   ]
 }
