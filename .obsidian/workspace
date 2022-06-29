@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Qt.md",
+            "file": "动态属性.md",
             "mode": "preview",
             "source": false
           }
@@ -55,12 +55,11 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "动态属性.md"
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
@@ -80,7 +79,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Qt.md",
+                "file": "动态属性.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,7 +96,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "动态属性.md"
               }
             }
           }
@@ -110,8 +109,8 @@
   },
   "active": "e55b40b28e13a874",
   "lastOpenFiles": [
-    "Qt.md",
     "动态属性.md",
+    "Qt.md",
     "property 属性系统.md",
     "自定义Widget使用QSS.md",
     "Widget设置背景.md",
