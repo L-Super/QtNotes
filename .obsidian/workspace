@@ -7,8 +7,12 @@
         "id": "e55b40b28e13a874",
         "type": "leaf",
         "state": {
-          "type": "graph",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "Qt.md",
+            "mode": "preview",
+            "source": false
+          }
         }
       }
     ],
@@ -50,7 +54,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Qt.md"
+              }
             }
           }
         ]
@@ -73,6 +79,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Qt.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,7 +95,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Qt.md"
+              }
             }
           }
         ]
@@ -100,12 +109,12 @@
   },
   "active": "e55b40b28e13a874",
   "lastOpenFiles": [
+    "Qt.md",
     "动态属性.md",
     "自定义Widget使用QSS.md",
     "property 属性系统.md",
     "qmake Pro 文件参数.md",
     "Widget设置背景.md",
-    "Qt.md",
     "软件路径截取软件名，文件类型，路径.md",
     "路径格式转换（斜杠与反斜杠转换）.md",
     "conflict-files-obsidian-git.md",
