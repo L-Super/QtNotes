@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "自定义Widget使用QSS.md",
+            "file": "Qt.md",
             "mode": "preview",
             "source": false
           }
@@ -55,11 +55,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "自定义Widget使用QSS.md"
+                "file": "Qt.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -79,7 +80,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "自定义Widget使用QSS.md",
+                "file": "Qt.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -96,7 +97,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "自定义Widget使用QSS.md"
+                "file": "Qt.md"
               }
             }
           }
@@ -109,13 +110,13 @@
   },
   "active": "e55b40b28e13a874",
   "lastOpenFiles": [
+    "Qt.md",
     "自定义Widget使用QSS.md",
     "二进制代码兼容.md",
     "动态属性.md",
     "property 属性系统.md",
     "Widget设置背景.md",
     "Qt调用ocx.md",
-    "Qt.md",
     "qmake Pro 文件参数.md",
     "软件路径截取软件名，文件类型，路径.md",
     "路径格式转换（斜杠与反斜杠转换）.md"
