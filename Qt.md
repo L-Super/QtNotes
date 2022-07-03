@@ -584,6 +584,7 @@ args<<"&&"<<"mkdir"<<"b";
 
 还可以使用信号与槽获取运行状态，比如打印输出信息
 ```c++
+p->setReadChannel(QProcess::StandardOutput);
 p->start(programPath,arguments);
 // QProcess输出信息
 connect(p, &QProcess::readyReadStandardOutput, this, [=]{
@@ -598,6 +599,9 @@ connect(p, &QProcess::readyReadStandardError, this, [=]{
 	ui->textEdit->append(output);
 });
 ```
+关键的操作是设置 `setReadChannel` 与绑定 `readyReadStandardOutput` 信号，才可以获取命令运行中的输出信息。
+
+
 ## 关闭进程
 通过QProcess启动的进程可以通过调用`kill()`强制关闭或者`terminate()`尝试关闭
 
