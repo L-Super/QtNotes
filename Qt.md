@@ -598,6 +598,8 @@ connect(p, &QProcess::readyReadStandardError, this, [=]{
 	ui->textEdit->append(output);
 });
 ```
+进程有两个预定义的输出通道: 标准输出通道 (stdout) 提供常规控制台输出，标准错误通道 (stderr) 通常提供进程打印的错误。这些通道代表两个独立的数据流。可以通过调用 `setReadChannel ()` 在它们之间切换。当数据在当前读通道上可用时，QProcess 发出 ` readyRead () ` `。
+
 ## 关闭进程
 通过QProcess启动的进程可以通过调用`kill()`强制关闭或者`terminate()`尝试关闭
 
