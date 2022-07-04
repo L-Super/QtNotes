@@ -584,6 +584,7 @@ args<<"&&"<<"mkdir"<<"b";
 
 还可以使用信号与槽获取运行状态，比如打印输出信息
 ```c++
+p->setReadChannel(QProcess::StandardOutput);
 p->start(programPath,arguments);
 // QProcess输出信息
 connect(p, &QProcess::readyReadStandardOutput, this, [=]{
@@ -598,7 +599,10 @@ connect(p, &QProcess::readyReadStandardError, this, [=]{
 	ui->textEdit->append(output);
 });
 ```
+
 进程有两个预定义的输出通道: 标准输出通道 (stdout) 提供常规控制台输出，标准错误通道 (stderr) 通常提供进程打印的错误。这些通道代表两个独立的数据流。可以通过调用 `setReadChannel ()` 在它们之间切换。当数据在当前读通道上可用时，QProcess 发出 ` readyRead () ` `。
+
+当新的标准输出数据可用时，它还会发出 `readyReadStandardOutput ()` 信号; 当新的标准错误数据可用时，它会发出 `readyReadStandardError ()`信号。通过调用 `readAllStandardOutput () `或 `readAllStandardError ()` ，可以显式地从这两个通道中的任何一个读取所有数据，而不是调用 `read ()`、 `readLine ()` 或 `getChar ()`。
 
 ## 关闭进程
 通过QProcess启动的进程可以通过调用`kill()`强制关闭或者`terminate()`尝试关闭
@@ -627,6 +631,7 @@ params<<"/c"<<"taskkill"<<"-t"<<"-im"<<"HWBrowser.exe";
 p.start("cmd.exe",params);
 ```
 
+> 官方文档：https://doc.qt.io/qt-5/qprocess.html
 
 # 碎片
 
