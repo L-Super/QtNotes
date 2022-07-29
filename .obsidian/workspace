@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "Qt.md",
+            "file": "Widget设置背景.md",
             "mode": "preview",
             "source": false
           }
@@ -55,12 +55,11 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "Widget设置背景.md"
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
@@ -80,7 +79,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Qt.md",
+                "file": "Widget设置背景.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,7 +96,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Qt.md"
+                "file": "Widget设置背景.md"
               }
             }
           }
