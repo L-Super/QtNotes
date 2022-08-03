@@ -4,4 +4,22 @@ Qt 并没有采用 C++的 RTTI 来实现元对象系统，它使用的是预处�
 
 
 ## 类型信息的表示 
-C++采用类 type_info 来描述一个类型的类型信息，而 Qt 采用类 QMetaObject 来描述 QObject 及其派生类的类型信息。类 QMetaObject 是 Qt 的元对象系统（Meta-object System）的核心。如图 17-3 所示，当满足一定的条件时，QObject 及其每个派生类会包含唯一一个 QMetaObject 的对象，用来描述 QObject 或其派生类的类型信息。
+C++采用类 type_info 来描述一个类型的类型信息，而 Qt 采用类 QMetaObject 来描述 QObject 及其派生类的类型信息。类 QMetaObject 是 Qt 的元对象系统（Meta-object System）的核心。如图所示，当满足一定的条件时，QObject 及其每个派生类会包含唯一一个 QMetaObject 的对象，用来描述 QObject 或其派生类的类型信息。
+
+![](Qt.assets/Pasted%20image%2020220803094439.png)
+
+以 QFileDialog 包含的对象 D 为例，所描述的主要信息如下：
+（1）被描述类的名字，即字符串“QFileDialog”。这是最基本的信息，type_info 也能够做到。（2）被描述类含有多少个成员函数，每个成员函数的原型是什么。
+（3）被描述类的父类的类型信息。QFileDialog 的父类为 QDialog，描述 QDialog 类型信息的对象为 C。逻辑上，D 含有一个指向 C 的指针。一般意义上，对于任意两个具有父子关系的 QObject 派生类，它们的 QMetaObject 对象之间都存在这样的一个指针，形成图中从 D 出发，经由 C、B 抵达 A 的一条路径。这条路径可以被用来判断两个类之间是否具有继承关系。（4）被描述类含有多少个枚举类型，每个枚举类型是如何定义的。
+（5）被描述类的其他信息，比如类的设计者的姓名等。
+
+## 继承关系的判断
+给定 QObject 派生类的一个对象，我们有两种方法来判断该对象是否“具有”某个目标类型。
+1. 类似于 C++的 dynamic_cast，我们使用 qobject_cast 来判断一个对象是否“具有”某个目标类型。该运算符的原型为：
+```
+```
+DestType* qobject_cast<DestType*> ( QObject* p )
+```
+```
+
+如果 p 所指的对象具有目标类型 DestType，返回一个类型为 `DestType*` 的指针，否则，返回一个空指针。qobject_cast 和 dynamic_cast 具有相似的功能，但是前者仅适用于 QObject 及其派生类，而后者适用于任何类型。由于目前绝大部分 C++编译器支持 RTTI，必需使用 qobject_cast 的场合很少。2. 基类 QObject 提供了静态成员函数 inherits ()，用来判断一个对象是否具有某个目标类型。该函数的原型如下：[插图]该函数判断一个对象是否具有字符串参数 className 指定的那个类的类型。由于这个字符串参数是在程序运行阶段被确定的，这种方法比前一种方法更加灵活。
