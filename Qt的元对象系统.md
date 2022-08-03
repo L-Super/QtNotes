@@ -9,17 +9,111 @@ C++采用类 type_info 来描述一个类型的类型信息，而 Qt 采用类 Q
 ![](Qt.assets/Pasted%20image%2020220803094439.png)
 
 以 QFileDialog 包含的对象 D 为例，所描述的主要信息如下：
-（1）被描述类的名字，即字符串“QFileDialog”。这是最基本的信息，type_info 也能够做到。（2）被描述类含有多少个成员函数，每个成员函数的原型是什么。
-（3）被描述类的父类的类型信息。QFileDialog 的父类为 QDialog，描述 QDialog 类型信息的对象为 C。逻辑上，D 含有一个指向 C 的指针。一般意义上，对于任意两个具有父子关系的 QObject 派生类，它们的 QMetaObject 对象之间都存在这样的一个指针，形成图中从 D 出发，经由 C、B 抵达 A 的一条路径。这条路径可以被用来判断两个类之间是否具有继承关系。（4）被描述类含有多少个枚举类型，每个枚举类型是如何定义的。
+（1）被描述类的名字，即字符串“QFileDialog”。这是最基本的信息，type_info 也能够做到。
+（2）被描述类含有多少个成员函数，每个成员函数的原型是什么。
+（3）被描述类的父类的类型信息。QFileDialog 的父类为 QDialog，描述 QDialog 类型信息的对象为 C。逻辑上，D 含有一个指向 C 的指针。一般意义上，对于任意两个具有父子关系的 QObject 派生类，它们的 QMetaObject 对象之间都存在这样的一个指针，形成图中从 D 出发，经由 C、B 抵达 A 的一条路径。这条路径可以被用来判断两个类之间是否具有继承关系。
+（4）被描述类含有多少个枚举类型，每个枚举类型是如何定义的。
 （5）被描述类的其他信息，比如类的设计者的姓名等。
 
 ## 继承关系的判断
 给定 QObject 派生类的一个对象，我们有两种方法来判断该对象是否“具有”某个目标类型。
 1. 类似于 C++的 dynamic_cast，我们使用 qobject_cast 来判断一个对象是否“具有”某个目标类型。该运算符的原型为：
-```
+
 ```
 DestType* qobject_cast<DestType*> ( QObject* p )
 ```
+
+如果 p 所指的对象具有目标类型 DestType，返回一个类型为 `DestType*` 的指针，否则，返回一个空指针。`qobject_cast` 和 `dynamic_cast` 具有相似的功能，但是前者仅适用于 QObject 及其派生类，而后者适用于任何类型。由于目前绝大部分 C++编译器支持 RTTI，必需使用 qobject_cast 的场合很少。
+
+2. 基类 QObject 提供了静态成员函数 inherits ()，用来判断一个对象是否具有某个目标类型。该函数的原型如下：
+```
+bool inherits(const char* className) const
+```
+该函数判断一个对象是否具有字符串参数 className 指定的那个类的类型。由于这个字符串参数是在程序运行阶段被确定的，这种方法比前一种方法更加灵活。
+
+判断一个QObject派生类的对象是否“具有”某个类型
+
+```c++
+QObject* pObject = new QFileDialog();
+const QMetaObject* p = pObject->metaObject();
+...
+if (qobject_cast<QDialog *>(pObject))//①
+	QMessageBox::information (0,"","The object has the type of QDialog");
+if (pObject->inherits("QWidget"))//②
+	QMessageBox::information (0,"","The object has the type of QWidget");
 ```
 
-如果 p 所指的对象具有目标类型 DestType，返回一个类型为 `DestType*` 的指针，否则，返回一个空指针。qobject_cast 和 dynamic_cast 具有相似的功能，但是前者仅适用于 QObject 及其派生类，而后者适用于任何类型。由于目前绝大部分 C++编译器支持 RTTI，必需使用 qobject_cast 的场合很少。2. 基类 QObject 提供了静态成员函数 inherits ()，用来判断一个对象是否具有某个目标类型。该函数的原型如下：[插图]该函数判断一个对象是否具有字符串参数 className 指定的那个类的类型。由于这个字符串参数是在程序运行阶段被确定的，这种方法比前一种方法更加灵活。
+`QObject *`的指针指向一个`QFileDialog`的对象。行①使用`qobject_cast`将这个指针转换成类型为`QDialog *`，行②判断该对象是否具有`QWidget`的类型。
+
+## 类型信息的获取
+
+QObject定义了一个虚函数metaObject()，它的每个派生类重载了该函数，以返回与该派生类对应的元对象。一旦得到一个元对象，我们可以调用QMetaObject的以下成员函数获取该元对象所描述类型的详细信息。
+
+className()返回被描述类的名字，superClass()返回被描述类的父类的元对象，methodCount()返回被描述类拥有多少个成员函数，而method()返回其中某个成员函数的具体信息，enumeratorCount()返回被描述类拥有多少个枚举类型，而enumerator()返回其中某个枚举类型的具体信息。
+
+如何获取QFileDialog的类型信息:
+
+```c++
+QObject* pObject = new QFileDialog();
+const QMetaObject* p = pObject->metaObject();//①
+QString str;
+QTextStream textStream(&str);
+textStream<< p->className()<<"inherits" << p->superClass()->className() << Qt::endl;//②
+textStream<< "==methods==" << Qt::endl;
+for(int i = p->methodOffset(); i < p->methodCount(); ++i)//③
+    textStream<< p->method(i).methodSignature() << Qt::endl;
+textStream<< "==enumerators ===" << Qt::endl;
+for(int i = p->enumeratorOffset();i < p->enumeratorCount();++i)//④
+    textStream<< p->enumerator(i).name() << Qt::endl;
+QMessageBox::information(0,"",str);
+```
+
+首先创建一个QFileDialog对象，指向QObject的指针指向该对象。行①调用虚函数metaObject()，C++的多态性机制将确保QFileDialog的对应函数被调用，返回的元对象描述的是QFileDialog的类型信息。行②获取该类及其父类的名字信息。一个派生类的成员函数中，既有其本身定义的，也有从其基类继承的。行③的methodOffset()返回继承的成员函数的总数量。该行仅查询该序号之后成员函数的信息，也就是说，QFileDialog本身定义的成员函数的信息。类似地，行④返回该类本身所定义的枚举类型的信息。
+
+```
+QFileDialog inherits QDialog
+==methods==
+fileSelected(QString)
+filesSelected(QStringList)
+currentChanged(QString)
+directoryEntered(QString)
+urlSelected(QUrl)
+urlsSelected(QList<QUrl>)
+currentUrlChanged(QUrl)
+directoryUrlEntered(QUrl)
+filterSelected(QString)
+_q_pathChanged(QString)
+_q_navigateBackward()
+_q_navigateForward()
+_q_navigateToParent()
+_q_createDirectory()
+_q_showListView()
+_q_showDetailsView()
+_q_showContextMenu(QPoint)
+_q_renameCurrent()
+_q_deleteCurrent()
+_q_showHidden()
+_q_updateOkButton()
+_q_currentChanged(QModelIndex)
+_q_enterDirectory(QModelIndex)
+_q_emitUrlSelected(QUrl)
+_q_emitUrlsSelected(QList<QUrl>)
+_q_nativeCurrentChanged(QUrl)
+_q_nativeEnterDirectory(QUrl)
+_q_goToDirectory(QString)
+_q_useNameFilter(int)
+_q_selectionChanged()
+_q_goToUrl(QUrl)
+_q_goHome()
+_q_showHeader(QAction*)
+_q_autoCompleteFileName(QString)
+_q_rowsInserted(QModelIndex)
+_q_fileRenamed(QString,QString,QString)
+==enumerators ===
+ViewMode
+FileMode
+AcceptMode
+Option
+Options
+```
+
