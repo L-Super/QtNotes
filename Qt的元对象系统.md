@@ -19,19 +19,19 @@ C++采用类 type_info 来描述一个类型的类型信息，而 Qt 采用类 Q
 给定 QObject 派生类的一个对象，我们有两种方法来判断该对象是否“具有”某个目标类型。
 1. 类似于 C++的 dynamic_cast，我们使用 qobject_cast 来判断一个对象是否“具有”某个目标类型。该运算符的原型为：
 
-```
+```C++
 DestType* qobject_cast<DestType*> ( QObject* p )
 ```
 
 如果 p 所指的对象具有目标类型 DestType，返回一个类型为 `DestType*` 的指针，否则，返回一个空指针。`qobject_cast` 和 `dynamic_cast` 具有相似的功能，但是前者仅适用于 QObject 及其派生类，而后者适用于任何类型。由于目前绝大部分 C++编译器支持 RTTI，必需使用 qobject_cast 的场合很少。
 
 2. 基类 QObject 提供了静态成员函数 inherits ()，用来判断一个对象是否具有某个目标类型。该函数的原型如下：
-```
+```C++
 bool inherits(const char* className) const
 ```
 该函数判断一个对象是否具有字符串参数 className 指定的那个类的类型。由于这个字符串参数是在程序运行阶段被确定的，这种方法比前一种方法更加灵活。
 
-判断一个QObject派生类的对象是否“具有”某个类型
+判断一个QObject派生类的对象是否“具有”某个类型：
 
 ```c++
 QObject* pObject = new QFileDialog();
@@ -47,11 +47,11 @@ if (pObject->inherits("QWidget"))//②
 
 ## 类型信息的获取
 
-QObject定义了一个虚函数metaObject()，它的每个派生类重载了该函数，以返回与该派生类对应的元对象。一旦得到一个元对象，我们可以调用QMetaObject的以下成员函数获取该元对象所描述类型的详细信息。
+QObject 定义了一个虚函数 metaObject ()，它的每个派生类重载了该函数，以返回与该派生类对应的元对象。一旦得到一个元对象，我们可以调用 QMetaObject 的以下成员函数获取该元对象所描述类型的详细信息。
 
-className()返回被描述类的名字，superClass()返回被描述类的父类的元对象，methodCount()返回被描述类拥有多少个成员函数，而method()返回其中某个成员函数的具体信息，enumeratorCount()返回被描述类拥有多少个枚举类型，而enumerator()返回其中某个枚举类型的具体信息。
+className () 返回被描述类的名字，superClass () 返回被描述类的父类的元对象，methodCount () 返回被描述类拥有多少个成员函数，而 method () 返回其中某个成员函数的具体信息，enumeratorCount () 返回被描述类拥有多少个枚举类型，而 enumerator () 返回其中某个枚举类型的具体信息。
 
-如何获取QFileDialog的类型信息:
+如何获取 QFileDialog 的类型信息:
 
 ```c++
 QObject* pObject = new QFileDialog();
@@ -68,7 +68,7 @@ for(int i = p->enumeratorOffset();i < p->enumeratorCount();++i)//④
 QMessageBox::information(0,"",str);
 ```
 
-首先创建一个QFileDialog对象，指向QObject的指针指向该对象。行①调用虚函数metaObject()，C++的多态性机制将确保QFileDialog的对应函数被调用，返回的元对象描述的是QFileDialog的类型信息。行②获取该类及其父类的名字信息。一个派生类的成员函数中，既有其本身定义的，也有从其基类继承的。行③的methodOffset()返回继承的成员函数的总数量。该行仅查询该序号之后成员函数的信息，也就是说，QFileDialog本身定义的成员函数的信息。类似地，行④返回该类本身所定义的枚举类型的信息。
+首先创建一个 QFileDialog 对象，指向 QObject 的指针指向该对象。行①调用虚函数 metaObject ()，C++的多态性机制将确保 QFileDialog 的对应函数被调用，返回的元对象描述的是 QFileDialog 的类型信息。行②获取该类及其父类的名字信息。一个派生类的成员函数中，既有其本身定义的，也有从其基类继承的。行③的 methodOffset () 返回继承的成员函数的总数量。该行仅查询该序号之后成员函数的信息，也就是说，QFileDialog 本身定义的成员函数的信息。类似地，行④返回该类本身所定义的枚举类型的信息。
 
 ```
 QFileDialog inherits QDialog
@@ -122,3 +122,24 @@ Options
 Qt的元对象系统不但允许应用程序在运行阶段查询一个对象的类型信息，它还允许查询一个对象的数据信息，即该对象具有多少个数据成员，每个数据成员的名字、类型、当前取值等信息。
 
 具体地说，给定一个QObject派生类对象，与之对应的元对象提供了成员函数propertyCount()，返回该对象具有多少个数据成员。这个数字也包括该对象从其基类继承的数据成员。这个元对象还提供了成员函数property()，返回一个数据成员的名字、类型等信息。Qt使用类QMetaProperty描述这些信息。最重要的是，在程序运行阶段，应用程序可以调用QObject的成员函数property()，依据一个数据成员的名字来查询该数据成员的当前取值。
+
+获取一个QObject派生类对象的数据信息：
+
+```c++
+QFileDialog* p = new QFileDialog();
+auto objToString = [](const QObject* obj){
+    QString result;
+    const QMetaObject *meta = obj->metaObject();
+    for (int i=0; i < meta->propertyCount();++i){
+        const QMetaProperty mp = meta->property(i);//①
+        result += QString("%1 %2 %3;\n").arg(mp.typeName())//②
+            .arg(mp.name())//③
+            .arg (obj->property(mp.name()).toString());//④
+    }
+    return result;
+};
+
+QString str = objToString(p);
+```
+
+行①调用元对象的成员函数property()，获取第i个数据成员的信息，存放在一个QMetaProperty对象中。类QMetaProperty提供了一组丰富的成员函数，详细地描述一个数据成员的信息，行②、③调用了其中的两个，获取一个数据成员的类型、名字信息。
