@@ -16,6 +16,10 @@ QDesktopServices::openUrl(QUrl("http://blog.csdn.net/liang19890820"));
 
 ```c++
 QDesktopServices::openUrl(QUrl("file:///D:/Program Files/Youdao"));
+
+QDesktopServices::openUrl(QUrl("file:///C:/Program Files", QUrl::TolerantMode));//QUrl::TolerantMode：QUrl 将尝试纠正 URL 中的一些常见错误。这种模式对于解析来自严格符合标准的来源的 URL 非常有用。
+
+QDesktopServices::openUrl(QUrl::fromLocalFile("file:///C:/Program Files (x86)"));
 ```
 
 
