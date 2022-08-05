@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "t",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
