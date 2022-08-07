@@ -948,13 +948,13 @@ RC_ICONS = myico.ico
  ```
 IDI_ICON1	ICON	"UiSettings\\logo.ico"
  ```
-其实方案1编译生成后，就会在debug目录下的rc文件更新这段代码
+其实方案1编译生成后，就会在debug目录下的rc文件更新这段代码。
 
  可自行创建rc文件，进行更多自定义信息。在Pro文件加入：
  ```
 RC_FILE = SchulteGrid_resource.rc
  ```
- 当然，这样qmake 对 .rc 文件的自动生成就失效了。然后在工程目录中创建rc后缀的对应名字文件，如`SchulteGrid_resource.rc`。
+ 当然，这样qmake 对 .rc 文件的自动生成就失效了。在工程目录中创建rc后缀的文件，如`SchulteGrid_resource.rc`。
 
  **rc文件内容：**
 ```
@@ -1084,6 +1084,8 @@ END
 ```
 RC_FILE += myapp.rc
 ```
+> 注意：添加头文件方式，在使用过程中发现，Mingw编译器下，编译不通过，在MSVC编译器下正常。
+
 方案3：
 可以使用
 ```c++
