@@ -248,7 +248,8 @@ QLabel *permanent= new QLabel(this);
 permanent->setFrameStyle(QFrame:: Box | QFrame::Sunken);
 // 可以设置字体颜色
 permanent->setStyleSheet(" QLabel{ color: red }");
-permanent->setText("www.gter.org");
+permanent->setText(R"(<a href= "www.gter.org">永久信息</a>)");
+permanent->setOpenExternalLinks(true);//设置可以打开网站链接
 ui->statusBar->addPermanentWidget(permanent);
 ```
 
