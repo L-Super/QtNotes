@@ -481,21 +481,23 @@ Qt为文件和目录操作提供了一些类，利用这些类可以方便地实
 ## QCoreApplication
 QCoreApplication的有用函数
 
-| 函数原型                                     | 功能                                         |
-| -------------------------------------------- | -------------------------------------------- |
-| QString applicationDirPath()                 | 返回应用程序启动路径                         |
-| QString applicationFilePath()                | 返回应用程序的带有目录的完整文件名           |
-| void setApplicationName(QString &name)       | 设置应用程序名称                             |
-| QString applicationName()                    | 返回应用程序名称，无路径无后缀               |
-| QStringList libraryPaths()                   | 返回动态加载库文件时，应用程序搜索的目录列表 |
-| void setApplicationVersion(QString &version) | 设置应用程序的版本                           |
-| QString applicationVersion()                 | 返回应用程序的版本                           |
-| void setOrganizationName(QString &orgName)   | 为应用程序设置一个机构名                     |
-| QString organizationName()                   | 返回应用程序的机构名                         |
-| void exit()                                  | 退出应用程序                                 |
+| 函数原型                                           | 功能                                         |
+| -------------------------------------------------- | -------------------------------------------- |
+| QString applicationDirPath()                       | 返回应用程序启动路径                         |
+| QString applicationFilePath()                      | 返回应用程序的带有目录的完整文件名           |
+| void setApplicationName(const QString &name)       | 设置应用程序名称                             |
+| QString applicationName()                          | 返回应用程序名称，无路径无后缀               |
+| QStringList libraryPaths()                         | 返回动态加载库文件时，应用程序搜索的目录列表 |
+| void setApplicationVersion(const QString &version) | 设置应用程序的版本                           |
+| QString applicationVersion()                       | 返回应用程序的版本                           |
+| void setOrganizationName(const QString &orgName)   | 为应用程序设置一个机构名                     |
+| QString organizationName()                         | 返回应用程序的机构名                         |
+| void exit()                                        | 退出应用程序                                 |
 
 
 ![](Qt.assets/Pasted%20image%2020211207101803.png)
+
+> [ QCoreApplication]([QCoreApplication Class | Qt Core 5.15.10](https://doc.qt.io/qt-5/qcoreapplication.html))
 
 ## QFile
 
