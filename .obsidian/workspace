@@ -59,8 +59,7 @@
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
@@ -108,7 +107,7 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "6fc65756d60ff037",
+  "active": "3c4c6d8553e85be5",
   "lastOpenFiles": [
     "碎片.md",
     "Qt.md",
