@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "t",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -113,12 +113,14 @@
     "碎片.md",
     "Qt.md",
     "类的前置声明.md",
+    "qmake Pro 文件参数.md",
+    "自定义Widget使用QSS.md",
+    "二进制代码兼容.md",
+    "动态属性.md",
+    "property 属性系统.md",
     "Widget设置背景.md",
     "Qt调用ocx.md",
-    "Qt的元对象系统.md",
-    "Qt VS 设置C++11.md",
-    "qmake Pro 文件参数.md",
-    "QDesktopServices打开文件管理器.md",
-    "自定义qDebug输出打印信息.md"
+    "软件路径截取软件名，文件类型，路径.md",
+    "路径格式转换（斜杠与反斜杠转换）.md"
   ]
 }

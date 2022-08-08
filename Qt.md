@@ -211,8 +211,8 @@ QStatusBar位于界面底部，用于显示状态信息。
 + 正常信息,如显示页数和行号;
 + 永久信息,如显示版本号或者日期。
 
-可以使用 showMessage()函数显示一个临时消息,它会出现在状态栏的最左边。
-一般用 add widget()函数添加一个 QLabel到状态栏上,用于显示正常信息,它会生成到状态栏的最左边,可能被临时消息掩盖。
+可以使用 `showMessage () ` 函数显示一个临时消息, 它会出现在状态栏的最左边。
+一般用 `addwidget ()` 函数添加一个 QLabel 到状态栏上, 用于显示正常信息, 它会生成到状态栏的最左边, 可能被临时消息掩盖。
 
 如果要显示永久信息,则要使用 addPermanentWidget()函数来添加一个如QLabel一样的可以显示信息的部件,它会生成在状态栏的最右端,不会被临时消息掩盖。
 
@@ -248,7 +248,8 @@ QLabel *permanent= new QLabel(this);
 permanent->setFrameStyle(QFrame:: Box | QFrame::Sunken);
 // 可以设置字体颜色
 permanent->setStyleSheet(" QLabel{ color: red }");
-permanent->setText("www.gter.org");
+permanent->setText(R"(<a href= "www.gter.org">永久信息</a>)");
+permanent->setOpenExternalLinks(true);//设置可以打开网站链接
 ui->statusBar->addPermanentWidget(permanent);
 ```
 
@@ -481,18 +482,23 @@ Qt为文件和目录操作提供了一些类，利用这些类可以方便地实
 ## QCoreApplication
 QCoreApplication的有用函数
 
-| 函数原型                                   | 功能                                         |
-| ------------------------------------------ | -------------------------------------------- |
-| QString applicationDirPath()               | 返回应用程序启动路径                         |
-| QString applicationFilePath()              | 返回应用程序的带有目录的完整文件名           |
-| QString applicationName()                  | 返回应用程序名称，无路径无后缀               |
-| QStringList libraryPaths()                 | 返回动态加载库文件时，应用程序搜索的目录列表 |
-| void setOrganizationName(QString &orgName) | 为应用程序设置一个机构名                     |
-| QString organizationName()                 | 返回应用程序的机构名                         |
-| void exit()                                | 退出应用程序                                 |
+| 函数原型                                           | 功能                                         |
+| -------------------------------------------------- | -------------------------------------------- |
+| QString applicationDirPath()                       | 返回应用程序启动路径                         |
+| QString applicationFilePath()                      | 返回应用程序的带有目录的完整文件名           |
+| void setApplicationName(const QString &name)       | 设置应用程序名称                             |
+| QString applicationName()                          | 返回应用程序名称，无路径无后缀               |
+| QStringList libraryPaths()                         | 返回动态加载库文件时，应用程序搜索的目录列表 |
+| void setApplicationVersion(const QString &version) | 设置应用程序的版本                           |
+| QString applicationVersion()                       | 返回应用程序的版本                           |
+| void setOrganizationName(const QString &orgName)   | 为应用程序设置一个机构名                     |
+| QString organizationName()                         | 返回应用程序的机构名                         |
+| void exit()                                        | 退出应用程序                                 |
 
 
 ![](Qt.assets/Pasted%20image%2020211207101803.png)
+
+> [ QCoreApplication]([QCoreApplication Class | Qt Core 5.15.10](https://doc.qt.io/qt-5/qcoreapplication.html))
 
 ## QFile
 
@@ -948,13 +954,13 @@ RC_ICONS = myico.ico
  ```
 IDI_ICON1	ICON	"UiSettings\\logo.ico"
  ```
-其实方案1编译生成后，就会在debug目录下的rc文件更新这段代码
+其实方案1编译生成后，就会在debug目录下的rc文件更新这段代码。
 
  可自行创建rc文件，进行更多自定义信息。在Pro文件加入：
  ```
 RC_FILE = SchulteGrid_resource.rc
  ```
- 当然，这样qmake 对 .rc 文件的自动生成就失效了。然后在工程目录中创建rc后缀的对应名字文件，如`SchulteGrid_resource.rc`。
+ 当然，这样qmake 对 .rc 文件的自动生成就失效了。在工程目录中创建rc后缀的文件，如`SchulteGrid_resource.rc`。
 
  **rc文件内容：**
 ```
@@ -1084,6 +1090,8 @@ END
 ```
 RC_FILE += myapp.rc
 ```
+> 注意：添加头文件方式，在使用过程中发现，Mingw编译器下，编译不通过，在MSVC编译器下正常。
+
 方案3：
 可以使用
 ```c++
