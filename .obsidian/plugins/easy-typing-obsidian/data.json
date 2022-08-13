@@ -1,6 +1,6 @@
 {
-  "AutoFormatting": false,
-  "FormattingWhenLineEnd": true,
+  "AutoFormatting": true,
+  "FormattingWhenLineEnd": false,
   "ChineseEnglishSpace": true,
   "ChineseNoSpace": true,
   "Capitalization": false,
