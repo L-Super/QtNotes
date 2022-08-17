@@ -7,8 +7,12 @@
         "id": "792885e7824b3b3b",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "碎片.md",
+            "mode": "preview",
+            "source": false
+          }
         }
       }
     ],
@@ -50,7 +54,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "碎片.md"
+              }
             }
           }
         ]
@@ -73,6 +79,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "碎片.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -88,7 +95,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "碎片.md"
+              }
             }
           }
         ]
