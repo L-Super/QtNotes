@@ -4,7 +4,7 @@
     "type": "split",
     "children": [
       {
-        "id": "792885e7824b3b3b",
+        "id": "e55b40b28e13a874",
         "type": "leaf",
         "state": {
           "type": "markdown",
@@ -107,12 +107,12 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "792885e7824b3b3b",
+  "active": "e55b40b28e13a874",
   "lastOpenFiles": [
-    "Widget设置背景.md",
     "模型视图结构.md",
     "碎片.md",
     "Qt.assets/loginstatusgif.png",
+    "Widget设置背景.md",
     "Qt的元对象系统.md",
     "隐式共享.md",
     "自定义Widget使用QSS.md",
