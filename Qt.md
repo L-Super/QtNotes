@@ -1041,6 +1041,7 @@ RC_LANG = 0x0004
 
 #endif // VERSION_H
 ```
+> 注意：若出现 `version.h(16): fatal error RC1004: unexpected end of file found` 需要在 zui 最后 ji 加上 ji'ge'h几个行
 
 然后，添加资源文件并进行设置，例如：myapp.rc
 
