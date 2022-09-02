@@ -1041,7 +1041,8 @@ RC_LANG = 0x0004
 
 #endif // VERSION_H
 ```
-> 注意：离奇坑，当使用#pragma once预处理时，若出现 `version.h(16): fatal error RC1004: unexpected end of file found` 需要在最后敲上几个回车符
+> 注意：离奇坑，若出现 `version.h(16): fatal error RC1004: unexpected end of file found` 需要在最后敲上几个回车符，或者写上几行的注释。
+
 
 然后，添加资源文件并进行设置，例如：myapp.rc
 
