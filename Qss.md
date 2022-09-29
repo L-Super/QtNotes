@@ -1,5 +1,13 @@
 
+## QSS通用属性
+
 ## 控件类的QSS
+### QCalendarWidget
+
+```css
+
+```
+
 ## 实用属性
 + 样式表的轮廓线属性
 outline：绘制在对象边框上的轮廓
