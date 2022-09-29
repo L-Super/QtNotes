@@ -74,7 +74,7 @@ QCalendarWidget QAbstractItemView:enabled
 >
 > https://www.cnblogs.com/yinsedeyinse/p/11597516.html
 >
-> 
+> https://qtdebug.com/qtbook-qss-calendar/
 
 ## 实用属性
 
