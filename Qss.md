@@ -15,9 +15,8 @@ background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #80AEFF, stop:1
 border-radius: 2px;
 height:40px;
 width: 200px;
-outline:2px solid red;
+outline:2px solid red;/*如图红色边框*/
 ```
 
-
-
 ![](Qt.assets/Pasted%20image%2020220929105403.png)
+
