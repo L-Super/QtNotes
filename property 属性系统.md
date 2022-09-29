@@ -113,3 +113,4 @@ Q_PROPERTY(QCursor cursor READ cursor WRITE setCursor RESET unsetCursor)
 >
 > [Qt 之属性系统](https://blog.csdn.net/liang19890820/article/details/52022714)
 > [Q_PROPERTY-原始属性](https://www.cnblogs.com/itrena/p/5938312.html)
+> [Q_PROPERTY-自定义属性](https://www.cnblogs.com/itrena/p/5938311.html)
