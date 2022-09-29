@@ -4,11 +4,80 @@
 ## 控件类的QSS
 ### QCalendarWidget
 
-```css
+代码方面也有一些需要注意的
 
+```cpp
+//设置一周的第一天
+ui->calendarWidget->setFirstDayOfWeek(Qt::Sunday);
+//设置为本地，才能使SingleLetterDayNames生效，显示为一，二形式
+ui->calendarWidget->setLocale( QLocale::Chinese);//容易遇到的坑
+ui->calendarWidget->setHorizontalHeaderFormat(QCalendarWidget::SingleLetterDayNames);
+ui->calendarWidget->setVerticalHeaderFormat(QCalendarWidget::NoVerticalHeader);
+
+//默认第一列和最后一列为红色，需要设置format改为黑色，QSS貌似不能实现。
+QTextCharFormat format;
+format.setForeground(QColor("#333333"));
+ui->calendarWidget->setWeekdayTextFormat(Qt::Sunday, format);
+ui->calendarWidget->setWeekdayTextFormat(Qt::Saturday, format);
 ```
 
+
+
+```css
+/*整体widget*/
+QCalendarWidget QWidget { 
+background-color:#FFFFFF;
+ }
+
+QCalendarWidget QToolButton {
+    height: 60px;
+    width: 150px;
+    color: #333333;
+    font-size: 24px;
+    icon-size: 20px, 20px;
+    background-color: #FFFFFF;
+}
+
+/*前后月按钮图标*/
+QToolButton#qt_calendar_prevmonth,#qt_calendar_nextmonth{
+	border:1px solid;
+}
+/*月份选择*/
+QCalendarWidget QMenu {
+    width: 150px;
+    left: 20px;
+    color: #333333;
+    font-size: 18px;
+    background-color: #FFFFFF;
+}
+QCalendarWidget QMenu::item:selected{
+	color:red;
+}
+  
+/* header row */
+QCalendarWidget QWidget { 
+alternate-background-color:#FFFFFF; 
+}
+  
+/* normal days */
+QCalendarWidget QAbstractItemView:enabled
+{
+    color: #333333; 
+    background-color: #FFFFFF; 
+    selection-background-color:#FFFFFF;
+    selection-color: #3377FF;
+	outline:1px solid #3377FF;
+}
+```
+
+> https://doc.qt.io/qt-5/qcalendarwidget.html#setHeaderTextFormat
+>
+> https://www.cnblogs.com/yinsedeyinse/p/11597516.html
+>
+> 
+
 ## 实用属性
+
 + 样式表的轮廓线属性
 outline：绘制在对象边框上的轮廓
 
