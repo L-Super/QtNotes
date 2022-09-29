@@ -1,10 +1,10 @@
+
+## 控件类的QSS
 ## 实用属性
-样式表的轮廓线属性
++ 样式表的轮廓线属性
 outline：绘制在对象边框上的轮廓
 
 场景：一些控件有虚线框时需要去掉，或者需要加选中为边框时。
-
-
 
 ```css
 font-size: 11pt;
@@ -19,4 +19,19 @@ outline:2px solid red;/*如图红色边框*/
 ```
 
 ![](Qt.assets/Pasted%20image%2020220929105403.png)
+
+如图，默认会有虚线框。
+![](Qt.assets/Pasted%20image%2020220929112102.png)
+
+去掉可使用
+```css
+outline:none;
+```
+
+换为实线框可使用
+```css
+outline:1px solid #3377FF;
+```
+效果如图：
+![](Qt.assets/Pasted%20image%2020220929112229.png)
 
