@@ -543,6 +543,12 @@ QFilelnfo 的一些函数
 
 QDir是进行目录操作的类，在创建QDir对象时传递一个目录字符串作为当前目录，然后QDir
 函数就可以针对当前目录或目录下的文件进行操作。
+常用静态函数：
+
+| 函数                                                  | 功能                                                         |
+| ----------------------------------------------------- | ------------------------------------------------------------ |
+| QString fromNativeSeparators(const QString &pathName) | 使用**“/”**作为文件分隔符返回 pathName                       |
+| QString toNativeSeparators(const QString &pathName)   | 将参数中的路径**“/”**分隔符转换为适用于底层操作系统的分隔符。如在 Windows 上，toNativeSeparators("c:/winnt/system32") 返回 "c:\winnt\system32"。 |
 
  具体函数相似，可参考文档。
 
