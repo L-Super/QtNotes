@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "66662d575e1ce41a",
+        "id": "87b7ab3187a47684",
         "type": "tabs",
         "children": [
           {
-            "id": "66b5cc042b556a66",
+            "id": "312437d547c1d6a2",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -18,19 +18,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "46e2ca56886b5f8b",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.0.0"
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -130,12 +119,12 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "46e2ca56886b5f8b",
+  "active": "97cbca7c6620c324",
   "lastOpenFiles": [
-    "碎片.md",
-    "Qt.md",
-    "property 属性系统.md",
     "Qss.md",
+    "Qt.md",
+    "碎片.md",
+    "property 属性系统.md",
     "自定义Widget使用QSS.md",
     "隐式共享.md",
     "动态属性.md",
