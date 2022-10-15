@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "87b7ab3187a47684",
+        "id": "741679a69d9877c2",
         "type": "tabs",
         "children": [
           {
-            "id": "312437d547c1d6a2",
+            "id": "2edcdaea4588ac59",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -119,10 +119,10 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "312437d547c1d6a2",
+  "active": "06c97da582af3913",
   "lastOpenFiles": [
-    "Qss.md",
     "Qt.md",
+    "Qss.md",
     "碎片.md",
     "property 属性系统.md",
     "自定义Widget使用QSS.md",

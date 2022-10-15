@@ -12,7 +12,7 @@
 const QObject* sender,
 const char* signal,
 const QObject* receiver,
-const char* method.
+const char* method,
 Qt::ConnectionType type = Qt::AutoConnection)
 ```
 第一个参数为发射信号的对象，第二个参数为要发射的信号，第三个是接收信号的对象，第四个是要执行的槽函数，最后一个参数表明关联的方式，默认是Qt::AutoConnection。

@@ -6,5 +6,6 @@
   "alwaysUpdateLinks": true,
   "legacyEditor": false,
   "livePreview": true,
-  "newLinkFormat": "relative"
+  "newLinkFormat": "relative",
+  "showInlineTitle": false
 }

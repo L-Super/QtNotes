@@ -3,5 +3,7 @@
   "theme": "obsidian",
   "cssTheme": "Obsidianite",
   "translucency": false,
-  "accentColor": ""
+  "accentColor": "",
+  "showViewHeader": true,
+  "nativeMenus": false
 }
