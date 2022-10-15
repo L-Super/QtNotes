@@ -15,7 +15,7 @@
   "InlineFormulaSpaceMode": 1,
   "InlineLinkSpaceMode": 1,
   "InlineLinkSmartSpace": true,
-  "UserDefinedRegSwitch": true,
+  "UserDefinedRegSwitch": false,
   "UserDefinedRegExp": ":\\w*:\n{{.*?}}",
   "debug": false,
   "userSelRepRuleTrigger": [
