@@ -4,6 +4,7 @@
   "BaseObEditEnhance": true,
   "FW2HWEnhance": true,
   "AutoFormat": true,
+  "ExcludeFiles": "",
   "ChineseEnglishSpace": true,
   "ChineseNoSpace": true,
   "PunctuationSpace": true,

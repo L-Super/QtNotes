@@ -594,6 +594,14 @@ args<<"&&"<<"mkdir"<<"a";
 args<<"&&"<<"mkdir"<<"b";
 ```
 
+经测试，写入多条命令时，推荐使用一下语句：
+```c++
+p->setProgram("cmd");
+p->start();
+p->waitForStarted();
+p->write("D:/Code/demo.bat\n");//需要在末尾加/n
+p->write("md QAZX\n");
+```
 还可以使用信号与槽获取运行状态，比如打印输出信息
 ```c++
 p->setReadChannel(QProcess::StandardOutput);

@@ -18,19 +18,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "a4740b6a667e105c",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.0.0"
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -130,7 +119,7 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "a4740b6a667e105c",
+  "active": "312437d547c1d6a2",
   "lastOpenFiles": [
     "Qss.md",
     "Qt.md",
