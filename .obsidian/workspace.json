@@ -1,22 +1,18 @@
 {
   "main": {
-    "id": "5a3b2cd11dd19193",
+    "id": "ec27acf62a0d1082",
     "type": "split",
     "children": [
       {
-        "id": "741679a69d9877c2",
+        "id": "e530e6d3f9886671",
         "type": "tabs",
         "children": [
           {
-            "id": "2edcdaea4588ac59",
+            "id": "740bfd20f501b86e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Qt.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -25,15 +21,15 @@
     "direction": "vertical"
   },
   "left": {
-    "id": "8fd0049a6059cc04",
+    "id": "f3f4206cc6129492",
     "type": "split",
     "children": [
       {
-        "id": "73f9ed6b67e2f722",
+        "id": "7546a53ecff002d0",
         "type": "tabs",
         "children": [
           {
-            "id": "bfd5ab167cf6d453",
+            "id": "d6af0cbc43a7cd8c",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -43,7 +39,15 @@
             }
           },
           {
-            "id": "92b8f07528750740",
+            "id": "35ca49936c0fd215",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          },
+          {
+            "id": "e64d06a5e34024f0",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -56,39 +60,27 @@
                 "sortOrder": "alphabetical"
               }
             }
-          },
-          {
-            "id": "97cbca7c6620c324",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "file": "Qt.md"
-              }
-            }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "horizontal",
     "width": 300
   },
   "right": {
-    "id": "c4c2c5d68bcb5612",
+    "id": "831ef3808c0585d8",
     "type": "split",
     "children": [
       {
-        "id": "778a7fff5e6a297c",
+        "id": "a861d7250c85af6b",
         "type": "tabs",
         "children": [
           {
-            "id": "06c97da582af3913",
+            "id": "096b089df9cdd46c",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Qt.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -100,13 +92,11 @@
             }
           },
           {
-            "id": "c0f6208935ab50cc",
+            "id": "83ea952cd3f5c424",
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Qt.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -119,17 +109,9 @@
   "ribbon": {
     "mostRecentAction": ""
   },
-  "active": "2edcdaea4588ac59",
+  "active": "d6af0cbc43a7cd8c",
   "lastOpenFiles": [
     "Qt.md",
-    "Qss.md",
-    "碎片.md",
-    "property 属性系统.md",
-    "自定义Widget使用QSS.md",
-    "隐式共享.md",
-    "动态属性.md",
-    "d-pointer.md",
-    "qmake Pro 文件参数.md",
-    "Widget设置背景.md"
+    "碎片.md"
   ]
 }
