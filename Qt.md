@@ -601,7 +601,7 @@ p->waitForStarted();
 p->write("D:/Code/demo.bat\n");//需要在末尾加/n
 p->write("md QAZX\n");
 ```
-但使用此方法也有弊端，不能使用 `waitForFinished ()` 判断是否完成，否则将一直阻塞。
+但使用此方法也有弊端，调用 cmd 时，不能使用 `waitForFinished ()` 判断是否完成，否则将一直阻塞。
 
 还可以使用信号与槽获取运行状态，比如打印输出信息
 ```c++
