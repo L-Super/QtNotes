@@ -7,7 +7,7 @@
 声明一个槽函数要使用slots关键字，一个槽可以是public、private或protected类型，也可以被声明为虚函数。
 ## 信号与槽的关联
 ### Qt4传统方式
-```c++
+```cpp
 [static] QMetaObject::Connection QObject::connect(
 const QObject* sender,
 const char* signal,
@@ -39,7 +39,7 @@ Qt::ConnectionType枚举类型
 
    Connect()函数另一种常用的基于函数指针的重载形式如下:
 
-```c++
+```cpp
 [static] QMetaObject::Connection QObject::connect( 
 const QObject* sender,
 PointerToMemberFunction signal,
@@ -48,12 +48,12 @@ PointerToMemberFunction method,
 Qt::ConnectionType type = Qt::AutoConnection)
 ```
 这是Qt5加入的重载形式，指定信号和槽不再使用SIGNAL()和SLOT()宏，并且槽函数不再必须使用slots关键字声明，可以是任意能和信号关联的成员函数。
-```c++
+```cpp
 connect(dlg,&MyDialog::dlgReturn,this,&Widget::showValue);
 ```
 也支持Lambda表达式
 
-```c++
+```cpp
 connect(dlg,&MyDialog::dlgReturn,[=](int value){
 ui->label->setText(tr("获取的值：%1").arg(value));});
 ```
@@ -85,14 +85,14 @@ this,
   信号与槽的自动关联，一般Qt上默认实现。
   自行实现：
   on_pushButton_clicked()由字符串on、部件objectName和信号名称三部分组成，中间用下划线连接。
-```c++
+```cpp
 //widget.h
 private slots:
 	void on_myButton_clicked();
 ```
 widget.cpp添加头文件#include\<QPushButton>，使用自动关联的部件的定义都要放在setupUi()函数调用之前，且必须使用setObjectName()指定objectName
 
-```c++
+```cpp
 //widget.cpp
 Widget::Widget(QWidget* parent):QWidget(parent),ui(new Ui::Widget)
 {
@@ -109,7 +109,7 @@ void Widget::on_myButton_clicked()
 ## 断开关联
 
 可以通过 disconnect(函数来断开信号和槽的关联,其原型如下:
-```c++
+```cpp
 [static] bool QObject::disconnect( const QObject* sender, const char * signal, const QObject* receiver, const char* method)
 ```
 该函数一般有下面几种用法:
@@ -132,7 +132,7 @@ void Widget::on_myButton_clicked()
 也等价于:
 `disconnect( my Connection);// myConnection是进行关联时 connect()的返回值`
 与 connect()函数一样, disconnect()函数也有基于函数指针的重载形式:
-```c++
+```cpp
 [static] bool QObject::disconnect( const QObject* sender, PointerToMemberFunction signal, const QObject* receiver, PointerToMemberFunction method)
 ```
 其用法类似,只是其信号、槽参数需要使用函数指针`&MyObject::mySignal()`、
@@ -140,7 +140,7 @@ void Widget::on_myButton_clicked()
 ## 自定义信号及使用
 信号就是在类定义里声明的一个函数，但是这个函数无需实现，只需发射（emit）。
 例如，在下面的自定义类QPerson的signals部分定义一个信号ageChanged(int）。
-```c++
+```cpp
 class QPerson : public QObject
 {
 	Q_OBJECT
@@ -154,7 +154,7 @@ signals:
 ```
 信号函数必须是无返回值的函数，可以有输入参数。信号函数无需实现，只需在某些条件下发射信号。
 例如，在 incAge()函数中发射信号
-```c++
+```cpp
 void QPerson::incAge()
 {
 	m_age++;
@@ -226,14 +226,14 @@ QStatusBar位于界面底部，用于显示状态信息。
 
 临时信息：
 
-```c++
+```cpp
 //　可以设置字体颜色,其他属性应该也可以
 ui->statusBar->setStyleSheet("color:green"); 　
 // 显示临时消息,显示2000毫秒即2秒
 ui->statusBar->showMessage(tr("欢迎使用多文档编辑器"),2000);
 ```
 正常信息：
-```c++
+```cpp
 QLabel *msgLabel = new QLabel;
 msgLabel->setStyleSheet(" QLabel{ color: red }");
 msgLabel->setText("Ready :");
@@ -241,7 +241,7 @@ msgLabel->setText("Ready :");
 statusBar()->addWidget(msgLabel);
 ```
 永久信息：
-```c++
+```cpp
 // 创建标签,设置标签样式并显示信息,然后将其以永久部件的形式添加到状态栏
 QLabel *permanent= new QLabel(this);
 // 可以设置相关控件对应的属性
@@ -254,13 +254,13 @@ ui->statusBar->addPermanentWidget(permanent);
 ```
 
 移除控件
-```c++
+```cpp
  // 删除指定的控件
 　ui->statusBar->removeWidget(myLabel);
 ```
 
 可以插入多个控件，每个控件之间会有竖线相隔，分割不同的控件，隐藏方法：
-```c++
+```cpp
 // 将状态栏的所有item边框宽度设置为0
 statusBar()->setStyleSheet(“QStatusBar::item{border: 0px}”);
 ```
@@ -270,8 +270,8 @@ statusBar()->setStyleSheet(“QStatusBar::item{border: 0px}”);
 
 **模态对话框就是在没有关闭它之前,不能再与同一个应用程序的其他窗口进行交互**，比如新建项目时弹出的对话框。而对于非模态对话框,既可以与它交互,也可以与同一程序中的其他窗口交互,如 Microsoft word中的查找替换对话框。
 
-要想使一个对话框成为模态对话框，则只需要调用它的exec()函数；而要使其成为非模态对话框，则可以使用new操作来创建，然后使用show()函数来显示。其实使用show()函数也可以建立模态对话框，只须在其前面使用 set modal()函数即可。例如:
-```c++
+要想使一个对话框成为模态对话框，则只需要调用它的exec()函数；而要使其成为非模态对话框，则可以使用new操作来创建，然后使用show()函数来显示。其实使用show()函数也可以建立模态对话框，只须在其前面使用 setModal()函数即可。例如:
+```cpp
 QDialog *dialog = new QDialog( this);
 dialog->setModal(true);
 dialog->show():
@@ -284,7 +284,7 @@ Qt提供了一些常用的对话框类型,它们全部继承自 Dialog类,并增
 
 #### 选择文件
 QFileDialog::getOpenFileName()
-```c++
+```cpp
 //原型
 QString QFileDialog::getOpenFileName(QWidget *parent = nullptr, const QString& caption = QString(), const QString& dir = QString(), const QString& filter = QString(), QString* selectedFilter = nullptr, QFileDialog::Options options = Options())
 
@@ -307,12 +307,12 @@ QFileDialog:getExistingDirectory()
 标题和初始路径，还应传递一个选项，一般用QFileDialog:ShowDirsOnly,表示对话框中只显示
 目录。
 
-```c++
+```cpp
 QString selectedDir = QFileDialog::getExistingDirectory(this, "Title", "Path");
 ```
 ### 消息对话框
 消息对话框 QMessageBox类提供了一个模态的对话框来通知用户一些信息,或者向用户提出一个问题并且获取答案。
-```c++
+```cpp
 //问题对话框
 int ret1 = QMessageBox::question(this,tr("问题对话框"),tr("你了解Qt吗?"”), MEssagebOx::Yes, QMessageBox::No);
 if(ret1 = QMessageBox::Yes) qDebug()<<tr("问题!");
@@ -335,7 +335,7 @@ QMessageBox::about(this,tr("关于对话框"),tr(" 致力于t及 Qt Creator�
 
 ### 颜色对话框
  颜色对话框类 QDialog提供了一个可以获取指定颜色的对话框部件。
-```c++
+```cpp
 QColor color = QColorDialog::getColor(Qt::red,this,tr("颜色对话框"));
 ```
 
@@ -343,7 +343,7 @@ QColor color = QColorDialog::getColor(Qt::red,this,tr("颜色对话框"));
 字体对话框 QFontDialog类提供了一个可以选择字体的对话框部件
 ### 输入对话框
 QInputDialog类用来提供一个对话框,可以让用户输入一个单一的数值或字符串
-```c++
+```cpp
 bool ok;
 // 获取字符串
 QString string = QInputDialog::getText(this,tr("输人字符串对话框"),tr("请输入用户名:"), QLineEdit::Normal,tr("admin"), &ok);
@@ -365,7 +365,7 @@ if(ok) qDebug()<<"item:"<< item;
 ```
 
 ### 进度对话框
-```c++
+```cpp
 QProgressDialog dialog(tr("文件复制进度"),tr("取消"),0,50000,this);
 //设置窗口标题
 dialog.setWindowTitle(tr("进度对话框"));
@@ -425,14 +425,14 @@ Qt中提供了事件过滤器来实现在一个部件中监控其他多个部件
 
 在widget.h文件中添加`public`函数声明：
 
-```c++
+```cpp
 //widget.h
 public:
 	bool eventFilter(QObject* obj, QEvent* event);
 ```
 
 在`widget.cpp`文件中：
-```c++
+```cpp
 #include <QKeyEvent>
 #include <QWheelEvent>
 Widget::Widget()//构造函数中
@@ -444,7 +444,7 @@ Widget::Widget()//构造函数中
 
 要对一个部件使用事件过滤器，那么就要先使用installEventFilter()函数为其安装事件过滤器，这个函数的参数表明了监视对象。这里就为textEdit部件和spinBox部件安装了事件过滤器，其参数this表明要在本部件（即Widget)中监视textEdit和spinBox的事件。这样，就需要重新实现Widget类的eventFilter()函数，在其中截获并处理两个子部件的事件。
 
-```c++
+```cpp
 //事件过滤器
 bool Widget::eventFilter(QObject* obj, QEvent* event)
 {
@@ -597,7 +597,7 @@ args<<"&&"<<"mkdir"<<"b";
 ```
 
 经测试，写入多条命令时，推荐使用一下语句：
-```c++
+```cpp
 p->setProgram("cmd");
 p->start();
 p->waitForStarted();
@@ -607,7 +607,7 @@ p->write("md QAZX\n");
 但使用此方法也有弊端，调用 cmd 时，不能使用 `waitForFinished ()` 判断是否完成，否则将一直阻塞。
 
 还可以使用信号与槽获取运行状态，比如打印输出信息
-```c++
+```cpp
 p->setReadChannel(QProcess::StandardOutput);
 p->start(programPath,arguments);
 // QProcess输出信息
@@ -631,7 +631,7 @@ connect(p, &QProcess::readyReadStandardError, this, [=]{
 ## 关闭进程
 通过QProcess启动的进程可以通过调用`kill()`强制关闭或者`terminate()`尝试关闭
 
-```c++
+```cpp
 p.kill();
 p.terminate();
 ```
@@ -673,7 +673,7 @@ Q 指针，可以访问到外部的公共类。
 
 定义：
 
-```c++
+```cpp
 template <typename T> inline T *qGetPtrHelper(T *ptr) { return ptr; }
 template <typename Ptr> inline auto qGetPtrHelper(Ptr &ptr) -> decltype(ptr.operator->()) { return ptr.operator->(); }
 
@@ -739,7 +739,7 @@ template <typename Ptr> inline auto qGetPtrHelper(Ptr &ptr) -> decltype(ptr.oper
 
 类 QtServiceController 定义：
 
-```c++
+```cpp
 class QtServiceController 
 {
    Q_DECLARE_PRIVATE(QtServiceController) 
@@ -753,7 +753,7 @@ private:
 
 宏定义在 QtGlobal(即qglobal.h)头文件中：
 
-```c++
+```cpp
 #define Q_DECLARE_PRIVATE(Class) \
  inline Class##Private* d_func() { return reinterpret_cast<Class##Private *>(qGetPtrHelper(d_ptr)); } \
  inline const Class##Private* d_func() const { return reinterpret_cast<const Class##Private *>(qGetPtrHelper(d_ptr)); } \
@@ -796,13 +796,13 @@ private:
 
 对于一个基于QObject的控件来讲，我们可以通过setProperty来设置此控件的属性
 
-```c++
+```cpp
 bool QObject::setProperty(const char *name, const QVariant &value)
 ```
 说明: 参数name为自定义的属性名称，注意不要和控件的默认属性名称相同；value为此属性的值。
 
 使用property可以获取某个属性的值：
-```c++
+```cpp
 QVariant QObject::property(const char *name) const
 ```
 
@@ -814,7 +814,7 @@ QVariant QObject::property(const char *name) const
 
 1. 
 
-```c++
+```cpp
  // 获取按钮上的文本信息
 QString content = ui->pushButton->text();
 if(content == "开始")
@@ -823,7 +823,7 @@ if(content == "开始")
 
 2. 
 
-```c++
+```cpp
 if (d->createCurveButton->property("status") == "stop")
   {
     // 状态为stop，停止标记markup
@@ -850,12 +850,12 @@ if (d->createCurveButton->property("status") == "stop")
 
 2、当有多个OBject发出信号时可根据sender()函数判断是哪个对象发出的；
 
-```c++
+```cpp
 QPushButton* button = qobject_cast<QPushButton*>(sender());
 if(button == pushbtton)
 ```
 
-```c++
+```cpp
 dynamic_cast<QPushButton*>(sender());
 if (d->lineMeasureButton == sender())
 ```
@@ -875,7 +875,7 @@ TRANSLATIONS += langEnglish.ts \
 
  将qm文件添加到资源文件中，就可以载入翻译文件了。
 可在应用启动时就切换语言
-```c++
+```cpp
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -892,7 +892,7 @@ int main(int argc, char *argv[])
 
 
 也可添加按钮进行切换，反复切换语言不作过多介绍。
-```c++
+```cpp
  // 切换语言
  connect(ui->pushButton, &QPushButton::clicked, this, [=]{
  QTranslator *qtTranslator = new QTranslator;
@@ -903,7 +903,7 @@ int main(int argc, char *argv[])
 
 ## 只允许启动一个实例
  通过文件锁形式：
- ```c++
+ ```cpp
 QString path = QDir::temp().absoluteFilePath("HWWebBrowser.lock.tmp");
 QLockFile *lockFile = new QLockFile(path);
  //上锁失败，不能启动
@@ -915,7 +915,7 @@ QLockFile *lockFile = new QLockFile(path);
 tryLock默认0秒，意思是最多等待几秒放弃。比如，当tryLock(-1)时，即一直等待，此时若已打开一个exe程序，再次双击打开exe，会处于等待解锁过程，当第一个exe关闭时，第二个就会启动。若为2秒，则两秒内，文件还未解锁，就放弃启动程序。
 
 通过共享内存形式
-```c++
+```cpp
  // 创建信号量
  QSystemSemaphore semaphore("SingleAppSemaphore", 1); 
 
@@ -1114,7 +1114,7 @@ RC_FILE += myapp.rc
 
 方案3：
 可以使用
-```c++
+```cpp
 setWindowIcon(QIcon(":/image/image/ico.png"));
 ```
 此方法可以设置标题栏图标、任务栏图标、任务栏悬浮窗口标题栏图标，但是修改不了exe的图标。可以不用要求ico文件。在main函数中使用该函数可以使得 `QMessageBox::about`关于对话框的关于图标变成设置的图标。
