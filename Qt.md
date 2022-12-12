@@ -136,10 +136,11 @@ void Widget::on_myButton_clicked()
 [static] bool QObject::disconnect( const QObject* sender, PointerToMemberFunction signal, const QObject* receiver, PointerToMemberFunction method)
 ```
 其用法类似,只是其信号、槽参数需要使用函数指针`&MyObject::mySignal()`、
-`&MyReceiver::mySlot()`等形式。这个函数并不能断开信号与一般函数或者 lambda表达式之间的关联。
+`&MyReceiver::mySlot()` 等形式。这个函数并不能断开信号与一般函数或者 lambda 表达式之间的关联。
+
 ## 自定义信号及使用
 信号就是在类定义里声明的一个函数，但是这个函数无需实现，只需发射（emit）。
-例如，在下面的自定义类QPerson的signals部分定义一个信号ageChanged(int）。
+例如，在下面的自定义类 QPerson 的 `signals` 部分定义一个信号 `ageChanged (int）`。
 ```cpp
 class QPerson : public QObject
 {
