@@ -13,7 +13,28 @@ ui->tableWidget->setColumnCount(3);//3列
 
 行数可设置为0，通过`ui->tableWidget->insertRow(mRowCount)`插入新行
 
-# 接口
+# 常用成员方法
+
+| 信号函数                                  | 功 能                                                        |
+| ----------------------------------------- | ------------------------------------------------------------ |
+| cellClicked(int row,int column)           | 当某个单元格被点击时，触发该信号，row 和 columu 就是被点击的单元格的位置。 |
+| cellDoubleClicked(int row,int column)     | 当某个单元格被双击时，触发该信号，row 和 columu 就是被点击的单元格的位置。 |
+| cellEntered(int row,int column)           | 当某个单元格被按下时，触发该信号，row 和 columu 就是被点击的单元格的位置。 |
+| cellChanged(int row, int column)          | 当某个单元格中的数据发生改变时，触发该信号，row 和 columu 就是被改变的单元格的位置。 |
+| itemClicked(QTableWidgetItem *item)       | 当某个单元格被点击时，触发该信号，item 就是被点击的单元格。  |
+| itemDoubleClicked(QTableWidgetItem *item) | 当某个单元格被双击时，触发该信号，item 就是被双击的单元格。  |
+| itemEntered(QTableWidgetItem *item)       | 当某个单元格被按下时，触发该信号，item 就是被按下的单元格。  |
+| itemChanged(QTableWidgetItem *item)       | 当某个单元格中的数据发生改变时，触发该信号，item 就是被改变的单元格。 |
+
+| 槽函数                                                       | 功 能                                                    |
+| ------------------------------------------------------------ | -------------------------------------------------------- |
+| clear()                                                      | 删除表格中所有单元格的内容，包括表头。                   |
+| clearContents()                                              | 不删除表头，仅删除表格中数据区内所有单元格的内容，       |
+| insertColumn(int column)                                     | 在表格第 column 列的位置插入一个空列。                   |
+| insertRow(int row)                                           | 在表格第 row 行的位置插入一个空行。                      |
+| removeColumn(int column)                                     | 删除表格中的第 column 列，该列的所有单元格也会一并删除。 |
+| removeRow(int row)                                           | 删除表格中的第 row 行，该行的所有单元格也会一并删除。    |
+| scrollToItem(const QTableWidgetItem *item, QAbstractItemView::ScrollHint hint = EnsureVisible) | 滑动到指定的单元格。                                     |
 
 ## QTableWidget属性
 
@@ -90,6 +111,8 @@ columnHeaderItem0->setTextColor(QColor(200,111,30)); //设置文字颜色
 ```cpp
 // 设置排序
 ui->tableWidget->setSortingEnabled(true);
+// 对 0 列排序, 默认升序
+ui->tableWidget->sortItems(0);				
 ```
 
 7. 设置表头显示模式
@@ -131,8 +154,8 @@ tableWidget->setSpan(0, 0, 3, 1) //其参数为： 要改变单元格的 1行数
 首先，可以指定某个行或者列的大小
 
 ```
-tableWidget->setColumnWidth(3,200); 
-tableWidget->setRowHeight(3,60); 
+tableWidget->setColumnWidth(3, 200); 
+tableWidget->setRowHeight(3, 60); 
 ```
 
 还可以将行和列的大小设为与内容相匹配
