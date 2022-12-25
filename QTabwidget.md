@@ -2,6 +2,17 @@ QTableWidget 是 QTableView 的子类，主要的区别是 QTableView 可以使�
 
 ![](Qt.assets/Pasted%20image%2020221225201303.png)
 
+QTableWidget初始化时，必须指定行列数，否则无法正常显示。
+
+可在构造函数填入行列数，或单独设置行列数：
+
+```cpp
+ui->tableWidget->setRowCount(0);//0行为第一行数据
+ui->tableWidget->setColumnCount(3);//3列
+```
+
+行数可设置为0，通过`ui->tableWidget->insertRow(mRowCount)`插入新行
+
 # 接口
 
 ## QTableWidget属性
@@ -89,8 +100,6 @@ ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 ```
 
 
-
-
 ## 单元格属性
 
 1. **单元格设置字体颜色和背景颜色及字体**
@@ -113,8 +122,6 @@ item->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
 3. **合并单元格效果的实现**
 
-**************
-
 ```
 tableWidget->setSpan(0, 0, 3, 1) //其参数为： 要改变单元格的 1行数 2列数 要合并的 3行数 4列数
 ```
@@ -122,7 +129,6 @@ tableWidget->setSpan(0, 0, 3, 1) //其参数为： 要改变单元格的 1行数
 4. **设置单元格的大小**
 
 首先，可以指定某个行或者列的大小
-***************
 
 ```
 tableWidget->setColumnWidth(3,200); 
@@ -139,7 +145,6 @@ tableWidget->resizeRowsToContents();
 
 
 通过itemClicked (QTableWidgetItem *)` 信号，就可以获得鼠标单击到的单元格，进而获得其中的文字信息
-****************
 
 ```cpp
 connect(tableWidget,SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),this, SLOT( getItem(QTreeWidgetItem*,int)) );
@@ -148,12 +153,130 @@ connect(tableWidget,SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),this, SLOT( 
 6. **在单元格里加入控件**
 
 QTableWidget不仅允许把文字加到单元格，还允许把控件也放到单元格中。比如，把一个下拉框加入单元格，可以这么做：
-******
 
 ```cpp
 QComboBox *comBox = new QComboBox(); 
 comBox->addItem("Y"); 
 comBox->addItem("N"); 
 tableWidget->setCellWidget(0,2,comBox); 
+```
+
+# demo
+
+应用实例可参考[SchulteGrid/RecordWidget.cpp](https://github.com/L-Super/SchulteGrid/blob/master/RecordWidget.cpp#L50-L125)
+
+```cpp
+//RecordWidget.h
+  /**
+   * 初始化QTableWidget属性
+   */
+  void InitTableWidgetProperty();
+
+  /**
+   * 	初始化表头
+   */
+  void InitTableHeader();
+
+  /**
+   * 创建一行的item单元格集合，即一行有三个item
+   * @param row 行号
+   * @param date 日期
+   * @param mode 模式
+   * @param time 游戏用时
+   */
+  void CreateRowItem(int row, const QDateTime& date, const QString& mode, const QString& time);
+
+  /**
+   * 从数据末行追加一行数据，由mRowCount记录已有数据行数。
+   * @note
+   * ui->tableWidget->rowCount()插入方式，是初始化的表格行数再插入一行，而此函数是在已存在数据行下面插入一行
+   * @param date 日期
+   * @param mode 模式
+   * @param time 游戏用时
+   */
+  void AppendRowItem(const QDateTime& date, const QString& mode, const QString& time);
+```
+
+
+
+```cpp
+//RecordWidget.cpp
+void RecordWidget::InitTableWidgetProperty()
+{
+  // 设置行数，必须设置
+  ui->tableWidget->setRowCount(0);
+  // 表格禁止编辑
+  ui->tableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  // 设置表格为整行选择
+  ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+  // 去除选中虚线框
+  ui->tableWidget->setFocusPolicy(Qt::NoFocus);
+  // 设置排序
+  ui->tableWidget->setSortingEnabled(true);
+
+  //    ui->tableWidget->setShowGrid(false); //设置不显示格子线
+
+  // 设置无边框
+  ui->tableWidget->setFrameShape(QFrame::NoFrame);
+  // 设置表头显示模式,设置拉伸模式
+  ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+}
+void RecordWidget::InitTableHeader()
+{
+  QTableWidgetItem* headerItem;
+  QStringList headerText;
+  // 表头标题用QStringList来表示
+  headerText << "日期"
+             << "模式"
+             << "用时（s）";
+
+  // 表头各列的文字标题由一个 QStringList 对象
+  // headerText。初始化存储，如果只是设置行表头各列的标题，不设置样式，使用下面一行
+  // ui->tableWidget->setHorizontalHeaderLabels(headerText);
+
+  // 列数设置为与 headerText的行数相等
+  ui->tableWidget->setColumnCount(headerText.count());
+  // 列编号从0开始
+  for (int i = 0; i < ui->tableWidget->columnCount(); i++)
+  {
+    // 新建一个QTableWidgetItem，headerText.at(i)获取headerText的i行字符串
+    headerItem = new QTableWidgetItem(headerText.at(i));
+    QFont font = headerItem->font();
+    font.setBold(true);
+    font.setPointSize(12);
+    headerItem->setForeground(Qt::black);
+    headerItem->setFont(font);
+    // 设置表头单元格的Item
+    ui->tableWidget->setHorizontalHeaderItem(i, headerItem);
+  }
+}
+void RecordWidget::CreateRowItem(int row, const QDateTime& date, const QString& mode, const QString& time)
+{
+  QTableWidgetItem* item;
+  // 日期
+  item = new QTableWidgetItem(date.toString("yyyy-MM-dd hh:mm:ss.zzz"), TABLE_ITEM_TYPE::DATE);
+  // 文本对齐格式
+  item->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+  // row,col,item
+  ui->tableWidget->setItem(row, TABLE_ITEM_TYPE::DATE, item);
+
+  // 模式
+  item = new QTableWidgetItem(mode, TABLE_ITEM_TYPE::MODE);
+  item->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+  ui->tableWidget->setItem(row, TABLE_ITEM_TYPE::MODE, item);
+
+  // 用时
+  item = new QTableWidgetItem(time, TABLE_ITEM_TYPE::TIME);
+  item->setTextAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+  ui->tableWidget->setItem(row, TABLE_ITEM_TYPE::TIME, item);
+}
+void RecordWidget::AppendRowItem(const QDateTime& date, const QString& mode, const QString& time)
+{
+  // 插入一行，但不会自动为单元格创建item
+  ui->tableWidget->insertRow(mRowCount);
+  // 为某一行创建items
+  CreateRowItem(mRowCount, date, mode, time);
+  mRowCount++;
+}
 ```
 
