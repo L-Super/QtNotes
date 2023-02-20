@@ -66,18 +66,20 @@ ui->label->setText(tr("获取的值：%1").arg(value));});
 当信号有重载的情况时,使用Qt5的新语法可能会有一些不方便。例如, QSpinBox有两个重载的信号:
 
 ```
-void valueChanged ( int i)
-void valueChanged (const QString& text)
+void valueChanged (int i)；
+void valueChanged (const QString& text)；
 ```
 
 当进行连接时,编译器会发出一个错误。因为信号 valueChanged有重载,所以使用&QSpinBox::valueChanged语句获取信号的指针会有歧义，因有两个相同名字的信号。
-解决方案可用Qt4传统连接方式，也可增加显示类型转换继续使用Qt5新方式：
+解决方案可用 Qt4 传统连接方式，也可增加显式类型转换继续使用 Qt5 新方式：
 
-```
+```cpp
+connect(spinBox,SIGNAL(valueChanged(int)),this,SLOT(onSpinBoxValueChanged(int))):
+
 QObject::connect(spinBox,
 static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
 this,
-&MainWindow:: onSpinBoxValue Changed);
+&MainWindow::onSpinBoxValueChanged);
 ```
 
 ### 自动关联方式
