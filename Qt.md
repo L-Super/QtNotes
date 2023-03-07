@@ -76,10 +76,10 @@ void valueChanged (const QString& text)；
 ```cpp
 connect(spinBox,SIGNAL(valueChanged(int)),this,SLOT(onSpinBoxValueChanged(int))):
 
-QObject::connect(spinBox,
-static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged),
-this,
-&MainWindow::onSpinBoxValueChanged);
+QObject::connect(spinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &MainWindow::onSpinBoxValueChanged);
+
+)
+connect(spinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::onSpinBoxValueChanged);
 ```
 
 ### 自动关联方式
