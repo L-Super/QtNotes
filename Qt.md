@@ -71,14 +71,14 @@ void valueChanged (const QString& text)；
 ```
 
 当进行连接时,编译器会发出一个错误。因为信号 valueChanged有重载,所以使用&QSpinBox::valueChanged语句获取信号的指针会有歧义，因有两个相同名字的信号。
+
 解决方案可用 Qt4 传统连接方式，也可增加显式类型转换继续使用 Qt5 新方式：
 
 ```cpp
 connect(spinBox,SIGNAL(valueChanged(int)),this,SLOT(onSpinBoxValueChanged(int))):
 
-QObject::connect(spinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &MainWindow::onSpinBoxValueChanged);
+connect(spinBox, static_cast<void(QSpinBox::*)(int)>(&QSpinBox::valueChanged), this, &MainWindow::onSpinBoxValueChanged);
 
-)
 connect(spinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow::onSpinBoxValueChanged);
 ```
 
