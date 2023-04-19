@@ -78,7 +78,7 @@ QCalendarWidget QAbstractItemView:enabled
 
 ## 实用属性
 
-+ 样式表的轮廓线属性
+### 样式表的轮廓线属性
 outline：绘制在对象边框上的轮廓
 
 场景：一些控件有虚线框时需要去掉，或者需要加选中为边框时。
@@ -112,3 +112,22 @@ outline:1px solid #3377FF;
 效果如图：
 ![](Qt.assets/Pasted%20image%2020220929112229.png)
 
+## 注意的点
+### 自定义 Widget 的背景问题
+如果从 QWidget 派生子类，则需要为自定义 QWidget 提供 paintEvent ，用于支持 background, background-clip, background-origin 的 QSS 属性
+
+```cpp
+void CustomWidget::paintEvent(QPaintEvent *)
+{
+    QStyleOption opt;
+    opt.init(this);
+    QPainter p(this);
+    style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
+}
+```
+
+
+
+> [Customizing Qt Widgets Using Style Sheets](https://doc.qt.io/qt-5/stylesheet-customizing.html)
+> [Qt Style Sheets Examples](https://doc.qt.io/qt-5/stylesheet-examples.html)
+> [Qt Style Sheets Reference](https://doc.qt.io/qt-5/stylesheet-reference.html#qwidget-widget)
