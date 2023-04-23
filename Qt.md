@@ -170,6 +170,17 @@ void QPerson::incAge()
 connect(this,&QPerson::ageChanged,Receiver,[](int a){...});
 ```
 形参也可以进行一些处理
+### 信号传递自定义数据类型
+当信号传递自定义数据类型时，通常会出现以下报错
+```
+QObject::connect: Cannot queue arguments of type 'MyClass'
+(Make sure 'MyClass' is registered using qRegisterMetaType().)
+```
+需要使用 `qRegisterMetaType()` 对类型进行注册
+```cpp
+qRegisterMetaType<MyClass>("MyClass");
+qRegisterMetaType<MyClass>("MyClass&"); // 引用
+```
 
 ## 信号和槽的关系
 
