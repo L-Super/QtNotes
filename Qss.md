@@ -1,7 +1,23 @@
 
 ## QSS通用属性
 
-## 控件类的QSS
+## 控件类的 QSS
+### QPushButton
+#### 设置图标
+```css
+icon:url(":/images/button.svg");
+```
+或者
+```css
+qproperty-icon: url (:/img/folder.png);
+```
+
+暂未测试两者区别。第一种从Qt5.15开始支持
+
+> [QPushButton](https://doc.qt.io/qt-5/qpushbutton.html)
+>
+> [QPushButton icon](https://doc.qt.io/qt-5/stylesheet-reference.html#icon-prop)
+
 ### QCalendarWidget
 
 代码方面也有一些需要注意的
