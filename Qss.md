@@ -120,7 +120,7 @@ outline:1px solid #3377FF;
 
 | setFlat(true)                                     | background-color: transparent                     | border:none                                       |
 | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
-| ![](Qt.assets/Pasted%20image%2020230428145254.png) | ![](Qt.assets/Pasted%20image%2020230428145532.png) | ![](Qt.assets/屏幕截图%202023-04-28%20142845.png) |
+| ![](Qt.assets/image_setFlat(true).png) | ![](Qt.assets/image_background-color_transparent.png) | ![](Qt.assets/img_border_none.png) |
 
 
 从现象看，`border:none`设置后，图标会靠下边。其他场景未了解是否一致。
