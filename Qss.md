@@ -116,7 +116,16 @@ outline:1px solid #3377FF;
 ### 无边框按钮问题
 按钮可通过 `setFlat(true)` 或者 qss 的 `border:none` 或 `background-color: transparent;` 实现，但三者是有区别的。
 从现象上看，`setFlat(true)` 和 `background-color: transparent;` 是一致的
-而 `border:none`
+而 `border:none` 则是有区别的
+
+| setFlat(true)                                     | background-color: transparent                     | border:none                                       |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| ![](Qt.assets/Pasted%20image%2020230428145254.png) | ![](Qt.assets/Pasted%20image%2020230428145532.png) | ![](Qt.assets/屏幕截图%202023-04-28%20142845.png) |
+
+
+从现象看，`border:none`设置后，图标会靠下边。其他场景未了解是否一致。
+> `setFlat (true)` 故意留了两个图标未作任何处理进行对比
+
 ### 自定义 Widget 的背景问题
 如果从 QWidget 派生子类，则需要为自定义 QWidget 提供 paintEvent ，用于支持 background, background-clip, background-origin 的 QSS 属性
 
