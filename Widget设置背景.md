@@ -5,7 +5,8 @@
 
 设置背景图片：
 
-```c++
+```cpp
+setAutoFillBackground(true);
 QPalette palette;
 palette.setBrush(QPalette::Window, QBrush(QPixmap(":/images/bg.svg")));
 // palette.setBrush(QPalette::Window, QBrush(QPixmap(":/images/bg.svg").scaled(this->size())));
@@ -14,13 +15,16 @@ setPalette(palette);
 
 设置背景颜色：
 
-```c++
+```cpp
+setAutoFillBackground(true);
 QPalette palette;
-//设置主窗口背景颜色
+// 设置主窗口背景颜色
 palette.setColor(QPalette::Window, QColor(255, 150, 30));
+// 改变控件字体颜色
+palette.setColor(QPalette::WindowText, Qt::blue); 
 setPalette(palette);
 ```
-
+> 注意：在设置控件背景色填充时，一定要调用setAutoFillBackground(true)函数，来运行自动填充背景。不然，程序中填充背景的代码不会起作用。
 ## 方式二
 
 使用样式表或者是采用QSS文件
