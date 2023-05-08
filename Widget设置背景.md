@@ -33,7 +33,15 @@ setPalette(palette);
 setStyleSheet("QMainWindow#MainWindow{border-image: url(:/images/bg.svg);}");
 ```
 
-需要注意不加`QMainWindow#MainWindow`限定是否对其他QWidget有影响，因为子窗体会继承父窗体的属性。
+需要注意不加 `QMainWindow#MainWindow` 限定是否对其他 QWidget 有影响，因为子窗体会继承父窗体的属性。
+
+如果是自定义的 Widget 要使用 QSS，需要启用 QSS ，调用一下 `setAttribute(Qt::WA_StyledBackground)` 即可。[WidgetAttribute](WidgetAttribute.md)
+```cpp
+Widget::Widget(QWidget *parent) : QWidget(parent) {  
+    this->setAttribute(Qt::WA_StyledBackground); // 启用 QSS  
+    this->setStyleSheet("border: 2px solid red; background: pink; border-radius: 10px;"); // 设置 QSS  
+}
+```
 
 > background-image：按像素显示图片。图片比控件大会裁剪掉后面多余的部分，图片比控件小，多出的区域再填图片。
 >
