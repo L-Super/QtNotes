@@ -250,7 +250,7 @@ QCheckBox:hover{
 
 ### 4.9 其他样式
 
-*   opacity：控件的不透明度
+*   opacity：控件的不透明度（仅支持QToolTip）
 *   icon-size：控件中图标的宽度和高度
 *   image：在子控件的内容矩形中绘制的图像
 *   image-position：在 Qt 4.3 及更高版本中，可以使用相对或绝对位置指定图像图像位置的对齐
@@ -330,4 +330,8 @@ QCheckBox:hover{
 
 背景图片使用 background-image 属性定义， 它用于绘制由 background-origin 指定在盒模式中四个区域的图片开始显示的起点位置。 背景图片在盒模式域内的对齐和平铺方式可以通过 background-position 和 background-repeat 属性指定。
 
-如果指定的背景图片具有 alpha 通道（ 透明效果）， 通过 background-color 指定的颜色将会透过透明区域。 在 background-color 属性中有介绍。
+如果指定的背景图片具有 alpha 通道（ 透明效果），通过 background-color 指定的颜色将会透过透明区域。在 background-color 属性中有介绍。
+
+
+
+> [Qt Style Sheets Reference](https://doc.qt.io/qt-6/stylesheet-reference.html)
