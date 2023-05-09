@@ -1,9 +1,9 @@
 此枚举类型用于指定各种小部件属性。使用 `QWidget:setAttribute（）` 设置和清除属性，并使用 `QWidget:：testAttribute（）` 查询属性，有些属性具有特殊的便利功能，如下所述。
 
-| Constant                                 | Value                 | Description                                                  |
+| Constant                                 | Value| Description                                                  |
 | ---------------------------------------- | --------------------- | ------------------------------------------------------------ |
-| `Qt::WA_AcceptDrops`                     | `78`                  | Allows data from drag and drop operations to be dropped onto the widget (see [QWidget::setAcceptDrops](https://doc.qt.io/qt-5/qwidget.html#acceptDrops-prop)()). |
-| `Qt::WA_AlwaysShowToolTips`              | `84`                  | Enables tooltips for inactive windows.                       |
+| `Qt::WA_AcceptDrops`                     | `78`| Allows data from drag and drop operations to be dropped onto the widget (see [QWidget::setAcceptDrops](https://doc.qt.io/qt-5/qwidget.html#acceptDrops-prop)()). |
+| `Qt::WA_AlwaysShowToolTips`              | `84`| Enables tooltips for inactive windows.                       |
 | `Qt::WA_ContentsPropagated`              | `3`                   | This flag is superfluous and obsolete; it no longer has any effect. Since Qt 4.1, all widgets that do not set WA_PaintOnScreen propagate their contents. |
 | `Qt::WA_CustomWhatsThis`                 | `47`                  | Indicates that the widget wants to continue operating normally in "What's This?" mode. This is set by the widget's author. |
 | `Qt::WA_DeleteOnClose`                   | `55`                  | 使Qt在小部件接受关闭事件时删除此小部件 (see [QWidget::closeEvent](https://doc.qt.io/qt-5/qwidget.html#closeEvent)()). |
