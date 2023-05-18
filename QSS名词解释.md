@@ -149,7 +149,7 @@ QCheckBox:hover{
     *   margin-top
     *   margin-right
     *   margin-bottom
-*   padding：填充尺寸
+*   padding：填充尺寸（top、right、bottom、left 顺时针顺序）
     *   padding-left
     *   padding-top
     *   padding-right
