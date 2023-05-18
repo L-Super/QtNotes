@@ -159,4 +159,4 @@ void CustomWidget::paintEvent(QPaintEvent *)
 
 > [Customizing Qt Widgets Using Style Sheets](https://doc.qt.io/qt-5/stylesheet-customizing.html)
 > [Qt Style Sheets Examples](https://doc.qt.io/qt-5/stylesheet-examples.html)
-> [Qt Style Sheets Reference](https://doc.qt.io/qt-5/stylesheet-reference.html#qwidget-widget)
+> [Qt Style Sheets Reference](https://doc.qt.io/qt-5/stylesheet-reference.html)
