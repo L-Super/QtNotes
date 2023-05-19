@@ -140,7 +140,7 @@ outline:1px solid #3377FF;
 
 
 从现象看，`border:none`设置后，图标会靠下边。其他场景未了解是否一致。
-> `setFlat (true)` 故意留了两个图标未作任何处理进行对比
+> 实测在 Linux 系统上（Ubuntu、UOS）使用 `background-color: transparent` 方式会有差异，透明背景会变黑。
 
 ### 自定义 Widget 的背景问题
 如果从 QWidget 派生子类，则需要为自定义 QWidget 提供 paintEvent ，用于支持 background, background-clip, background-origin 的 QSS 属性
