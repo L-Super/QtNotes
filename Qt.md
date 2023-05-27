@@ -576,8 +576,8 @@ if (dir.isValid()) {
 
 临时目录将包含名称的一些静态部分和一些计算为唯一的部分。默认路径将从 `QCoreApplication::applicationName() ` (否则为 qt _ temp) 确定，并将放到由 `QDir::temPath()` 返回的临时路径中。如果您指定自己的路径，相对路径将不会默认放置在临时目录中，而是相对于当前工作目录。在所有情况下，路径都会附加一个随机字符串，以使其唯一。
 ### QTemporaryFile
-TemporaryFile 是用于创建临时文件的类
-QporaryFile 用于安全地创建唯一的临时文件。文件本身是通过调用 open ()创建的。临时文件的名称保证是唯一的(例如，您保证不会覆盖现有的文件) ，并且该文件将随后在 QtemaryFile 对象被销毁时被删除
+用于创建临时文件的类
+QTemporaryFile 用于安全地创建唯一的临时文件。文件本身是通过调用 `open()` 创建的。临时文件的名称保证是唯一的 (例如，您保证不会覆盖现有的文件) ，并且该文件将随后在 QTemporaryFile 对象被销毁时被删除。
 
 ## QFileSystemWatcher
 
