@@ -555,8 +555,8 @@ QFilelnfo 的一些函数
 
 ## QDir
 
-QDir是进行目录操作的类，在创建QDir对象时传递一个目录字符串作为当前目录，然后QDir
-函数就可以针对当前目录或目录下的文件进行操作。
+QDir 是进行目录操作的类，在创建 QDir 对象时传递一个目录字符串作为当前目录，然后 QDir 函数就可以针对当前目录或目录下的文件进行操作。
+
 常用静态函数：
 
 | 函数                                                  | 功能                                                         |
@@ -568,9 +568,27 @@ QDir是进行目录操作的类，在创建QDir对象时传递一个目录字符
 
 ## QTemporaryDir和QTemporaryFile
 
-QTemporaryDir 是用于创建、删除临时目录的类
+### QTemporaryDir 
+用于创建、删除临时目录的类。
 
-TemporaryFile是用于创建临时文件的类
+QTemporaryDir 用于安全地创建唯一的临时目录。目录本身由构造函数创建。临时目录的名称保证是唯一的 (保证不会覆盖现有的目录) ，并且随后在销毁 QTemporaryDir 对象时将删除该目录。
+```cpp
+// Within a function/method...
+
+QTemporaryDir dir;
+if (dir.isValid()) {
+	// dir.path() returns the unique directory path
+}
+
+// The QTemporaryDir destructor removes the temporary directory
+// as it goes out of scope.
+```
+测试是否可以使用 `isValid（）` 创建临时目录是非常重要的。不要使用 `exists（）`，因为默认构造的 QDir 表示当前目录，而该目录已存在。
+
+临时目录将包含名称的一些静态部分和一些计算为唯一的部分。默认路径将从 `QCoreApplication::applicationName() ` (否则为 qt _ temp) 确定，并将放到由 `QDir::temPath()` 返回的临时路径中。如果您指定自己的路径，相对路径将不会默认放置在临时目录中，而是相对于当前工作目录。在所有情况下，路径都会附加一个随机字符串，以使其唯一。
+### QTemporaryFile
+用于创建临时文件的类
+QTemporaryFile 用于安全地创建唯一的临时文件。文件本身是通过调用 `open()` 创建的。临时文件的名称保证是唯一的 (例如，您保证不会覆盖现有的文件) ，并且该文件将随后在 QTemporaryFile 对象被销毁时被删除。
 
 ## QFileSystemWatcher
 
