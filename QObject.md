@@ -1,0 +1,1 @@
+![](Qt.assets/Pasted%20image%2020230605221224.png)
