@@ -14,6 +14,14 @@ void LoadQssFile()
     }  
 }
 
+int main()
+{
+    //...
+    MainWindow w; 
+    QShortcut *shortcut = new QShortcut(QKeySequence(Qt::CTRL + Qt::Key_L), &w);
+    QObject::connect(shortcut, &QShortcut::activated, []{ LoadQssFile();});
+    //...
+}
 ```
 
 用于多个 css 文件加载
