@@ -18,6 +18,40 @@ qproperty-icon: url (:/img/folder.png);
 >
 > [QPushButton icon](https://doc.qt.io/qt-5/stylesheet-reference.html#icon-prop)
 
+### QTabBar
+#### QTabBar::close-button
+可以设置 tab 关闭按钮的位置
+```css
+QTabBar::close-button {
+    subcontrol-position: left;
+}
+```
+比如改为 left 后，关闭按钮将在左侧显示：
+![](Qt.assets/Pasted%20image%2020230817114341.png)
+#### QTabBar::tear
+QSS 中 `QTabBar::tear` 子控件用于设置 QTabBar 的可分离指示器。
+当 tab 个数大于一定个数时，出现右侧的左右箭头并点击右箭头时，会出现如下图左侧波浪线形状的线条，这是 Qt 自带的，作用是点击回到第一个 tab
+![](Qt.assets/Pasted%20image%2020230817113018.png)
+例如：
+```css
+QTabBar::tear {
+    width: 10px;
+    background-color: yellowgreen;
+}
+```
+就变成了宽度为 10 px，背景颜色为绿黄色的样式。
+![](Qt.assets/Pasted%20image%2020230817113408.png)
+也可将其去掉：
+```css
+QTabBar::tear {
+    width: 0px; 
+    border: none;
+}
+```
+![](Qt.assets/Pasted%20image%2020230817113637.png)
+
+
+
 ### QCalendarWidget
 
 代码方面也有一些需要注意的
@@ -154,28 +188,6 @@ void CustomWidget::paintEvent(QPaintEvent *)
     style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
 ```
-
-### QTabBar::tear
-QSS 中 `QTabBar::tear` 子控件用于设置 QTabBar 的可分离指示器。
-当 tab 个数大于一定个数时，出现右侧的左右箭头并点击右箭头时，会出现如下图左侧波浪线形状的线条，这是 Qt 自带的，作用是点击回到第一个 tab
-![](Qt.assets/Pasted%20image%2020230817113018.png)
-例如：
-```css
-QTabBar::tear {
-    width: 10px;
-    background-color: yellowgreen;
-}
-```
-就变成了宽度为 10px，背景颜色为绿黄色的样式。
-![](Qt.assets/Pasted%20image%2020230817113408.png)
-也可将其去掉：
-```css
-QTabBar::tear {
-    width: 0px; 
-    border: none;
-}
-```
-![](Qt.assets/Pasted%20image%2020230817113637.png)
 
 
 
