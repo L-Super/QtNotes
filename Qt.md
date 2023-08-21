@@ -535,20 +535,30 @@ static void QCoreApplication::sendPostedEvents(QObject *receiver, int event_type
 
 现在，我们已经能够自定义事件对象，已经能够将事件发送出去，还剩下最后一步：处理自定义事件。处理自定义事件，同前面我们讲解的那些处理方法没有什么区别。我们可以重写`QObject::customEvent()`函数，该函数接收一个`QEvent`对象作为参数：
 
-```
+```cpp
 void QObject::customEvent(QEvent *event);
 ```
 
 我们可以通过转换 event 对象类型来判断不同的事件：
 
-```
-void CustomWidget::customEvent(QEvent *event) {    CustomEvent *customEvent = static_cast<CustomEvent *>(event);    // ...}
+```cpp
+void CustomWidget::customEvent(QEvent *event) {    
+	CustomEvent *customEvent = static_cast<CustomEvent *>(event);    
+	// ...
+}
 ```
 
 当然，我们也可以在`event()`函数中直接处理：
 
-```
- 复制代码bool CustomWidget::event(QEvent *event) {    if (event->type() == MyCustomEventType) {        CustomEvent *myEvent = static_cast<CustomEvent *>(event);        // processing...        return true;    }    return QWidget::event(event);}
+```cpp
+bool CustomWidget::event(QEvent *event) {    
+	if (event->type() == MyCustomEventType) {
+		CustomEvent *myEvent = static_cast<CustomEvent *>(event);
+		// processing...        
+		return true;    
+	}
+	return QWidget::event(event);
+}
 ```
 
 
