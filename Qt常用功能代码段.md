@@ -8,7 +8,7 @@ protected:
 
     void mouseReleaseEvent(QMouseEvent* /*event*/) override;
 private:
-    bool isMoving;
+    bool isMoving{false};
     QPoint pressPos;
 ```
 
