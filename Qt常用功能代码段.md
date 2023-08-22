@@ -49,3 +49,43 @@ void MainWindow::mousePressEvent(QMouseEvent* event)
 }
 ```
 
+
+## QD 指针结构模板
+
+```cpp
+class MyClassPrivate;
+class MyClass : public QObject {
+  public:
+    MyClass(QObject *parent = nullptr);
+    virtual ~MyClass() = default;
+    void dummyFunc();
+
+  private:
+    QScopedPointer<MyClassPrivate> d_ptr;
+    Q_DECLARE_PRIVATE(MyClass);
+};
+
+class MyClassPrivate {
+  public:
+    explicit MyClassPrivate(MyClass *parent) : q_ptr(parent) {}
+
+    void foobar() {
+      Q_Q(MyClass);
+    }
+
+  private:
+    MyClass *const q_ptr;
+    Q_DECLARE_PUBLIC(MyClass);
+};
+
+MyClass::MyClass(QObject *parent)
+    : QObject(parent), d_ptr(new MyClassPrivate(this)) {}
+
+void MyClass::dummyFunc() {
+    Q_D(MyClass);
+    d->foobar();
+}
+```
+
+
+
