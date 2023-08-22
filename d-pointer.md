@@ -6,48 +6,46 @@ Qt常将其命名为d_ptr或者d。Qt文档将其称为d-pointer。[Q_D和Q_Q指
 ## d-pointer的实现
 实现d-pointer模式时还需要考虑其他一些因素。公类使用d_pointer可以访问私类的成员。有时，私类的成员函数需要访问公类的成员，比如公类中定义的信号。这需要在私类中定义一个逆向的指针，Qt将这个指针称为q-pointer。
 
-```c++
-
-class MyClassPrivate;  //前置声明
+```cpp
+class MyClassPrivate; // 前置声明
 class MyClass : public QObject {
- public:
-    MyClass(QObject *parent = nullptr);
-    virtual ~MyClass();
-    void dummyFunc();
-    signal : void dummySignal();
+public:
+  MyClass(QObject *parent = nullptr);
+  virtual ~MyClass();
+  void dummyFunc();
+signals:
+  void dummySignal();
 
- private:
-    MyClassPrivate *const d_ptr;
-    Q_DECLARE_PRIVATE(MyClass);//①
+private:
+  MyClassPrivate *const d_ptr;
+  Q_DECLARE_PRIVATE(MyClass); // ①
 };
 
 class MyClassPrivate {
- public:
-    MyClassPrivate(MyClass *parent) : q_ptr(parent) {}
+public:
+  MyClassPrivate(MyClass *parent) : q_ptr(parent) {}
 
-    void foobar() {
-        Q_Q(MyClass);  //声明之后，即将q_func() = q，就可以直接使用q
-        emit q->dummySignal();
-    }
+  void foobar() {
+    Q_Q(MyClass); // 声明之后，即将q_func() = q，就可以直接使用q
+    emit q->dummySignal();
+  }
 
- private:
-    MyClass *const q_ptr;
-    Q_DECLARE_PUBLIC(MyClass);//②
+private:
+  MyClass *const q_ptr;
+  Q_DECLARE_PUBLIC(MyClass); // ②
 };
 
-MyClass : MyClass(QObject *parent)
-              QObject(parent),
-          d_ptr(new MyClassPrivate(this)) {
+MyClass::MyClass(QObject *parent)
+    : QObject(parent), d_ptr(new MyClassPrivate(this)) {}
+
+MyClass::~MyClass() {
+  Q_D(MyClass); // 同Q_Q
+  delete d;
 }
 
-MyClass : ~MyClass() {
-    Q_D(MyClass);  //同Q_Q
-    delete d;
-}
-
-void MyClass : dummyFunc {
-    Q_D(MyClass);
-    d->foobar();
+void MyClass::dummyFunc() {
+  Q_D(MyClass);
+  d->foobar();
 }
 ```
 
