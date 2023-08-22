@@ -57,7 +57,7 @@ class MyClassPrivate;
 class MyClass : public QObject {
   public:
     MyClass(QObject *parent = nullptr);
-    virtual ~MyClass() = default;
+    virtual ~MyClass();
     void dummyFunc();
 
   private:
@@ -80,6 +80,8 @@ class MyClassPrivate {
 
 MyClass::MyClass(QObject *parent)
     : QObject(parent), d_ptr(new MyClassPrivate(this)) {}
+
+MyClass::~MyClass() = default;
 
 void MyClass::dummyFunc() {
     Q_D(MyClass);
