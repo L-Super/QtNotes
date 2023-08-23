@@ -24,6 +24,8 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 }
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
+	if (window()->isMaximized() || window()->isFullScreen())  
+	    return QWidget::mouseMoveEvent(event);
 	if (isMoving) {
 		QPoint diff = event->pos() - pressPos;
 
