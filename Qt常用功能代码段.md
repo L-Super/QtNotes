@@ -24,6 +24,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 }
 void MainWindow::mouseMoveEvent(QMouseEvent *event)
 {
+	// 如果是全屏的情况下，则禁止移动
 	if (window()->isMaximized() || window()->isFullScreen())  
 	    return QWidget::mouseMoveEvent(event);
 	if (isMoving) {
