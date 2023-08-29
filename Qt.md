@@ -302,8 +302,22 @@ QFileDialog::getOpenFileName()
 //原型
 QString QFileDialog::getOpenFileName(QWidget *parent = nullptr, const QString& caption = QString(), const QString& dir = QString(), const QString& filter = QString(), QString* selectedFilter = nullptr, QFileDialog::Options options = Options())
 
-
+// static method
 QString fileName = QFileDialog::getOpenFileName(this,tr("文件对话框"),"D:",tr("图片文件(*.jpg *.png);;所有文件(*.*)"));
+
+// object
+QFileDialog fileDialog(nullptr, "title");
+fileDialog.setAcceptMode(QFileDialog::AcceptOpen);
+fileDialog.setFileMode(QFileDialog::ExistingFile);
+
+QStringList acceptFilters{"Image files (*.png *.jpg)",
+						  "Text files (*.txt)",
+						  "Any files (*)"};
+fileDialog.setNameFilters(acceptFilters);
+
+if (fileDialog.exec() == QDialog::Accepted) {
+	QStringList selectedFiles = fileDialog.selectedFiles();
+}
 ```
 
 参数：
