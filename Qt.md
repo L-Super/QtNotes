@@ -443,13 +443,13 @@ for(int i=0; i < 50000; i++){
 ## 事件的接受和忽略
 事件可以被接受或忽略，被接受的事件不会再传递给其他对象，被忽略的事件会被传递给其他对象处理，或者该事件被丢弃(即没有对象处理该事件)
 
-使用 `QEvent::accept()` 函数表示接受一个事件，即调用 `accept()`，则事件不会传递给父对象，使用 `QEvent::ignore()` 函数表示忽略一个事件，即调用 ignore ()则事件会向父对象传递。
+使用 `QEvent::accept()` 函数表示接受一个事件，即调用 `accept()`，则事件不会传递给父对象，使用 `QEvent::ignore()` 函数表示忽略一个事件，即调用 `ignore()` 则事件会向父对象传递。
 
-Qt 默认值是 accept ()，但在 QWidget 的默认事件处理函数(比如 keyPressEvent())中，默认值是ignore()，因为这样可实现事件的传递(即子对象未处理就传递给父对象处理)。对事件的接受和忽略，最好是明确的调用 accept()和 ignore 函数。
+Qt 默认值是 `accept()`，但在 QWidget 的默认事件处理函数 (比如 ` keyPressEvent()`)中，默认值是 `ignore()`，因为这样可实现事件的传递 (即子对象未处理就传递给父对象处理)。对事件的接受和忽略，最好是明确的调用 `accept()` 和 `ignore()` 函数。
 
-在 event()函数中调用 accept()或 ignore()是没有意义的，event()函数通过返回一个 bool 值来告诉调用者是否接受了事件(true 表示接受事件)。 event()函数返回的 bool 值是用于与 QApplication::notify()函数之间通信的。
+在 event ()函数中调用 `accept()` 或 `ignore()` 是没有意义的，`event()` 函数通过返回一个 bool 值来告诉调用者是否接受了事件 (true 表示接受事件)。 `event()` 函数返回的 bool 值是用于与 `QApplication::notify()` 函数之间通信的。
 
-注意：QCloseEvent(关闭事件)有一些不同，QCloseEvent::ignore()表示取消关闭操作，而QCloseEvent::accept()则表示让 Qt 继续关闭操作。
+注意：QCloseEvent (关闭事件)有一些不同，`QCloseEvent::ignore()` 表示取消关闭操作，而 `QCloseEvent::accept()` 则表示让 Qt 继续关闭操作。
 ## 事件过滤器与事件发送
 Qt中提供了事件过滤器来实现在一个部件中监控其他多个部件的事件。事件过滤器与其他部件不同，它不是一个类，只是由两个函数组成的一种操作，用来完成一个部件对其他部件的事件的监视。这两个函数分别是installEventFilter()和eventFilter()，都是QObject类中的函数。
 
