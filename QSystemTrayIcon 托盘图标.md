@@ -2,6 +2,13 @@
 
 添加系统托盘项，首先，需要创建一个QSystemTrayIcon对象，并调用setContextMenu()为图标提供上下文菜单，然后，调用show()使其在系统托盘中可见。
 
+## 信号
+
+| 信号                                                         | 描述                                                      |
+| ------------------------------------------------------------ | --------------------------------------------------------- |
+| void **[activated](https://doc.qt.io/qt-6/qsystemtrayicon.html#activated)**(QSystemTrayIcon::ActivationReason *reason*) | 当用户激活系统托盘图标时发出此信号                        |
+| void messageClicked()                                        | 当用户单击使用 showMessage ()显示的消息时，将发出此信号。 |
+
 ### 枚举QSystemTrayIcon::ActivationReason
 
 此枚举描述了系统托盘被激活的原因。
@@ -56,8 +63,9 @@ trayIcon->setContextMenu(trayMenu);
 trayIcon->show();
 // show()之后才生效
 trayIcon->setToolTip("QClipboard");
-// 在系统拖盘增加图标时显示提示信息
+// 弹出气泡通知消息
 trayIcon->showMessage("QClipboard 剪贴板", "已隐藏至系统托盘");
+
 connect(trayIcon, &QSystemTrayIcon::activated, this, [](QSystemTrayIcon::ActivationReason reason){
     switch (reason) {
 	case QSystemTrayIcon::Trigger:
@@ -72,3 +80,10 @@ connect(trayIcon, &QSystemTrayIcon::activated, this, [](QSystemTrayIcon::Activat
 });
 ```
 
+需要注意的是，QSystemTrayIcon 必须设置图标。
+
+`setToolTip()`和`showMessage()`需要在`show()`之后调用，暂不清楚是否平台差异。
+
+
+
+> [QSystemTrayIcon Class](https://doc.qt.io/qt-6/qsystemtrayicon.html)
