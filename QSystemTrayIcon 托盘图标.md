@@ -61,7 +61,7 @@ trayIcon->setIcon(QIcon(":/resources/images/clipboard2.svg"));
 // 在右键时，弹出菜单。
 trayIcon->setContextMenu(trayMenu);
 trayIcon->show();
-// show()之后才生效
+// 在Windows上 show()之后才生效，而Linux则不正常，托盘图标也不能正常显示
 trayIcon->setToolTip("QClipboard");
 // 弹出气泡通知消息
 trayIcon->showMessage("QClipboard 剪贴板", "已隐藏至系统托盘");
