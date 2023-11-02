@@ -82,7 +82,7 @@ connect(trayIcon, &QSystemTrayIcon::activated, this, [](QSystemTrayIcon::Activat
 
 需要注意的是，QSystemTrayIcon 必须设置图标。
 
-`setToolTip()` 和 `showMessage()` 需要在 `show()` 之后调用，暂不清楚是否平台差异，可能和设置完之后就 `show()` 有关。
+在 Windows 11 系统上 `setToolTip()` 和 `showMessage()` 需要在 `show()` 之后调用，暂不清楚是否与编译器或者 Qt 版本相关。
 
 
 
