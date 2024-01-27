@@ -34,7 +34,8 @@ Qt::ConnectionType枚举类型
 | Qt::QueuedConnection | 队列关联（异步）。当接收对象所在线程的事件循环取得控制权时，才取得信号，再执行对应槽函数,无论槽函数执行与否,发射信号处后面的代码都会立即执行。**槽函数在接收者所在线程执行。** |
 | Qt::BlockingQueuedConnection | 阻塞队列关联。类似Qt::QueuedConnection,不过,信号线程会一直阻塞,直到槽返回。当 receiver存在于信号线程时不能使用该类型,不然程序会死锁 |
 | Qt::UniqueConnection | 唯一关联。这是一个标志,可以结合其他几种连接类型,使用按位或操作。这时两个对象间的相同的信号和槽只能有唯一的关联。使用这个标志主要为了防止重复关联 |
-
+> Note: `Qt::UniqueConnection` do not work for lambdas, non-member functions and functors; they only apply to connecting to member functions.
+> see: [connect](https://doc.qt.io/qt-5/qobject.html#connect)
 ### Qt5新方式
 
    Connect()函数另一种常用的基于函数指针的重载形式如下:
