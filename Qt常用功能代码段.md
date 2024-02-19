@@ -93,4 +93,8 @@ void MyClass::dummyFunc() {
 ```
 
 
-
+## 程序重启
+```cpp
+qApp->quit();  
+QProcess::startDetached(qApp->applicationFilePath(), QStringList());
+```
