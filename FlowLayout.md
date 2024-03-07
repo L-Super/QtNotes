@@ -133,7 +133,9 @@ Qt::Orientations FlowLayout::expandingDirections() const
     return { };
 }
 
-// 为了适应高度取决于宽度的小部件，我们实现了heightForWidth()。函数hasHeightForWidth()用于测试此依赖关系，heightForWidth()将宽度传递给doLayout，doLayout又将宽度用作布局矩形的参数，即项目布局的边界。此矩形不包括布局边距（）。
+// 为了适应高度取决于宽度的小部件，我们实现了heightForWidth()。
+// 函数hasHeightForWidth()用于测试此依赖关系，heightForWidth()将宽度传递给doLayout()，
+// doLayout又将宽度用作布局矩形的参数，即项目布局的边界。此矩形不包括布局边距()。
 bool FlowLayout::hasHeightForWidth() const
 {
     return true;
@@ -144,20 +146,22 @@ int FlowLayout::heightForWidth(int width) const
     int height = doLayout(QRect(0, 0, width, 0), true);
     return height;
 }
-//! [7]
 
-//! [8]
+// setGeometry()通常用于进行实际布局，即计算布局项的几何图形。
+// 它调用doLayout()并传递布局rect。
 void FlowLayout::setGeometry(const QRect &rect)
 {
     QLayout::setGeometry(rect);
     doLayout(rect, false);
 }
 
+// 返回布局的首选大小
 QSize FlowLayout::sizeHint() const
 {
     return minimumSize();
 }
 
+// 返回布局的最小大小
 QSize FlowLayout::minimumSize() const
 {
     QSize size;
@@ -168,9 +172,9 @@ QSize FlowLayout::minimumSize() const
     size += QSize(margins.left() + margins.right(), margins.top() + margins.bottom());
     return size;
 }
-//! [8]
 
-//! [9]
+// 如果horizontalSpacing()或verticalSpacing()未返回默认值，doLayout()将处理布局。
+// 它使用getContentsMargins()来计算布局项可用的面积。
 int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
 {
     int left, top, right, bottom;
@@ -179,9 +183,8 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
     int x = effectiveRect.x();
     int y = effectiveRect.y();
     int lineHeight = 0;
-//! [9]
 
-//! [10]
+// 它根据当前样式为布局中的每个小部件设置适当的间距。
     for (QLayoutItem *item : std::as_const(itemList)) {
         const QWidget *wid = item->widget();
         int spaceX = horizontalSpacing();
@@ -192,8 +195,10 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
         if (spaceY == -1)
             spaceY = wid->style()->layoutSpacing(
                 QSizePolicy::PushButton, QSizePolicy::PushButton, Qt::Vertical);
-//! [10]
-//! [11]
+
+// 然后，通过将item宽度和高度添加到初始x和y坐标来计算布局中每个item的位置。
+// 反过来，这使我们可以找出下一个item是否适合当前行，还是必须将其移至下一行。
+// 我们还根据小部件高度找到了当前的高度。
         int nextX = x + item->sizeHint().width() + spaceX;
         if (nextX - spaceX > effectiveRect.right() && lineHeight > 0) {
             x = effectiveRect.x();
@@ -210,8 +215,10 @@ int FlowLayout::doLayout(const QRect &rect, bool testOnly) const
     }
     return y + lineHeight - rect.y() + bottom;
 }
-//! [11]
-//! [12]
+
+// smartSpacing()用于获取顶层布局或子布局的默认间距。
+// 当父布局是QWidget时，顶级布局的默认间距将通过查询样式来确定。
+// 当父布局是QLayout时，子布局的默认间距将通过查询父布局的间距来确定
 int FlowLayout::smartSpacing(QStyle::PixelMetric pm) const
 {
     QObject *parent = this->parent();
@@ -224,5 +231,6 @@ int FlowLayout::smartSpacing(QStyle::PixelMetric pm) const
         return static_cast<QLayout *>(parent)->spacing();
     }
 }
-//! [12]
 ```
+
+## h
