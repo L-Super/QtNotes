@@ -1,8 +1,12 @@
-流式布局，实现了处理不同窗口大小的布局。
+流式布局，实现了处理不同窗口大小的布局。小部件的位置根据应用程序窗口的宽度而变化。
 
 ## 效果
-
+![](Qt.assets/flowlayout.gif)
 ## 源码
+FlowLayout 类继承了 QLayout。它是一个自定义布局类，可以水平和垂直地排列它的子窗口小部件。
+
+还声明了两个私有方法，`doLayout()` 和 `smartSpacing()`。`doLayout()` 对布局项进行布局，而 `smartSpacing()` 函数计算它们之间的间距。
+
 定义：
 ```cpp
 // FlowLayout.h
@@ -55,9 +59,8 @@ private:
 // SPDX-License-Identifier: LicenseRef-Qt-Commercial OR BSD-3-Clause
 
 #include <QtWidgets>
-
 #include "flowlayout.h"
-//! [1]
+
 FlowLayout::FlowLayout(QWidget *parent, int margin, int hSpacing, int vSpacing)
     : QLayout(parent), m_hSpace(hSpacing), m_vSpace(vSpacing)
 {
@@ -69,25 +72,22 @@ FlowLayout::FlowLayout(int margin, int hSpacing, int vSpacing)
 {
     setContentsMargins(margin, margin, margin, margin);
 }
-//! [1]
 
-//! [2]
 FlowLayout::~FlowLayout()
 {
     QLayoutItem *item;
     while ((item = takeAt(0)))
         delete item;
 }
-//! [2]
 
-//! [3]
+// 用于将项添加到布局中。重新实现了addItem()，它是一个纯虚拟函数。
+// 使用addItem()时，布局项的所有权会转移到布局，因此布局负责删除它们。
 void FlowLayout::addItem(QLayoutItem *item)
 {
     itemList.append(item);
 }
-//! [3]
 
-//! [4]
+// 实现horizontalSpacing()和verticalSpacing()。如果该值小于或等于0，则将使用此值。否则，将调用smartSpacing()来计算间距。
 int FlowLayout::horizontalSpacing() const
 {
     if (m_hSpace >= 0) {
@@ -105,9 +105,11 @@ int FlowLayout::verticalSpacing() const
         return smartSpacing(QStyle::PM_LayoutVerticalSpacing);
     }
 }
-//! [4]
 
-//! [5]
+// count()来返回布局中的项目数。
+// 为了导航项目列表，我们使用 itemAt()和 takAt()从列表中删除并返回项目。
+// 如果一个项目被删除，其余的项目将被重新编号。
+// 这三个函数都是来自 QLayout 的纯虚函数。
 int FlowLayout::count() const
 {
     return itemList.size();
@@ -124,7 +126,6 @@ QLayoutItem *FlowLayout::takeAt(int index)
         return itemList.takeAt(index);
     return nullptr;
 }
-//! [5]
 
 //! [6]
 Qt::Orientations FlowLayout::expandingDirections() const
