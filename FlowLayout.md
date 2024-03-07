@@ -127,14 +127,13 @@ QLayoutItem *FlowLayout::takeAt(int index)
     return nullptr;
 }
 
-//! [6]
+// 返回 Qt::Orientations，其中布局可以利用比 sizeHint()更多的空间。
 Qt::Orientations FlowLayout::expandingDirections() const
 {
     return { };
 }
-//! [6]
 
-//! [7]
+// 为了适应高度取决于宽度的小部件，我们实现了heightForWidth()。函数hasHeightForWidth()用于测试此依赖关系，heightForWidth()将宽度传递给doLayout，doLayout又将宽度用作布局矩形的参数，即项目布局的边界。此矩形不包括布局边距（）。
 bool FlowLayout::hasHeightForWidth() const
 {
     return true;
