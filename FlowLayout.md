@@ -233,4 +233,22 @@ int FlowLayout::smartSpacing(QStyle::PixelMetric pm) const
 }
 ```
 
-## h
+## 示例
+```cpp
+// Window.cpp
+Window::Window()
+{
+    FlowLayout *flowLayout = new FlowLayout;
+
+    flowLayout->addWidget(new QPushButton(tr("Short")));
+    flowLayout->addWidget(new QPushButton(tr("Longer")));
+    flowLayout->addWidget(new QPushButton(tr("Different text")));
+    flowLayout->addWidget(new QPushButton(tr("More text")));
+    flowLayout->addWidget(new QPushButton(tr("Even longer button text")));
+    setLayout(flowLayout);
+
+    setWindowTitle(tr("Flow Layout"));
+}
+
+
+```
