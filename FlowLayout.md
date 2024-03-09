@@ -249,6 +249,7 @@ Window::Window()
 
     setWindowTitle(tr("Flow Layout"));
 }
-
-
 ```
+
+
+> [Flow Layout Example](https://doc.qt.io/qt-5/qtwidgets-layouts-flowlayout-example.html)
