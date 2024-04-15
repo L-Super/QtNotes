@@ -182,6 +182,12 @@ outline:1px solid #3377FF;
 效果如图：
 ![](Qt.assets/Pasted%20image%2020220929112229.png)
 
+去掉获得焦点时的虚线框（待测试）：
+```css
+QWidget:focus {  
+    outline: none; /* 去掉得到焦点时的虚线框 */  
+}
+```
 ## 注意的点
 ### 无边框按钮问题
 按钮可通过 `setFlat(true)` 或者 qss 的 `border:none` 或 `background-color: transparent;` 实现，但三者是有区别的。
