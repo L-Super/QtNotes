@@ -1239,6 +1239,13 @@ RC_FILE += myapp.rc
 ```
 > 注意：添加头文件方式，在使用过程中发现，Mingw编译器下，编译不通过，在MSVC编译器下正常。
 
+CMake：
+```cmake
+add_executable(PROJECT_NAME
+        main.cpp
+        resource.rc
+)
+```
 方案3：
 可以使用
 ```cpp
