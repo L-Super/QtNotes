@@ -386,10 +386,11 @@ if(ok) qDebug()<<"value1:"<< value1;
 // 获取浮点数
 double value2 = QInputDialog::getDouble(this,tr("输入浮点数对话框"),tr("请输入-1000到1000之间的数值"),0.00,-1000,1000,2,&ok);
 if(ok) qDebug()<<"value2:"<< value2;
+
+// 获取条目
 QStringList items;
 items<<tr("条目1")<<tr("条目2");
-// 获取条目
-QString item = QInputDialog::getItem(this,tr("输入条目对话框"),tr("请选择或输入一个条目"), items,0,true,&ok)
+QString item = QInputDialog::getItem(this,tr("输入条目对话框"),tr("请选择或输入一个条目"), items,0,true,&ok);
 if(ok) qDebug()<<"item:"<< item;
 ```
 
