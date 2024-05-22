@@ -42,7 +42,8 @@ QT_MESSAGE_PATTERN="[%{time yyyyMMdd h:mm:ss.zzz t} %{if-debug}D%{endif}%{if-inf
 
 也可以在运行时通过设置 `QT_MESSAGE_PATTERN` 环境变量来更改；如果同时调用 `qSetMessagePattern()` 并设置 `QT_MESSAGE_PATTERN`，则环境变量优先。
 
-注意：占位符 `category` 、 `file` 、 `function` 和 `line` 的信息仅记录在调试版本中。或者，可以显式定义 `QT_MESSAGELOGCONTEXT` 。有关更多信息，请参阅 [QMessageLogContext](https://runebook.dev/zh/docs/qt/qmessagelogcontext) 文档。
+
+>[! NOTE] 占位符 `category` 、 `file` 、 `function` 和 `line` 的信息仅记录在调试版本中。或者，可以显式定义 `QT_MESSAGELOGCONTEXT` 。有关更多信息，请参阅 [QMessageLogContext](https://runebook.dev/zh/docs/qt/qmessagelogcontext) 文档。
 
 
 例子：
