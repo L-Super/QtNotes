@@ -4,4 +4,9 @@
 - [qCritical](https://runebook.dev/zh/docs/qt/qtglobal#qCritical) ()用于写入严重错误消息和报告系统错误。
 - [qFatal](https://runebook.dev/zh/docs/qt/qtglobal#qFatal) () 用于在退出前不久写入致命错误消息。
 
-默认情况下，仅打印消息。可以通过`qSetMessagePattern(const QString &pattern)`来包含其他信息。例如：
+默认情况下，仅打印消息。可以通过`qSetMessagePattern(const QString &pattern)`来包含其他信息。
+
+允许调整 `qDebug ()`、 `qInfo ()`、 `qWarning ()`、` qCritical () `和` qFatal () `的输出。 `qCDebug ()`、 `qCInfo ()`、 `qCWarning ()` 和` qCCritical ()` 的类别记录输出也被格式化。
+
+
+
