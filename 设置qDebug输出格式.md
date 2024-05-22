@@ -4,10 +4,9 @@
 - [qCritical](https://runebook.dev/zh/docs/qt/qtglobal#qCritical) ()用于写入严重错误消息和报告系统错误。
 - [qFatal](https://runebook.dev/zh/docs/qt/qtglobal#qFatal) () 用于在退出前不久写入致命错误消息。
 
-默认情况下，仅打印消息。可以通过`qSetMessagePattern(const QString &pattern)`来包含其他信息。
-
+默认情况下，仅打印消息。但可以通过 `qSetMessagePattern(const QString &pattern)` 来包含其他信息。
+## `qSetMessagePattern(const QString &pattern)`
 允许调整 `qDebug ()`、 `qInfo ()`、 `qWarning ()`、` qCritical () `和` qFatal () `的输出。 `qCDebug ()`、 `qCInfo ()`、 `qCWarning ()` 和` qCCritical ()` 的类别记录输出也被格式化。
-
 
 
 支持以下占位符：
@@ -39,9 +38,31 @@
 QT_MESSAGE_PATTERN="[%{time yyyyMMdd h:mm:ss.zzz t} %{if-debug}D%{endif}%{if-info}I%{endif}%{if-warning}W%{endif}%{if-critical}C%{endif}%{if-fatal}F%{endif}] %{file}:%{line} - %{message}"
 ```
 
-default*pattern*是 `"%{if-category}%{category}: %{endif}%{message}" `
+默认*pattern*是 `"%{if-category}%{category}: %{endif}%{message}" `
 
 也可以在运行时通过设置 `QT_MESSAGE_PATTERN` 环境变量来更改；如果同时调用 `qSetMessagePattern()` 并设置 `QT_MESSAGE_PATTERN`，则环境变量优先。
 
 注意：占位符 `category` 、 `file` 、 `function` 和 `line` 的信息仅记录在调试版本中。或者，可以显式定义 `QT_MESSAGELOGCONTEXT` 。有关更多信息，请参阅 [QMessageLogContext](https://runebook.dev/zh/docs/qt/qmessagelogcontext) 文档。
+
+
+例子：
+
+```cpp
+qDebug() << "Widget()";
+
+QString pattern = "[%{time yyyy-MM-dd h:mm:ss.zzz}] [%{type}] [%{file}:%{line}] %{message}";
+qSetMessagePattern(pattern);
+qDebug() << "Widget()2";
+```
+
+Output:
+
+```
+Widget()
+[2024-05-22 18:14:01.646] [debug] [../qdemo1/widget.cpp:15] Widget()2
+```
+
+
+
+
 
