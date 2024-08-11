@@ -1,6 +1,6 @@
 为应用程序在系统托盘中提供一个图标。
 
-添加系统托盘项，首先，需要创建一个QSystemTrayIcon对象，并调用setContextMenu()为图标提供上下文菜单，然后，调用show()使其在系统托盘中可见。
+添加系统托盘项，首先，需要创建一个 `QSystemTrayIcon` 对象，并调用 `setContextMenu()` 为图标提供上下文菜单，然后，调用 `show()` 使其在系统托盘中可见。
 
 ## 信号
 
@@ -80,8 +80,9 @@ connect(trayIcon, &QSystemTrayIcon::activated, this, [](QSystemTrayIcon::Activat
 });
 ```
 
-需要注意的是，QSystemTrayIcon 必须设置图标。
+需要注意的是，`QSystemTrayIcon` 必须设置图标。
 
+> [!note]
 在 Windows 11 系统上 `setToolTip()` 和 `showMessage()` 需要在 `show()` 之后调用，暂不清楚是否与编译器或者 Qt 版本相关。
 
 
