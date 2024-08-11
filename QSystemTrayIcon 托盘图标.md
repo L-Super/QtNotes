@@ -60,9 +60,8 @@ auto trayIcon = new QSystemTrayIcon(this);
 trayIcon->setIcon(QIcon(":/resources/images/clipboard2.svg"));
 // 在右键时，弹出菜单。
 trayIcon->setContextMenu(trayMenu);
-trayIcon->show();
-// 在Windows上 show()之后才生效，而Linux则不正常，托盘图标也不能正常显示
 trayIcon->setToolTip("QClipboard");
+trayIcon->show();
 // 弹出气泡通知消息
 trayIcon->showMessage("QClipboard 剪贴板", "已隐藏至系统托盘");
 
@@ -81,9 +80,6 @@ connect(trayIcon, &QSystemTrayIcon::activated, this, [](QSystemTrayIcon::Activat
 ```
 
 需要注意的是，`QSystemTrayIcon` 必须设置图标。
-
-> [!note]
-在 Windows 11 系统上 `setToolTip()` 和 `showMessage()` 需要在 `show()` 之后调用，暂不清楚是否与编译器或者 Qt 版本相关。
 
 
 
