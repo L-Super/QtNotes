@@ -27,18 +27,18 @@ QObject::connect(sender, SIGNAL(signal()), receiver, SLOT(slots(
 
 Qt::ConnectionType枚举类型
 
-|常量|描述|
-| --- | --- |
-| Qt::AutoConnection | 自动关联,默认值。如果信号的发出和接收信号的对象同属一个线程，则使用`Qt::DirectConnection`;否则,使用`Qt::QueuedConnection`。在信号被发射时决定使用哪种关联类型 |
-| Qt::DirectConnection | 直接关联（同步）。发射完信号后立即调用槽函数,只有槽执行完成返回后,`emit`发射信号处后面的代码才可以执行。**无论槽函数所属对象在哪个线程，槽函数都在发射信号的线程内执行。** |
-| Qt::QueuedConnection | 队列关联（异步）。当接收对象所在线程的事件循环取得控制权时，才取得信号，再执行对应槽函数,无论槽函数执行与否,发射信号处后面的代码都会立即执行。**槽函数在接收者所在线程执行。** |
-| Qt::BlockingQueuedConnection | 阻塞队列关联。类似Qt::QueuedConnection,不过,信号线程会一直阻塞,直到槽返回。当 receiver存在于信号线程时不能使用该类型,不然程序会死锁 |
-| Qt::UniqueConnection | 唯一关联。这是一个标志,可以结合其他几种连接类型,使用按位或操作。这时两个对象间的相同的信号和槽只能有唯一的关联。使用这个标志主要为了防止重复关联 |
+| 常量                             | 描述                                                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `Qt::AutoConnection`           | 自动关联,默认值。如果信号的发出和接收信号的对象同属一个线程，则使用`Qt::DirectConnection`;否则,使用`Qt::QueuedConnection`。在信号被发射时决定使用哪种关联类型 |
+| `Qt::DirectConnection`         | 直接关联（同步）。发射完信号后立即调用槽函数,只有槽执行完成返回后,`emit`发射信号处后面的代码才可以执行。**无论槽函数所属对象在哪个线程，槽函数都在发射信号的线程内执行。**            |
+| `Qt::QueuedConnection`         | 队列关联（异步）。当接收对象所在线程的事件循环取得控制权时，才取得信号，再执行对应槽函数,无论槽函数执行与否,发射信号处后面的代码都会立即执行。**槽函数在接收者所在线程执行。**             |
+| `Qt::BlockingQueuedConnection` | 阻塞队列关联。类似Qt::QueuedConnection,不过,信号线程会一直阻塞,直到槽返回。当 receiver存在于信号线程时不能使用该类型,不然程序会死锁                     |
+| `Qt::UniqueConnection`         | 唯一关联。这是一个标志,可以结合其他几种连接类型,使用按位或操作。这时两个对象间的相同的信号和槽只能有唯一的关联。使用这个标志主要为了防止重复关联                              |
 > Note: `Qt::UniqueConnection` do not work for lambdas, non-member functions and functors; they only apply to connecting to member functions.
 > see: [connect](https://doc.qt.io/qt-5/qobject.html#connect)
 ### Qt5新方式
 
-   Connect()函数另一种常用的基于函数指针的重载形式如下:
+   `connect()` 函数另一种常用的基于函数指针的重载形式如下:
 
 ```cpp
 [static] QMetaObject::Connection QObject::connect( 
@@ -71,7 +71,7 @@ void valueChanged (int i)；
 void valueChanged (const QString& text)；
 ```
 
-当进行连接时,编译器会发出一个错误。因为信号 valueChanged有重载,所以使用&QSpinBox::valueChanged语句获取信号的指针会有歧义，因有两个相同名字的信号。
+当进行连接时, 编译器会发出一个错误。因为信号 `valueChanged` 有重载, 所以使用 ` &QSpinBox::valueChanged ` 语句获取信号的指针会有歧义，因有两个相同名字的信号。
 
 解决方案可用 Qt4 传统连接方式，也可增加显式类型转换继续使用 Qt5 新方式：
 
@@ -87,13 +87,13 @@ connect(spinBox, QOverload<int>::of(&QSpinBox::valueChanged), this, &MainWindow:
 
   信号与槽的自动关联，一般Qt上默认实现。
   自行实现：
-  on_pushButton_clicked()由字符串on、部件objectName和信号名称三部分组成，中间用下划线连接。
+  `on_pushButton_clicked()` 由字符串on、部件objectName和信号名称三部分组成，中间用下划线连接。
 ```cpp
 //widget.h
 private slots:
 	void on_myButton_clicked();
 ```
-widget.cpp添加头文件#include\<QPushButton>，使用自动关联的部件的定义都要放在setupUi()函数调用之前，且必须使用setObjectName()指定objectName
+`widget.cpp` 添加头文件 ` #include<QPushButton>`，使用自动关联的部件的定义都要放在 `setupUi()` 函数调用之前，且必须使用 `setObjectName()` 指定objectName
 
 ```cpp
 //widget.cpp
@@ -111,7 +111,7 @@ void Widget::on_myButton_clicked()
 ```
 ## 断开关联
 
-可以通过 disconnect(函数来断开信号和槽的关联,其原型如下:
+可以通过 `disconnect()` 函数来断开信号和槽的关联, 其原型如下:
 ```cpp
 [static] bool QObject::disconnect( const QObject* sender, const char * signal, const QObject* receiver, const char* method)
 ```
@@ -421,9 +421,6 @@ for(int i=0; i < 50000; i++){
 向导对话框 QWizard类提供了一个设计向导界面的框架
 # 事件系统
 ![](Qt.assets/Pasted%20image%2020211028174506.png)
-
-
-
 
 ## 事件的处理
  一个事件由一个特定的 QEvent 子类来表示，但是有时一个事件又包含多个事件类型，比如鼠标事件又可以分为鼠标按下、双击和移动等多种操作。
