@@ -4,9 +4,9 @@ QButtonGroup 提供了一个可以放置按钮小部件的抽象容器。管理�
 
 默认情况下，按钮组是独占的。按钮组中的按钮通常是可选择的 QPushButtons、 QCheckBoxes (通常用于非独占按钮组)或 QRadioButtons。如果创建独占按钮组，则应确保最初选中该组中的一个按钮; 否则，该组最初将处于未选中按钮的状态。
 
-可以使用 addButton ()将按钮添加到组中，并使用 RemoveButton ()删除按钮。如果该组是独占的，则当前选中的按钮可用于 checkedButton ()。如果单击一个按钮，则发出 buttonClicks ()信号;
+可以使用 `addButton()` 将按钮添加到组中，并使用 ` RemoveButton () ` 删除按钮。如果该组是独占的，则当前选中的按钮可用于 `checkedButton()`。如果单击一个按钮，则发出 `buttonClicks()` 信号;
 
-此外，QButtonGroup 可以在整数和按钮之间进行映射。可以使用 setId ()为按钮分配一个整数 id，并使用 id ()检索它。使用 checkedId ()可以获得当前选中按钮的 id，并且有一个重载信号 buttonClicks () ，它发出按钮的 id。**ID -1由 QButtonGroup 保留，表示“没有这样的按钮”**(所以添加按钮，id从-2、-3递增) 。映射机制的目的是简化用户界面中枚举值的表示。
+此外，QButtonGroup 可以在整数和按钮之间进行映射。可以使用 `setId()` 为按钮分配一个整数 id，并使用 ` id () ` 检索它。使用 `checkedId()` 可以获得当前选中按钮的 id，并且有一个重载信号 `buttonClicks()` ，它发出按钮的 id。**ID -1由 QButtonGroup 保留，表示“没有这样的按钮”**(所以添加按钮，id从-2、-3递增) 。映射机制的目的是简化用户界面中枚举值的表示。
 
 
 
