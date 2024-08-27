@@ -1,12 +1,12 @@
 通常，qss 样式需要重新编译后才能看到效果。使用以下方法可使用快捷键刷新即可预览效果。
 
 
-在程序运行的时候修改 QSS，按下快捷键 `ctrl + l` 后就会加载一次 QSS，实现 QSS 的动态加载，然后就能看到修改后的效果
+**加载 qss 时，使用绝对路径，不使用资源路径。** 在程序运行的时候修改 QSS，按下快捷键 `ctrl + l` 后就会加载一次 QSS，实现 QSS 的动态加载，然后就能看到修改后的效果
 
 ```cpp
 void LoadQssFile()  
 {  
-    QFile style(":/resources/style.css");  
+    QFile style("D:/project/resources/style.css");  
     if (style.open(QFile::ReadOnly)) {  
         qApp->setStyleSheet(style.readAll());  
         style.close();  
