@@ -56,6 +56,14 @@
 >
 > `<APPNAME>` 通常是组织名称、应用程序名称或两者兼有，或者是打包时生成的唯一名称。类似地，`<APPROOT>` 是安装此应用程序的位置 (通常是一个沙箱)。`<APPDIR>` 是包含应用程序可执行文件的目录。
 
+静态函数：
+
+| 函数名                                                                   | 作用                                                                             |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| QStringList standardLocations( QStandardPaths::StandardLocation type) | 返回文件所在的所有目录。目录列表按优先级从高到低排序，如果可以确定则从 `writableLocation()` 开始。如果没有定义类型位置，则此列表为空。 |
+| QString writableLocation (QStandardPaths::StandardLocation type)      | 返回应写入类型文件的目录，如果无法确定位置，则应写入空字符串。                                                |
+
+
 示例：
 ```cpp
 QString standPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
