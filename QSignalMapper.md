@@ -1,28 +1,12 @@
-收集一组无参数信号，并使用与发送信号的对象相对应的整数、字符串或 Widget参数重新发出它们。请注意，在大多数情况下，可以使用 `lambda` 将自定义参数传递到槽，成本较低并且会简化代码。
+收集一组无参数信号，并使用与发送信号的对象相对应的整数、字符串或 Widget参数重新发出它们。
+
+请注意，在大多数情况下，可以直接使用 `lambda` 将自定义参数传递到槽，会比使用 QSignalMapper 简单。
 
 该类支持使用 `setMapping()` 将特定字符串、整数、对象和 Widget与特定对象进行映射。然后，对象的信号可以连接到 `map()` 槽，该槽函数将发出一个信号（可以是 `mappedInt()`、 `mappedString()` 和 `mappedObject()`，其值与原始信号对象关联。之后可以使用 `removeMappings()` 删除映射。
 
 示例：
 
 ```cpp
-// ButtonWidget.h
-class ButtonWidget : public QWidget
-{
-    Q_OBJECT
-
-public:
-    ButtonWidget(const QStringList &texts, QWidget *parent = nullptr);
-
-signals:
-    void clicked(const QString &text);
-
-private:
-    QSignalMapper *signalMapper;
-};
-```
-
-```cpp
-// ButtonWidget.cpp
 ButtonWidget::ButtonWidget(const QStringList &texts, QWidget *parent)
     : QWidget(parent)
 {
@@ -40,7 +24,9 @@ ButtonWidget::ButtonWidget(const QStringList &texts, QWidget *parent)
 
 	//
     connect(signalMapper, &QSignalMapper::mappedString,
-            this, &ButtonWidget::clicked);
+            this, [](const QString& text){
+            qDebug()<<"received text:"<<text;
+    });
 
     setLayout(gridLayout);
 }
