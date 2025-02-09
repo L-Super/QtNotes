@@ -2,6 +2,8 @@ QSizeGrip 类为调整顶级窗口的大小提供了一个 `resize` 句柄。放
 
 ![](Qt.assets/Pasted%20image%2020250209230128.png)
 
+![](Qt.assets/Pasted%20image%2020250209231002.png)
+
 QSizeGrip 类继承于QWidget ，并重新实现了 `mousePressEvent()` 和 `mouseMoveEvent()` 函数以提供调整大小功能，以及 ` paintEvent () ` 函数以渲染尺寸控件。
 
 > [!note]
