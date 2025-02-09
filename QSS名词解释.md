@@ -335,3 +335,4 @@ QCheckBox:hover{
 
 
 > [Qt Style Sheets Reference](https://doc.qt.io/qt-6/stylesheet-reference.html)
+> [Supported HTML Subset | Qt GUI 6.8.2](https://doc.qt.io/qt-6/richtext-html-subset.html)
