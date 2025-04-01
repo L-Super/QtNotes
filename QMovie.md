@@ -52,3 +52,23 @@ movie->start();
 
 槽函数：
 
+| 函数                            | 描述                                                         |
+| ------------------------------- | ------------------------------------------------------------ |
+| bool jumpToNextFrame()          | 跳转到下一帧。成功时返回`true` ，否则返回`false` 。          |
+| void setPaused(bool paused)     | 如果paused 为 true，QMovie 将进入Paused 状态并发出stateChanged （暂停）；否则将进入Running 状态并发出stateChanged （运行）。 |
+| Void setSpeed(int percentSpeed) | 速度以原始影片速度的百分比来衡量。默认速度为 100%。          |
+| void start()                    | 开始播放电影。将进入Running 状态，并随着电影的播放开始发出updated() 和resized() 信号。<br/><br/>如果QMovie 处于Paused 状态，则此函数等同于调用setPaused(false)。如果QMovie 已处于Running 状态，则此函数不会执行任何操作。 |
+| void stop()                     | 进入NotRunning 状态，并停止发送updated() 和resized() 。如果再次调用start() ，影片将从头开始。<br/><br/>如果QMovie 已处于NotRunning 状态，则此函数不会执行任何操作。 |
+
+信号：
+
+| 函数                            | 描述          |
+| --------------------------------------------------- | ---- |
+| void error(QImageReader::ImageReaderError error) | 当播放过程中出现错误error 时，QMovie 会发出该信号。QMovie 会停止播放影片，并进入QMovie::NotRunning 状态。 |
+| void finished()                                  | 该信号在电影结束时发出。 |
+| void frameChanged(int frameNumber)               | 当帧编号变为frameNumber 时，就会发出该信号。您可以调用currentImage() 或currentPixmap() 来获取帧的副本。 |
+| void resized(const QSize &size)                  | 当当前帧的大小调整为size 时，将发出该信号。这种效果有时会在动画中使用，作为替换帧的替代方法。您可以调用currentImage() 或currentPixmap() 来获取更新帧的副本。 |
+| void started()                                   | 该信号在QMovie::start() 被调用且QMovie 已进入QMovie::Running 状态后发出。 |
+| void stateChanged(QMovie::MovieState state)      | 每次影片状态发生变化时都会发出该信号。新状态由*state* 指定。 |
+| void updated(const QRect &rect)                  | 当当前帧中的矩形rect 已更新时，就会发出该信号。您可以调用currentImage() 或currentPixmap() 来获取更新帧的副本。 |
+
