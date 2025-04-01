@@ -30,30 +30,25 @@ movie->start();
 | QMovie(QObject *parent = nullptr)                            |                                                              |
 | QMovie(QIODevice *device, const QByteArray &format = QByteArray (), QObject *parent = nullptr) |                                                              |
 | QMovie(const QString &fileName, const QByteArray &format = QByteArray (), QObject *parent = nullptr) |                                                              |
-| QColor backgroundColor() const                               | 返回影片的背景颜色。如果没有指定背景颜色，则返回无效的QColor 。 |
-| QBindable<QMovie::CacheMode> bindableCacheMode()             |                                                              |
-| QBindable<int> bindableSpeed()                               |                                                              |
-| QMovie::CacheMode cacheMode() const                          |                                                              |
 | int currentFrameNumber() const                               | 返回当前帧的序列号。影片第一帧的序列号为 0。                 |
 | QImage currentImage() const                                  | 以QImage 的形式返回当前帧。                                  |
 | QPixmap currentPixmap() const                                | 以QPixmap 的形式返回当前帧。                                 |
-| QIODevice* device() const                                    |                                                              |
-| QString fileName() const                                     |                                                              |
 | int frameCount() const                                       | 返回动画的帧数。<br/>某些动画格式不支持此功能，在这种情况下将返回 0。 |
 | QRect frameRect() const                                      | 返回最后一帧的矩形。如果尚未更新任何帧，则返回无效的QRect 。 |
 | bool isValid() const                                         | 如果影片有效（如图像数据可读且图像格式受支持），则返回`true` ；否则返回`false` 。 |
 | bool jumpToFrame(int frameNumber)                            | 跳转到帧号*frameNumber* 。成功时返回`true` ，否则返回`false` 。 |
-| QImageReader::ImageReaderError lastError() const             |                                                              |
-| QString lastErrorString() const                              |                                                              |
-| int loopCount() const                                        |                                                              |
-| int nextFrameDelay() const                                   |                                                              |
-| QSize scaledSize()                                           |                                                              |
-| void setBackgroundColor(const QColor &color)                 |                                                              |
-| void setCacheMode(QMovie:: CacheMode mode)                   |                                                              |
-| void setDevice(QIODevice *device)                            |                                                              |
-| void setFileName(const QString &fileName)                    |                                                              |
-| void setFormat(const QByteArray &format)                     |                                                              |
-| void setScaledSize(const QSize &size)                        |                                                              |
-| int speed() const                                            |                                                              |
-| QMovie:: MovieState             state() const                |                                                              |
+| QImageReader::ImageReaderError lastError() const             | 返回尝试读取图像数据时发生的最新错误。                       |
+| QString lastErrorString() const                              | 返回尝试读取图像数据时发生的最新错误的字符串。               |
+| int loopCount() const                                        | 返回电影结束前的循环次数。如果影片只播放一次（不循环），loopCount 返回 0；如果影片永远循环播放，loopCount 返回-1。 |
+| int nextFrameDelay() const                                   | 返回QMovie 更新动画下一帧前等待的毫秒数。                    |
+| QSize scaledSize()                                           | 返回按比例缩放的帧大小。                                     |
+| void setBackgroundColor(const QColor &color)                 | 对于支持背景色的图像格式，该函数将背景色设置为*color* 。     |
+| void setDevice(QIODevice *device)                            | 将当前设备设置为device 。当电影运行时，QMovie 将从该设备读取图像数据。 |
+| void setFileName(const QString &fileName)                    | 将QMovie 读取图像数据的文件名设置为fileName 。               |
+| void setFormat(const QByteArray &format)                     | 将QMovie 在解码图像数据时使用的格式设置为format 。默认情况下，QMovie 会尝试猜测图像数据的格式。 |
+| void setScaledSize(const QSize &size)                        | 将缩放后的帧大小设置为*size* 。                              |
+
+
+
+槽函数：
 
