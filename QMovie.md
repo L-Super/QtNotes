@@ -10,6 +10,8 @@ QMovie *movie = new QMovie("animations/fire.gif");
 label.setMovie(movie);
 movie->start();
 ```
+这种方式通常会比较模糊，最佳实践是取出当前帧的图片，使用 `paintEvent()` 绘制。
+
 
 每当影片中有新的帧可用时，QMovie 就会发出 `updated()` 。如果帧的大小发生变化，`resized()` 将被发送。可以调用 `currentImage()` 或 `currentPixmap()` 来获取当前帧的副本。影片播放完毕后，QMovie 会发送 `finished()` 。如果播放过程中出现任何错误（如图像文件损坏），QMovie 将发出 `error()` 。
 
