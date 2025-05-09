@@ -9,7 +9,22 @@ QNetworkInformation 通过插件为网络相关信息提供了一个跨平台接
 ```cpp
 #include <QNetworkInformation>
 
-auto info = QNetworkInformation::instance();
-info->load(QNetworkInformation::Feature::Reachability);
-info->reachability() == QNetworkInformation::Reachability::Online;
+if (QNetworkInformation::loadDefaultBackend() && QNetworkInformation::loadBackendByFeatures(QNetworkInformation::Feature::Reachability)) {  
+    auto info = QNetworkInformation::instance();  
+  
+    if (info->reachability() == QNetworkInformation::Reachability::Online) {  
+        qDebug() << "online";  
+    }  
+    else {  
+        qDebug() << "offline";  
+    }
+    
+    // 关联信号，监听网络变化
+    connect(info, &QNetworkInformation::reachabilityChanged, this,  
+            [](QNetworkInformation::Reachability newReachability) {  
+                if (newReachability == QNetworkInformation::Reachability::Online) {  
+                    qDebug() << "online";  
+                }  
+            });  
+}
 ```
