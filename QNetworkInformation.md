@@ -4,6 +4,9 @@ QNetworkInformation 通过插件为网络相关信息提供了一个跨平台接
 
 > [! note] 
 > **注意：** 由于该类是一个单例，同时也依赖于[QCoreApplication](https://doc.qt.io/qt-6/zh/qcoreapplication.html) ，因此 QNetworkInformation 应始终首先在与[QCoreApplication](https://doc.qt.io/qt-6/zh/qcoreapplication.html) 对象相同的线程中加载。这是因为该对象也将在该线程中销毁，而各种特定于后端组件可能依赖于在创建该对象时在同一线程中销毁。
+
+> [! warning]
+> 调用 `QNetworkInformation::instance()` 时并未进行初始化！[qnetworkinformation. cpp:767 - Codebrowser](https://codebrowser.dev/qt6/qtbase/src/network/kernel/qnetworkinformation.cpp.html#767)
 ## 检查网络是否在线
 
 ```cpp
