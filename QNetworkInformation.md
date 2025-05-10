@@ -32,6 +32,5 @@ if (QNetworkInformation::loadDefaultBackend() && QNetworkInformation::loadBacken
 }
 ```
 
-> https://doc. qt. io/qt-6/qnetworkinformation. html
-> 
+> https://doc.qt.io/qt-6/qnetworkinformation.html
 > 
