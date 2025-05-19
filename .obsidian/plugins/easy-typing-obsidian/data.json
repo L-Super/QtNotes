@@ -14,23 +14,28 @@
   "ChineseNoSpace": true,
   "QuoteSpace": true,
   "PunctuationSpace": true,
-  "AutoCapital": false,
+  "AutoCapital": true,
   "AutoCapitalMode": "typing",
-  "PunctuationSpaceMode": "global",
+  "PunctuationSpaceMode": "typing",
   "InlineCodeSpaceMode": 1,
   "InlineFormulaSpaceMode": 1,
   "InlineLinkSpaceMode": 1,
   "InlineLinkSmartSpace": true,
-  "UserDefinedRegSwitch": false,
-  "UserDefinedRegExp": ":\\w*:\n{{.*?}}",
+  "UserDefinedRegSwitch": true,
+  "UserDefinedRegExp": "{{.*?}}|++\n<.*?>|--\n\\[\\!.*?\\][-+]{0,1}|-+\n(file:///|https?://|ftp://|obsidian://|zotero://|www.)[^\\s（）《》。,，！？;；：“”‘’\\)\\(\\[\\]\\{\\}']+|--\n\n[a-zA-Z0-9_\\-.]+@[a-zA-Z0-9_\\-.]+|++\n(?<!#)#[\\u4e00-\\u9fa5\\w-\\/]+|++",
   "debug": false,
   "userSelRepRuleTrigger": [
-    "-"
+    "-",
+    "#"
   ],
   "userSelRepRuleValue": [
     {
       "left": "~~",
       "right": "~~"
+    },
+    {
+      "left": "#",
+      "right": " "
     }
   ],
   "userDeleteRulesStrList": [
@@ -51,23 +56,9 @@
   "StrictModeEnter": false,
   "StrictLineMode": "enter_twice",
   "EnhanceModA": false,
-  "TryFixChineseIM": false,
+  "TryFixChineseIM": true,
   "PuncRectify": false,
   "FixMacOSContextMenu": false,
   "TryFixMSIME": false,
-  "EnterTwice": false,
-  "AutoFormatting": false,
-  "FormattingWhenLineEnd": true,
-  "Capitalization": false,
-  "EnglishSpace": true,
-  "BraceSpace": true,
-  "NumberSpace": true,
-  "InlineCodeSpace": true,
-  "InlineFormulaSpace": true,
-  "LinkSpace": true,
-  "LinkSmartSpace": true,
-  "FullWidthCharacterEnhance": true,
-  "UserPartSpace": true,
-  "Debug": false,
-  "FullWidthCharacterEnhence": true
+  "CollapsePersistentEnter": false
 }
