@@ -448,7 +448,7 @@ QCoreApplication的有用函数
 
 ![](Qt.assets/Pasted%20image%2020211207101803.png)
 
-> [ QCoreApplication]([QCoreApplication Class | Qt Core 5.15.10](https://doc.qt.io/qt-5/qcoreapplication.html))
+> [QCoreApplication Qt Core 5.15.10](https://doc.qt.io/qt-5/qcoreapplication.html)
 
 ## QFile
 
