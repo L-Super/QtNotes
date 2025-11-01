@@ -53,12 +53,14 @@ QTabBar::tear {
 ### QTabBar QToolButton::left-arrow
 当在 `QTabBar QToolButton::left-arrow` 中设置 `background-color: transparent` 或者 ` border:none ` 无效时，通过 `QTabBar QToolButton[accessibleName="Scroll Left"]` 可以解决此问题。
 ```css
-/*** 左箭头 ***/QTabBar QToolButton::left-arrow {  
+/*** 左箭头 ***/
+QTabBar QToolButton::left-arrow {  
     background-color: #f3f3f3;  
     image: url(:/resources/images/tab-left-arrow.svg);  
 }  
   
-/*** 右箭头 ***/QTabBar QToolButton::right-arrow {  
+/*** 右箭头 ***/
+QTabBar QToolButton::right-arrow {  
     background-color: #f3f3f3;  
     image: url(:/resources/images/tab-right-arrow.svg);  
 }  
