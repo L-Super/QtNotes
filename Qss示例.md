@@ -74,7 +74,7 @@ QTabBar QToolButton[accessibleName="Scroll Right"]{
 }
 ```
 
-### QCalendarWidget
+## QCalendarWidget
 
 代码方面也有一些需要注意的
 
@@ -148,6 +148,51 @@ QCalendarWidget QAbstractItemView:enabled
 >
 > https://qtdebug.com/qtbook-qss-calendar/
 
+## QScrollBar
+```css
+/* 整个垂直滚动条区域样式 */
+QScrollBar:vertical, QScrollBar:horizontal {  
+    border: none;  
+    background: transparent;  
+    margin: 0px;  
+    width: 8px;  
+    border-radius: 4px;  
+}  
+  
+QScrollBar:vertical:hover, QScrollBar:horizontal:hover {  
+    background: rgba(0, 0, 0, 0.05);  
+}  
+  
+/* 滑块样式 */
+QScrollBar::handle:vertical, QScrollBar::handle:horizontal {  
+    background: rgb(210, 210, 210);  
+    min-height: 20px;  
+    width: 8px;  
+    border-radius: 4px;  
+    margin: 0px;  
+}  
+  
+QScrollBar::handle:vertical:hover, QScrollBar::handle:horizontal:hover {  
+    background: rgb(190, 190, 190);  
+}  
+  
+/* 隐藏上下的箭头按钮 */
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical, QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {  
+    border: none;  
+    background: none;  
+}  
+  
+/* 滑块 和add-line/sub-line 之间的区域 */
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical, QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {  
+    border: none;  
+    background: none;  
+}
+```
+
+需要注意，圆角的设置可能会因宽度或高度不够，导致圆角无法显示。建议小于等于宽度或高度的一半。
+
+QScrollBar 示例图：
+![](Qt.assets/Pasted%20image%2020251101185300.png)
 ## 实用属性
 
 ### 样式表的轮廓线属性
@@ -222,3 +267,4 @@ void CustomWidget::paintEvent(QPaintEvent *)
 > [Customizing Qt Widgets Using Style Sheets](https://doc.qt.io/qt-5/stylesheet-customizing.html)
 > [Qt Style Sheets Examples](https://doc.qt.io/qt-5/stylesheet-examples.html)
 > [Qt Style Sheets Reference](https://doc.qt.io/qt-5/stylesheet-reference.html)
+> [超详细的QSS样式表入门Demo 原创 - mahuifa - 博客园](https://www.cnblogs.com/IntelligencePointer/p/18443758)

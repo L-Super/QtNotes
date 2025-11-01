@@ -36,44 +36,44 @@ QCheckBox::indicator{
 
 辅助控制器是用双冒号进行指定。如果没有`::indicator`那么我们这个小例子将是对整个 QCheckBox 设置的，使用了辅助控制器的时候就自动分离出这个小窗口，对小窗口进行设置。不同的选择器有不同的辅助控制器，具体可查看下表。
 
-| 辅助控制器 | 说明 |
-| --- | --- |
-| ::add-line | 在 QScrollBar 中添加一行的按钮 |
-| ::add-page:branch | 在 QScrollBar 中添加页的按钮 |
-| ::branch | QTreeView 的分支 |
-| ::chunk | QProgressBar 的进度条里的块（里面的进度条可以变成一块一块的增加，而不是整体都是一种颜色) |
-| ::colse-button | QDockWidget 和 QTabBar 标题栏上的关闭按钮 |
-| ::corner | 在 QAbstractScrollArea 两个滚动条之间的位置 |
-| ::drwn-arrow | QComboBox、QHeaderView (排序时需要)、QScrollBar、QSpinBox 的向下箭头 |
-| ::up-button | QScrollBar、QSpinBox 的向上按钮 |
-| ::down-button | QScrollBar、QSpinBox 的向下按钮 |
-| ::drop-down | QComboBox 展开时 |
-| ::float-button | QDockWidget 标题栏上的浮动按钮 |
-| :groove | Qslider的槽 |
-| :indicator | QAbstractitemView、QCheckBox、QRadioButton、可点击的 QMenu 的 item、可点击的 QGroupBox 的指示符 |
-| ::handle | QScrollBar、QSplitter、QSlider 的滑块 |
-| ::icon | QAbstractitemView 和 QMenu 的图标 |
-| ::item | QAbstractitemView、QMenuBar、QMenu、QStatusBar 的单独的一项 |
-| ::left-arrow | QScrollBar 的向左的箭头 |
-| ::left-corner | QTabWidget 的左侧 |
-| ::menu-arrow | 菜单里 QToolButton 箭头 |
-| ::menu-button | 工具栏上的按钮 |
-| ::menu-indicator | 菜单里的 QPushButton 指示符 |
-| ::right--arrow | QMenu 或者是 QScrollBar 的右侧箭头 |
-| ::pane | QTabWidget 去掉标题的框架 |
-| ::right-corner | QTabWidget 的右侧 |
-| ::scroller | QMenu 和 QTabBar 因为界面大小布局左右调试的滚动按钮 |
-| ::section | QHeaderView 的表头横向和纵向 |
-| ::separator | QMainWindow 和 QMenu 的分离器(就是一个主窗口被分割成几个小的区域的线，QMenu 里是 item 的分离线) |
-| ::sub-line | QScrollBar 内容减少方向的按钮 |
-| ::sub-page | QScrollBar 减少一页的按钮，在滑块与减少一行 sub-line 之间 |
-| ::tab | QTabBar 和 QToolBox 的一个页选项 |
-| ::tab-bar | 一个 QTabWidget 的 tab 按钮，设置 tabs 一般用 ::tab |
-| ::tear | TabBar 的指示符 |
-| ::tearoff | QMenu 的指示符 |
-| ::text | QAbstractitemView 的内容 |
-| ::title | QGroupBox 和 QDockWidget 的标题 |
-| ::up-arrow | QHeaderView（排序时）、QScrollBar、QSpinBox 向上按钮箭头 |
+| 辅助控制器            | 说明                                                                             |
+| ---------------- | ------------------------------------------------------------------------------ |
+| ::add-line       | 在 QScrollBar 中添加一行的按钮（两侧的按钮）                                                   |
+| ::add-page       | 在 QScrollBar 中，handle（滑块）和 add-line 之间的区域                                      |
+| ::branch         | QTreeView 的分支                                                                  |
+| ::chunk          | QProgressBar 的进度条里的块（里面的进度条可以变成一块一块的增加，而不是整体都是一种颜色)                            |
+| ::colse-button   | QDockWidget 和 QTabBar 标题栏上的关闭按钮                                                |
+| ::corner         | 在 QAbstractScrollArea 两个滚动条之间的位置                                               |
+| ::drwn-arrow     | QComboBox、QHeaderView (排序时需要)、QScrollBar、QSpinBox 的向下箭头                        |
+| ::up-button      | QScrollBar、QSpinBox 的向上按钮                                                      |
+| ::down-button    | QScrollBar、QSpinBox 的向下按钮                                                      |
+| ::drop-down      | QComboBox 展开时                                                                  |
+| ::float-button   | QDockWidget 标题栏上的浮动按钮                                                          |
+| :groove          | Qslider的槽                                                                      |
+| :indicator       | QAbstractitemView、QCheckBox、QRadioButton、可点击的 QMenu 的 item、可点击的 QGroupBox 的指示符 |
+| ::handle         | QScrollBar、QSplitter、QSlider 的滑块                                               |
+| ::icon           | QAbstractitemView 和 QMenu 的图标                                                  |
+| ::item           | QAbstractitemView、QMenuBar、QMenu、QStatusBar 的单独的一项                             |
+| ::left-arrow     | QScrollBar 的向左的箭头                                                              |
+| ::left-corner    | QTabWidget 的左侧                                                                 |
+| ::menu-arrow     | 菜单里 QToolButton 箭头                                                             |
+| ::menu-button    | 工具栏上的按钮                                                                        |
+| ::menu-indicator | 菜单里的 QPushButton 指示符                                                           |
+| ::right--arrow   | QMenu 或者是 QScrollBar 的右侧箭头                                                     |
+| ::pane           | QTabWidget 去掉标题的框架                                                             |
+| ::right-corner   | QTabWidget 的右侧                                                                 |
+| ::scroller       | QMenu 和 QTabBar 因为界面大小布局左右调试的滚动按钮                                              |
+| ::section        | QHeaderView 的表头横向和纵向                                                           |
+| ::separator      | QMainWindow 和 QMenu 的分离器(就是一个主窗口被分割成几个小的区域的线，QMenu 里是 item 的分离线)               |
+| ::sub-line       | QScrollBar 减去一行的按钮（两侧的按钮）                                                      |
+| ::sub-page       | 在 QScrollBar 中， handle（滑块）和 sub-line 之间的区域                                     |
+| ::tab            | QTabBar 和 QToolBox 的一个页选项                                                      |
+| ::tab-bar        | 一个 QTabWidget 的 tab 按钮，设置 tabs 一般用 ::tab                                       |
+| ::tear           | TabBar 的指示符                                                                    |
+| ::tearoff        | QMenu 的指示符                                                                     |
+| ::text           | QAbstractitemView 的内容                                                          |
+| ::title          | QGroupBox 和 QDockWidget 的标题                                                    |
+| ::up-arrow       | QHeaderView（排序时）、QScrollBar、QSpinBox 向上按钮箭头                                    |
 
 三、伪状态（ pseudo-states)
 ---------------------
@@ -336,3 +336,4 @@ QCheckBox:hover{
 
 > [Qt Style Sheets Reference](https://doc.qt.io/qt-6/stylesheet-reference.html)
 > [Supported HTML Subset | Qt GUI 6.8.2](https://doc.qt.io/qt-6/richtext-html-subset.html)
+> [超详细的QSS样式表入门Demo 原创 - mahuifa - 博客园](https://www.cnblogs.com/IntelligencePointer/p/18443758)
