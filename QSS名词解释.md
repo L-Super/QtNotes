@@ -1,8 +1,6 @@
+# 一 、选择器（selector）
 
-一、选择器（selector）
----------------
-
-意思是：选择特定的类，一般为一个可以定制样式表的 Qt 类，所谓的选择器可以理解为 CSS 中的选择器，他指定了一类部件进行设计。下图总结了最有用的选择器。
+意思是：选择特定的类，一般为一个可以定制样式表的 Qt 类，所谓的选择器可以理解为 CSS 中的选择器，它指定了一类部件进行设计。下图总结了最有用的选择器。
 
 | 选择器 | 实例 | 可以匹配的窗口部件 |
 | --- | --- | --- |
@@ -20,10 +18,36 @@
 
 ![](https://s2.loli.net/2022/03/22/bxCtmv4XRSB28Hf.png)
 
-  
 
-二、辅助控制器(sub-control)
---------------------
+## 属性选择器
+属性选择器使用方括号 `[]` 指定属性和值的匹配条件：
+```
+WidgetClass[property="value"] { 样式声明 }
+```
+### 支持的匹配运算符
+
+| 运算符  | 示例              | 说明                 |
+| ---- | --------------- | ------------------ |
+| `=`  | `[prop="val"]`  | 精确匹配               |
+| `^=` | `[prop^="val"]` | 值以 `val` 开头        |
+| `$=` | `[prop$="val"]` | 值以 `val` 结尾        |
+| `*=` | `[prop*="val"]` | 值包含 `val`          |
+| `~=` | `[prop~="val"]` | 值在空格分隔的列表中包含 `val` |
+示例：
+```css
+/* 匹配所有选中的 QCheckBox */ 
+QCheckBox[checked="true"] { background-color: green; }
+
+// 动态属性
+QLineEdit *nameEdit = new QLineEdit(this);
+nameEdit->setProperty("mandatoryField", true);
+
+/*匹配所有含有mandatoryField属性并为true的控件*/
+QLineEdit[mandatoryField="true"] { background-color: yellow }
+```
+
+[批量修改控件样式](QSS示例.md#批量修改控件样式)
+# 二、辅助控制器(sub-control)
 
 辅助控制器一词是相对于选择器存在的，可以理解为我们选择了一个部件，例如一个 QcheckBox，这个部件它分为两个部分，文本部分和可以点击的小窗口的部分，如下图所示。而这个可点击的小窗口部分我们要单独的设置，就要再次分离出来，就需要`::indicator`（QCheckBox 有这个辅助控制器）来设置，例子如下：
 
@@ -75,8 +99,8 @@ QCheckBox::indicator{
 | ::title          | QGroupBox 和 QDockWidget 的标题                                                    |
 | ::up-arrow       | QHeaderView（排序时）、QScrollBar、QSpinBox 向上按钮箭头                                    |
 
-三、伪状态（ pseudo-states)
----------------------
+# 三、伪状态（ pseudo-states)
+
 
 除了辅助控制器对一个部件的分离，样式表还可以根据窗口部件的各个状态来设置窗口。例如 hover 表示鼠标划过时的状态，例子如下：
 
@@ -131,12 +155,11 @@ QCheckBox:hover{
 
   
 
-四、属性
-----
+# 四、属性
 
 它是一个窗口部件所固有的特征、性质，每一个窗口部件都会有属于他们自己的属性。如前面做的小例子中我们一直未曾提过 color,width,height 等。组合多个属性同时使用设计出多种效果。
 
-### 4.1 Box样式
+## 4.1 Box样式
 
 *   width：宽度
 *   height：高度
@@ -155,7 +178,7 @@ QCheckBox:hover{
     *   padding-right
     *   padding-bottom
 
-### 4.2 位置样式
+## 4.2 位置样式
 
 *   position：定位属性  
     如果 position 是 relative（默认值），则将子控件移动一定的偏移量；如果 position 是 absolute，则指定子控件相对于父控件位置
@@ -164,7 +187,7 @@ QCheckBox:hover{
 *   bottom
 *   left
 
-### 4.3 字体样式
+## 4.3 字体样式
 
 *   font：字体样式
     *   font-family：字体类型
@@ -173,12 +196,12 @@ QCheckBox:hover{
     *   font-weight：字体粗细
     *   color：字体颜色
 
-### 4.4文本样式
+## 4.4文本样式
 
 *   text-decoration：文本修饰
 *   text-align：水平对齐
 
-### 4.5 背景样式
+## 4.5 背景样式
 
 *   background：背影样式
     
@@ -200,7 +223,7 @@ QCheckBox:hover{
     ```
     
 
-### 4.6 边框样式
+## 4.6 边框样式
 
 *   border：边框样式
 *   border-top
@@ -229,14 +252,14 @@ QCheckBox:hover{
     *   border-bottom-right-radius
     *   border-bottom-left-radius
 
-### 4.7 颜色样式
+## 4.7 颜色样式
 
 *   alternate-background-color：交替行颜色
 *   gridline-color：QTableView 中网格线的颜色
 *   selection-color：所选文本或项目的前景色
 *   selection-background-color：所选文本或项目的背景色
 
-### 4.8 文本样式
+## 4.8 文本样式
 
 *   outline：轮廓属性
 *   outline-color：设置一个元素轮廓的颜色
@@ -248,7 +271,7 @@ QCheckBox:hover{
 *   outline-top-left-radius
 *   outline-top-right-radius
 
-### 4.9 其他样式
+## 4.9 其他样式
 
 *   opacity：控件的不透明度（仅支持QToolTip）
 *   icon-size：控件中图标的宽度和高度
@@ -267,8 +290,7 @@ QCheckBox:hover{
 *   paint-alternating-row-colors-for-empty-area：QTreeView 是否为空白区域（即没有项目的区域）绘制交替的行颜色
 *   show-decoration-selected：控制 QListView 中的选择是覆盖整个行还是仅覆盖文本的范围
 
-五、值
----
+# 五、值
 
 是属性`:`后面跟随的一组数字、颜色或者是一个 bool 类型等这些我们称它为值，这些值决定了窗口部件的最终的展示效果。
 
@@ -297,13 +319,11 @@ QCheckBox:hover{
 | Origin       | margin \| border \| padding \| content                       | margin: 最外边的矩形. 可以控制两个部件之间的 空隙。 border: 为边界预留的空间。 padding: 在 border 里面控制 border 与部件内容的 空间。 content: 部件窗口内容。 可以参考 The Box Model. |
 | Radius       | Length                                                       | 角的弧度 1.可以是一个值这样就是角的直接弧度。 2.两个值的时候， 第一个是横向的弧度， 第二个是纵向的弧度。 可以制作出一个类似椭圆四分之一圆的角度。 |
 
-六、逻辑否(!)
---------
+# 六、逻辑否(!)
 
 有时候我们在设置某种状态的属性时，希望同时在某些非(!)的状态下设置，这个时候我们就要用(!)来选择某种状态，比如 !checked 、!has-children（没有子目录）等等。
 
-七、盒模型(The Box Model)
---------------------
+# 七、盒模型(The Box Model)
 
 这个模式指定了 4 个影响布局的矩形，从而绘制一个自定义的窗口部件。
 
@@ -319,10 +339,7 @@ QCheckBox:hover{
 
 ![](https://s2.loli.net/2022/02/24/TMY5Wi8IhSbrXtO.png)
 
-  
-
-八、背景色和前景色
----------
+# 八、背景色和前景色
 
 部件的前景色用于绘制窗口部件上面的文本， 可以通过 color 属性指定。
 
