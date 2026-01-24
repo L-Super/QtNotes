@@ -235,6 +235,18 @@ QWidget:focus {
     outline: none; /* 去掉得到焦点时的虚线框 */  
 }
 ```
+
+### 批量修改控件样式
+有时，需要指定一批控件设置为单独样式，可以采用以下方式：
+
+```css
+/* custom_label_ 开头的标签样式 */
+QLabel[objectName^="custom_label_"] {
+    font-size: 20pt;
+}
+```
+使用属性选择器 `[objectName^="custom_label_"]` 匹配所有 `objectName` 以 "custom_label_" 开头的 QLabel
+
 ## 注意的点
 ### 无边框按钮问题
 按钮可通过 `setFlat(true)` 或者 qss 的 `border:none` 或 `background-color: transparent;` 实现，但三者是有区别的。
