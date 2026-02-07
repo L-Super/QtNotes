@@ -56,7 +56,7 @@ Q_PROPERTY(QDate date READ getDate WRITE setDate)
 
 示例：
 
-```c++
+```cpp
 class A:public QObject{ 
     Q_OBJECT
 public:
@@ -77,11 +77,9 @@ Q_PROPERTY(int c READ getC)
 private:
     int m_c; 
 };
-
-
 ```
 
-```c++
+```cpp
 //cpp源文件内容
 int main(int argc, char *argv[])
 { 
